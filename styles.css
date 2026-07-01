@@ -1024,6 +1024,47 @@ section { position: relative; }
 
 .themes-free { color: var(--accent); }
 
+/* ---- Pro price options (radio rows) ---- */
+.price-options { display: flex; flex-direction: column; gap: 10px; margin: 22px 0 26px; }
+.price-opt {
+  position: relative; display: grid; grid-template-columns: auto 1fr; column-gap: 12px;
+  align-items: center; padding: 14px 16px; cursor: pointer;
+  border: 1.5px solid var(--hairline-2); border-radius: var(--r-md);
+  background: var(--surface-soft); transition: border-color 0.2s var(--ease), background 0.2s var(--ease);
+}
+.price-opt input { -webkit-appearance: none; appearance: none; margin: 0; grid-row: span 2;
+  width: 20px; height: 20px; border-radius: 50%; border: 2px solid var(--hairline-2);
+  cursor: pointer; transition: border-color 0.2s var(--ease); position: relative; }
+.price-opt input:checked { border-color: var(--accent); }
+.price-opt input:checked::after { content: ""; position: absolute; inset: 3px; border-radius: 50%; background: var(--accent); }
+.price-opt:hover { border-color: rgba(var(--accent-rgb), 0.5); }
+.price-opt:has(input:checked) { border-color: var(--accent); background: rgba(var(--accent-rgb), 0.07); }
+.price-opt.best { border-color: rgba(var(--accent-rgb), 0.45); }
+.po-main { display: flex; align-items: baseline; justify-content: space-between; gap: 10px; }
+.po-label { font-weight: 600; font-size: 15.5px; color: var(--text); }
+.po-price { font-family: 'Instrument Serif', serif; color: var(--text); white-space: nowrap; }
+.po-price b { font-size: 24px; font-weight: 400; font-variant-numeric: tabular-nums; }
+.po-price span { font-size: 13px; color: var(--text-faint); margin-left: 2px; }
+.po-sub { grid-column: 2; font-size: 12.5px; color: var(--text-soft); margin-top: 3px; }
+.po-badge {
+  position: absolute; top: -10px; right: 14px; font-size: 11px; font-weight: 600; letter-spacing: 0.02em;
+  color: var(--on-accent, #3a230f); background: var(--accent); padding: 3px 10px; border-radius: var(--r-pill);
+}
+
+/* ---- "Warum diese Preise?" accordion ---- */
+.price-faq {
+  max-width: 880px; margin: 26px auto 0; border: 1px solid var(--hairline);
+  border-radius: var(--r-md); background: var(--surface-soft); overflow: hidden;
+}
+.price-faq summary {
+  list-style: none; cursor: pointer; display: flex; align-items: center; justify-content: space-between;
+  gap: 12px; padding: 18px 22px; font-size: 15.5px; font-weight: 600; color: var(--text);
+}
+.price-faq summary::-webkit-details-marker { display: none; }
+.price-faq .faq-chev { font-size: 20px; color: var(--accent); font-weight: 400; transition: transform 0.25s var(--ease); line-height: 1; }
+.price-faq[open] .faq-chev { transform: rotate(45deg); }
+.price-faq p { margin: 0; padding: 0 22px 22px; font-size: 14.5px; line-height: 1.7; color: var(--text-soft); max-width: 62ch; }
+
 /* ============================================================
    RESPONSIVE — new sections
    ============================================================ */
