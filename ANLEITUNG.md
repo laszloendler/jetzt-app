@@ -8,6 +8,7 @@ index.html            ← Startseite (wird von GitHub automatisch geladen)
 styles.css
 app.js
 motion.js
+i18n.js               ← Sprachumschaltung DE / EN
 tweaks-panel.jsx
 tweaks-app.jsx
 uploads/              ← alle verwendeten App-Screenshots
@@ -45,6 +46,10 @@ eintragen (z. B. `jetzt-app.de`) und bei deinem Domain-Anbieter einen
 CNAME/DNS-Eintrag auf `<dein-github-name>.github.io` setzen.
 
 ## Gut zu wissen
+- **Sprache:** Oben rechts kann zwischen **DE / EN** umgeschaltet werden; die
+  Wahl wird gespeichert. Beim ersten Besuch wird die Browsersprache erkannt
+  (Englisch → EN, sonst DE). Die echten App-Screenshots bleiben auf Deutsch
+  (es sind Foto-Aufnahmen aus der App) — alle Texte der Seite sind übersetzt.
 - Die App-Store-/Pro-Buttons zeigen aktuell auf Platzhalter (`#`).
   Sobald die App live ist: in `index.html` die `href="#"` durch die echten
   Links ersetzen.
