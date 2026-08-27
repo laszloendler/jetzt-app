@@ -1,137 +1,190 @@
 /* ============================================================
-   JETZT. — landing interactions (vanilla)
+   JETZT. — premium motion layer (vanilla, dependency-free)
+   Progressive enhancement on top of app.js. Everything here
+   is decorative and fully gated on prefers-reduced-motion.
    ============================================================ */
 (function () {
   'use strict';
 
-  /* ---- subtle scroll reveals (rAF/scroll based — robust across embeds) ---- */
-  var revealEls = Array.prototype.slice.call(document.querySelectorAll('.reveal'));
+  var reduce = window.matchMedia &&
+    window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var lerp = function (a, b, t) { return a + (b - a) * t; };
+  var clamp = function (v, lo, hi) { return Math.max(lo, Math.min(hi, v)); };
+  var rAF = window.requestAnimationFrame.bind(window);
 
-  function revealCheck() {
-    var vh = window.innerHeight || document.documentElement.clientHeight || 0;
-    for (var i = 0; i < revealEls.length; i++) {
-      var el = revealEls[i];
-      if (el.classList.contains('in')) continue;
-      var r = el.getBoundingClientRect();
-      if (r.top < vh * 0.9 && r.bottom > -40) el.classList.add('in');
+  /* ---------- scroll progress bar ---------- */
+  var bar = document.getElementById('scrollProgress');
+  if (bar) {
+    var progTick = false;
+    var updateProgress = function () {
+      var h = document.documentElement;
+      var max = (h.scrollHeight - h.clientHeight) || 1;
+      var p = clamp(h.scrollTop / max, 0, 1);
+      bar.style.transform = 'scaleX(' + p + ')';
+      progTick = false;
+    };
+    window.addEventListener('scroll', function () {
+      if (!progTick) { progTick = true; rAF(updateProgress); }
+    }, { passive: true });
+    updateProgress();
+  }
+
+  if (reduce) return; // everything below is purely decorative
+
+  /* ---------- cursor-tracked ambient glow ---------- */
+  var glow = document.getElementById('pointerGlow');
+  if (glow && window.matchMedia('(pointer:fine)').matches) {
+    var gx = window.innerWidth / 2, gy = window.innerHeight * 0.3;
+    var cx = gx, cy = gy, shown = false;
+    window.addEventListener('mousemove', function (e) {
+      gx = e.clientX; gy = e.clientY;
+      if (!shown) { glow.style.opacity = '1'; shown = true; }
+    }, { passive: true });
+    (function glowLoop() {
+      cx = lerp(cx, gx, 0.12); cy = lerp(cy, gy, 0.12);
+      glow.style.transform = 'translate(' + cx + 'px,' + cy + 'px)';
+      rAF(glowLoop);
+    })();
+  }
+
+  /* ---------- hero: pointer parallax (phone tilt + orbs) ---------- */
+  var heroPhoneWrap = document.querySelector('.hero-phone-wrap');
+  var orbA = document.querySelector('.hero-orb.a');
+  var orbB = document.querySelector('.hero-orb.b');
+  var hero = document.getElementById('top');
+  if (hero && window.matchMedia('(pointer:fine)').matches) {
+    var tx = 0, ty = 0, cxr = 0, cyr = 0;
+    if (heroPhoneWrap) {
+      heroPhoneWrap.style.perspective = '1200px';
+      heroPhoneWrap.style.transition = 'transform 0.5s var(--ease)';
     }
+    hero.addEventListener('mousemove', function (e) {
+      var r = hero.getBoundingClientRect();
+      tx = ((e.clientX - r.left) / r.width - 0.5) * 2;   // -1..1
+      ty = ((e.clientY - r.top) / r.height - 0.5) * 2;
+    }, { passive: true });
+    hero.addEventListener('mouseleave', function () { tx = 0; ty = 0; });
+    (function heroLoop() {
+      cxr = lerp(cxr, tx, 0.08); cyr = lerp(cyr, ty, 0.08);
+      if (heroPhoneWrap) {
+        heroPhoneWrap.style.transform =
+          'rotateY(' + (cxr * 7).toFixed(2) + 'deg) rotateX(' +
+          (-cyr * 6).toFixed(2) + 'deg)';
+      }
+      if (orbA) orbA.style.transform = 'translate(' + (cxr * 26) + 'px,' + (cyr * 20) + 'px)';
+      if (orbB) orbB.style.transform = 'translate(' + (-cxr * 22) + 'px,' + (-cyr * 16) + 'px)';
+      rAF(heroLoop);
+    })();
   }
 
-  window.addEventListener('scroll', revealCheck, { passive: true });
-  window.addEventListener('resize', revealCheck);
-  revealCheck();
-  requestAnimationFrame(revealCheck);
-  setTimeout(revealCheck, 250);
+  /* ---------- scroll parallax: gallery phones only (orbs follow the mouse) ---------- */
+  var paraEls = [];
+  Array.prototype.forEach.call(
+    document.querySelectorAll('.gallery-item .phone'),
+    function (ph, i) { paraEls.push({ el: ph, speed: i % 2 ? 0.05 : -0.05 }); }
+  );
 
-  // safety net: never leave content hidden, even if metrics/animation are
-  // unavailable (e.g. throttled background tab — set transition:none so the
-  // final state paints instantly instead of waiting on a paused transition)
-  setTimeout(function () {
-    revealEls.forEach(function (el) { el.style.transition = 'none'; el.classList.add('in'); });
-  }, 1500);
-
-  /* ---- nav hairline on scroll ---- */
-  var nav = document.getElementById('nav');
-  var onScroll = function () {
-    if (window.scrollY > 12) nav.classList.add('scrolled');
-    else nav.classList.remove('scrolled');
-  };
-  window.addEventListener('scroll', onScroll, { passive: true });
-  onScroll();
-
-  /* ---- hero phone: tap to complete ---- */
-  var screen = document.getElementById('heroScreen');
-  var completeBtn = document.getElementById('completeBtn');
-  var resetBtn = document.getElementById('resetBtn');
-  if (completeBtn && screen) {
-    completeBtn.addEventListener('click', function () { screen.classList.add('is-done'); });
+  var paraTick = false;
+  function paraUpdate() {
+    var vh = window.innerHeight;
+    for (var i = 0; i < paraEls.length; i++) {
+      var p = paraEls[i];
+      var r = p.el.getBoundingClientRect();
+      var center = r.top + r.height / 2;
+      var dy = (center - vh / 2) * p.speed;
+      p.el.style.transform = 'translateY(' + dy.toFixed(1) + 'px)';
+    }
+    paraTick = false;
   }
-  if (resetBtn && screen) {
-    resetBtn.addEventListener('click', function () { screen.classList.remove('is-done'); });
+  if (paraEls.length) {
+    window.addEventListener('scroll', function () {
+      if (!paraTick) { paraTick = true; rAF(paraUpdate); }
+    }, { passive: true });
+    paraUpdate();
   }
 
-  /* ---- live color system: mirrors the app's Akzentfarbe + Hintergrund picker ---- */
-  var ACCENTS = [
-    { name: 'Lachs',    hex: '#f0a184', rgb: '240, 161, 132' },
-    { name: 'Mint',     hex: '#74cbb8', rgb: '116, 203, 184' },
-    { name: 'Lavendel', hex: '#b3a4da', rgb: '179, 164, 218' },
-    { name: 'Butter',   hex: '#dca92c', rgb: '220, 169, 44' },
-    { name: 'Blush',    hex: '#e892ab', rgb: '232, 146, 171' },
-    { name: 'Slate',    hex: '#7d9cb5', rgb: '125, 156, 181' }
-  ];
-  var BACKGROUNDS = [
-    { name: 'Nacht',        cls: 'theme-nacht',  hex: '#0f1729' },
-    { name: 'Dunkel Lachs', cls: 'theme-lachs',  hex: '#46322d' },
-    { name: 'Petrol',       cls: 'theme-petrol', hex: '#1a4942' },
-    { name: 'Hell',         cls: 'theme-hell',   hex: '#eef0f4' },
-    { name: 'Creme',        cls: 'theme-creme',  hex: '#faf1ec' },
-    { name: 'Mint',         cls: 'theme-mint',   hex: '#e8f0eb' }
-  ];
-
-  var root = document.documentElement;
-  var accentRow = document.getElementById('accentRow');
-  var bgRow = document.getElementById('bgRow');
-
-  var CHECK = '<span class="ck"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg></span>';
-
-  function lum(hex) {
-    var h = hex.replace('#', '');
-    var r = parseInt(h.substr(0, 2), 16) / 255;
-    var g = parseInt(h.substr(2, 2), 16) / 255;
-    var b = parseInt(h.substr(4, 2), 16) / 255;
-    return 0.299 * r + 0.587 * g + 0.114 * b;
+  /* ---------- magnetic CTAs ---------- */
+  if (window.matchMedia('(pointer:fine)').matches) {
+    Array.prototype.forEach.call(
+      document.querySelectorAll('.btn-primary'),
+      function (btn) {
+        var mx = 0, my = 0, rx = 0, ry = 0, running = false;
+        function loop() {
+          rx = lerp(rx, mx, 0.2); ry = lerp(ry, my, 0.2);
+          btn.style.transform = 'translate(' + rx.toFixed(2) + 'px,' +
+            ry.toFixed(2) + 'px)';
+          if (Math.abs(rx - mx) > 0.1 || Math.abs(ry - my) > 0.1) { rAF(loop); }
+          else { if (!mx && !my) { btn.style.transform = ''; } running = false; }
+        }
+        btn.addEventListener('mousemove', function (e) {
+          var r = btn.getBoundingClientRect();
+          mx = ((e.clientX - r.left) / r.width - 0.5) * 14;
+          my = ((e.clientY - r.top) / r.height - 0.5) * 10;
+          if (!running) { running = true; rAF(loop); }
+        });
+        btn.addEventListener('mouseleave', function () {
+          mx = 0; my = 0; if (!running) { running = true; rAF(loop); }
+        });
+      }
+    );
   }
 
-  function buildSwatch(item, selected) {
-    var btn = document.createElement('button');
-    btn.type = 'button';
-    btn.className = 'swatch' + (selected ? ' sel' : '');
-    btn.setAttribute('aria-label', item.name);
-    btn.innerHTML = '<span class="dot" style="background:' + item.hex + ';color:' + item.hex + '">' + CHECK + '</span><span class="nm">' + item.name + '</span>';
-    var ck = btn.querySelector('.ck');
-    ck.style.color = lum(item.hex) > 0.62 ? '#33281f' : '#fff';
-    return btn;
+  /* ---------- 3D tilt cards ---------- */
+  if (window.matchMedia('(pointer:fine)').matches) {
+    Array.prototype.forEach.call(
+      document.querySelectorAll('.pain-card, .feat-card'),
+      function (card) {
+        card.addEventListener('mousemove', function (e) {
+          var r = card.getBoundingClientRect();
+          var px = (e.clientX - r.left) / r.width - 0.5;
+          var py = (e.clientY - r.top) / r.height - 0.5;
+          card.classList.add('tilt');
+          card.style.transform =
+            'translateY(-5px) rotateY(' + (px * 7).toFixed(2) +
+            'deg) rotateX(' + (-py * 7).toFixed(2) + 'deg)';
+        });
+        card.addEventListener('mouseleave', function () {
+          card.classList.remove('tilt');
+          card.style.transform = '';
+        });
+      }
+    );
   }
 
-  function setSelected(row, idx) {
-    if (!row) return;
-    Array.prototype.forEach.call(row.children, function (c, i) {
-      c.classList.toggle('sel', i === idx);
-    });
+  /* ---------- count-up numbers (on first view) ---------- */
+  function animateCount(el) {
+    var target = parseFloat(el.getAttribute('data-countup'));
+    var dec = parseInt(el.getAttribute('data-decimals') || '0', 10);
+    var pre = el.getAttribute('data-prefix') || '';
+    var suf = el.getAttribute('data-suffix') || '';
+    var dur = 1300, start = null;
+    function fmt(v) {
+      var s = dec ? v.toFixed(dec).replace('.', ',') : Math.round(v).toString();
+      return pre + s + suf;
+    }
+    function frame(ts) {
+      if (!start) start = ts;
+      var t = clamp((ts - start) / dur, 0, 1);
+      var eased = 1 - Math.pow(1 - t, 3); // easeOutCubic
+      el.textContent = fmt(target * eased);
+      if (t < 1) rAF(frame); else el.textContent = fmt(target);
+    }
+    rAF(frame);
   }
 
-  function applyAccent(t, idx) {
-    root.style.setProperty('--accent', t.hex);
-    root.style.setProperty('--accent-rgb', t.rgb);
-    setSelected(accentRow, idx);
-    window.__jetztAccent = t.hex;
+  var counters = Array.prototype.slice.call(document.querySelectorAll('[data-countup]'));
+  if ('IntersectionObserver' in window && counters.length) {
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (en) {
+        if (en.isIntersecting && !en.target.__counted) {
+          en.target.__counted = true;
+          animateCount(en.target);
+          io.unobserve(en.target);
+        }
+      });
+    }, { threshold: 0.6 });
+    counters.forEach(function (c) { io.observe(c); });
+  } else {
+    counters.forEach(animateCount);
   }
-
-  function applyBackground(b, idx) {
-    BACKGROUNDS.forEach(function (x) { root.classList.remove(x.cls); });
-    root.classList.add(b.cls);
-    setSelected(bgRow, idx);
-  }
-
-  if (accentRow) {
-    ACCENTS.forEach(function (t, i) {
-      var sw = buildSwatch(t, i === 0);
-      sw.addEventListener('click', function () { applyAccent(t, i); });
-      accentRow.appendChild(sw);
-    });
-  }
-  if (bgRow) {
-    BACKGROUNDS.forEach(function (b, i) {
-      var sw = buildSwatch(b, i === 0);
-      sw.addEventListener('click', function () { applyBackground(b, i); });
-      bgRow.appendChild(sw);
-    });
-  }
-
-  // default: Lachs accent on the Mint theme
-  applyAccent(ACCENTS[0], 0);
-  applyBackground(BACKGROUNDS[5], 5);
-
-  // expose for the tweaks island
-  window.__JETZT_THEMES = ACCENTS;
 })();

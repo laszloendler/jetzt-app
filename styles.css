@@ -1,448 +1,1321 @@
 /* ============================================================
-   JETZT. — DE/EN Lokalisierung (vanilla, dependency-free)
-   Tauscht [data-i18n]-Texte und [data-shot]-Screenshots.
+   JETZT. — ADHD-first todo app — landing page styles
    ============================================================ */
-(function () {
-  'use strict';
 
-  /* language-specific app screenshots */
-  var SHOTS = {
-    de: {
-      '01': ['shots/de/01-fokus.png',        'JETZT. Fokus-Screen: eine einzelne Aufgabenkarte'],
-      '02': ['shots/de/02-liste.png',        'Aufgabenliste mit offenen und erledigten Aufgaben'],
-      '03': ['shots/de/03-paywall.png',      'Testphase in der App: Ablauf und Zahlungsart'],
-      '04': ['shots/de/04-morgen-check.png', 'Morgen-Check: Energie, Meetings und Deadline-Druck wählen'],
-      '05': ['shots/de/05-statistik.png',    'Statistik: Aufgaben dieser Woche und Tagesabschluss']
-    },
-    en: {
-      '01': ['shots/en/01-focus.png',        'JETZT. focus screen showing a single task card'],
-      '02': ['shots/en/02-list.png',         'Task list with open and completed tasks'],
-      '03': ['shots/en/03-paywall.png',      'In-app trial screen: timeline and payment options'],
-      '04': ['shots/en/04-morning-check.png','Morning check: pick energy, meetings and deadline pressure'],
-      '05': ['shots/en/05-stats.png',        'Stats screen: tasks completed this week and end of day']
-    }
-  };
+@import url('https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Geist:wght@300;400;500;600;700&display=swap');
 
-  var I18N = {
-    de: {
-      'nav.morgen': "Morgen-Check",
-      'nav.liste': "Erfassen",
-      'nav.stats': "Statistik",
-      'nav.pricing': "Preis",
-      'nav.cta': "Kostenlos starten",
+:root {
+  /* palette */
+  --navy:        #0f1729;
+  --navy-deep:   #0b1120;
+  --card:        #1c2540;
+  --card-2:      #232e52;
+  --hairline:    rgba(255, 255, 255, 0.08);
+  --hairline-2:  rgba(255, 255, 255, 0.14);
+  --surface-soft: rgba(255, 255, 255, 0.03);
+  --nav-bg-1:    rgba(15, 23, 41, 0.86);
+  --nav-bg-2:    rgba(15, 23, 41, 0.5);
+  --card-shadow: none;
 
-      'hero.pill': "Für ADHS-Gehirne gebaut",
-      'hero.h1': "Eine Aufgabe.<br><em>Jetzt.</em>",
-      'hero.sub': "Dein Tag – eine Karte nach der anderen. Die Todo-App, die versteht, wie dein ADHS-Gehirn wirklich funktioniert.",
-      'hero.cta': "Kostenlos starten",
-      'store.small': "Laden im",
-      'hero.note1': "Kostenlos starten",
-      'hero.note2': "Pro ab 1,99 €/Monat",
-      'hero.note3': "7 Tage gratis testen",
+  --salmon:      #f0a184;
+  --mint:        #74cbb8;
+  --lavender:    #b3a4da;
+  --butter:      #dca92c;
+  --rose:        #e892ab;
+  --sky:         #7d9cb5;
 
-      'problem.eyebrow': "Das Problem",
-      'problem.title': "Andere Apps machen<br>es schlimmer.",
-      'problem.lede': "To-do-Apps wurden für Gehirne gebaut, die einfach „anfangen\" können. Deins funktioniert anders — und das ist okay.",
-      'pain1': "Du öffnest die App und siehst 47 Todos. Du machst die App wieder zu.",
-      'pain1.tag': "Overwhelm, nicht Faulheit.",
-      'pain2': "Streaks, die dich bestrafen, wenn du einen einzigen Tag aussetzt.",
-      'pain2.tag': "Schuld als Feature verkauft.",
-      'pain3': "Listen, die sich anfühlen wie Vorwürfe — länger, lauter, jeden Tag.",
-      'pain3.tag': "Mehr Druck, weniger erledigt.",
+  --text:        #f1ece8;
+  --text-soft:   rgba(241, 236, 232, 0.72);
+  --text-faint:  rgba(241, 236, 232, 0.46);
 
-      'morgen.eyebrow': "Morgen-Check",
-      'morgen.title': "Dein Tag.<br>Sortiert in 30 Sekunden.",
-      'morgen.lede': "Drei kurze Fragen am Morgen: Energie, Meetings, Deadline-Druck. Daraus baut JETZT. deinen Tag — und zeigt dir nur, was heute wirklich geht.",
-      'morgen.p1': "<strong>Energie zuerst.</strong> Wenig, mittel oder viel — dein Tag richtet sich danach, nicht umgekehrt.",
-      'morgen.p2': "<strong>Überspringen erlaubt.</strong> Kein Zwang, keine Erinnerungsschleife, kein schlechtes Gewissen.",
+  /* themeable accent (set by theme switcher + tweaks) */
+  --accent:      var(--salmon);
+  --accent-rgb:  240, 161, 132;
 
-      'liste.eyebrow': "Die Liste",
-      'liste.title': "Alles drin.<br>Kopf frei.",
-      'liste.lede': "Schreib einfach, was du vorhast — <em>„Morgen um 12 zum Zahnarzt\"</em>. JETZT. erkennt Deadline und Energie automatisch. Die Liste hält alles; der Fokus-Screen zeigt später nur, was jetzt passt.",
-      'liste.p1': "<strong>Ein Satz reicht.</strong> Kein Formular, keine Felder zum Durchklicken.",
-      'liste.p2': "<strong>Wiederkehrend.</strong> Täglich, wöchentlich oder monatlich — einmal angelegt, immer da.",
-      'ki.badge.title': "On-Device KI — powered by Apple Intelligence",
-      'ki.badge.sub': "Alles passiert direkt auf deinem Gerät. Deine Daten verlassen es nie.",
+  /* radius scale — 1 = soft (default), tweakable down to sharp */
+  --radius-scale: 1;
+  --r-pill: calc(999px);
+  --r-lg:  calc(28px * var(--radius-scale));
+  --r-md:  calc(20px * var(--radius-scale));
+  --r-sm:  calc(13px * var(--radius-scale));
+  --r-xs:  calc(9px  * var(--radius-scale));
 
-      'stats.eyebrow': "Statistik",
-      'stats.title': "Fortschritt.<br>Ohne Druck.",
-      'stats.lede': "Wochenübersicht und Tagesabschluss — keine Streaks, keine Prozente, keine roten Zahlen. Nur das, was du geschafft hast. Ein Tag Pause kostet nichts.",
-      'stats.p1': "<strong>Shame-free.</strong> Die Statistik zählt Erfolge, nicht Versäumnisse.",
-      'stats.p2': "<strong>Tag abschließen.</strong> Ein ruhiger Punkt am Abend statt einer offenen Liste.",
+  --accent-ink: var(--accent);
+  --maxw: 1140px;
+  --ease: cubic-bezier(0.22, 0.61, 0.36, 1);
+}
 
-      'features.eyebrow': "Alles drin",
-      'features.title': "Wenig Funktionen.<br>Die richtigen.",
-      'feat1.h': "Ein Fokus",
-      'feat1.p': "Vier Tabs — Fokus, Liste, Statistik, Mehr. Im Fokus liegt immer nur eine Karte.",
-      'feat2.h': "KI-Import",
-      'feat2.p': "Liste reinkopieren, fertig. JETZT. macht daraus einzelne Aufgaben mit Deadline und Energie.",
-      'feat3.h': "Aufteilen",
-      'feat3.p': "Zu groß? JETZT. zerlegt eine Aufgabe in kleine Schritte, die sich anfangen lassen.",
-      'feat4.h': "Energie-Planung",
-      'feat4.p': "Jede Aufgabe hat ein Level: wenig, mittel, viel. Der Fokus zeigt nur, was zu deiner Tagesenergie passt.",
-      'feat5.h': "Fokus-Timer",
-      'feat5.p': "2, 5 oder 10 Minuten — mit Live-Aktivität auf dem Sperrbildschirm. „Nur 2 Minuten? Einfach anfangen.\"",
-      'feat6.h': "Privat &amp; Arbeit",
-      'feat6.p': "Getrennte Aufgaben, getrennte Themes, ein Gerät. Feierabend heißt wirklich Feierabend.",
+* { box-sizing: border-box; }
 
-      'founder.quote': "Ich habe JETZT. für mich selbst gebaut.<br>Weil keine andere App so funktioniert hat<br><em>wie mein Kopf.</em>",
-      'founder.cite': "Von jemandem entwickelt, der selbst ADHS hat.",
+html { scroll-behavior: smooth; }
 
-      'themes.eyebrow': "Farbsystem",
-      'themes.title': "Mal dir den Tag,<br>wie du ihn brauchst.",
-      'themes.lede': "6 Akzente, 6 Hintergründe — frei kombinierbar. Tippe dich durch und sieh live, wie sich die App anfühlt. Kein Theme schreit, keins urteilt. <span class=\"themes-free\">Lachs ist kostenlos — alle 6 gibt's mit Pro.</span>",
-      'pick.accent': "Akzentfarbe",
-      'pick.bg': "Hintergrund",
-      'tp.privat': "Privat",
-      'tp.work': "Arbeit",
-      'tp.title': "Steuererklärung abschicken",
-      'tp.chip': "Fr. 21. Aug., 17:00",
-      'tp.later': "← Später",
-      'tp.done': "Erledigt →",
-      'tp.2min': "Nur 2 Minuten?",
-      'tp.startsub': "Einfach anfangen.",
-      'tp.start': "Start",
-      'tp.add': "Aufgabe hinzufügen",
+body {
+  margin: 0;
+  background:
+    radial-gradient(1200px 700px at 78% -8%, rgba(var(--accent-rgb), 0.10), transparent 60%),
+    radial-gradient(900px 600px at 5% 18%, rgba(126, 207, 192, 0.06), transparent 55%),
+    var(--navy);
+  color: var(--text);
+  font-family: 'Geist', 'DM Sans', system-ui, -apple-system, sans-serif;
+  font-weight: 400;
+  font-size: 17px;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  overflow-x: hidden;
+}
 
-      'tp.tab1': "JETZT.",
-      'tp.tab2': "Liste",
-      'tp.tab3': "Statistik",
-      'tp.tab4': "Mehr",
-      'pay.badge': "✦ 7 Tage kostenlos testen",
-      'pay.title': "So funktioniert deine kostenlose Testphase",
-      'pay.sub': "Erst ausprobieren, dann entscheiden. In dieser Reihenfolge.",
-      'pay.t1': "6 Themes",
-      'pay.t2': "Fokus-Timer",
-      'pay.t3': "Shame-free Stats",
-      'pay.d0.h': "Heute",
-      'pay.d0.p': "Alles freigeschaltet – volle App, keine Limits.",
-      'pay.d5.h': "Tag 5",
-      'pay.d5.p': "Wir erinnern dich per Push, dass die Testphase endet.",
-      'pay.d7.h': "Tag 7",
-      'pay.d7.p': "Erste Abbuchung von 14,99 €. Vorher jederzeit kündbar.",
-      'pay.zahlungsart': "Zahlungsart",
-      'pay.seg.y': "Jährlich",
-      'pay.seg.m': "Monatlich",
-      'pay.seg.o': "Einmalig",
-      'pay.y.price': "14,99 €/Jahr",
-      'pay.y.sub': "= 1,25 €/Monat",
-      'pay.y.badge': "−37 %",
-      'pay.m.price': "1,99 €/Monat",
-      'pay.m.sub': "Monatlich kündbar",
-      'pay.o.price': "39,99 €",
-      'pay.o.sub': "Einmal zahlen, für immer nutzen.",
-      'pay.foot': "Jederzeit kündbar · Erinnerung an Tag 5",
-      'cmp.tag.free': "Kostenlos",
-      'cmp.tag.pro': "Pro",
-      'cmp.tasks': "Unbegrenzte Aufgaben",
-      'cmp.modes': "Privat- &amp; Arbeit-Modus",
-      'cmp.morning': "Morgen-Check",
-      'cmp.focus': "Fokus-Screen mit einer Karte",
-      'cmp.themes': "Themes",
-      'cmp.themes.free': "Lachs",
-      'cmp.themes.pro': "Alle 6 + Hintergründe",
-      'cmp.recurring': "Wiederkehrende Aufgaben",
-      'cmp.recurring.free': "Täglich",
-      'cmp.recurring.pro': "Täglich, wöchentlich, monatlich",
-      'cmp.import': "Import",
-      'cmp.import.free': "Manuell",
-      'cmp.import.pro': "KI-Import: Liste einfügen",
-      'cmp.ai': "KI-Texterkennung beim Tippen",
-      'cmp.split': "Aufgaben in Schritte aufteilen",
-      'cmp.timer': "Fokus-Timer",
-      'cmp.timer.pro': "2, 5 oder 10 Minuten",
-      'cmp.stats': "Shame-free Stats",
-      'cmp.recap': "End-of-Day Rückblick",
-      'cmp.push': "Push Notifications",
-      'pay.cta': "7 Tage kostenlos testen",
-      'science.eyebrow': "Die Grundlage",
-      'science.title': "Nicht erfunden.<br>Erforscht.",
-      'fact1': "Bei ADHS hinkt die Selbst­steuerung der altersüblichen Entwicklung hinterher — <b>Aufschieben ist neurologisch, kein Charakterfehler.</b>",
-      'fact2': "Die größte Hürde ist <b>Task-Initiation</b> — der Start. Ein winziger erster Schritt umgeht die Blockade zuverlässiger als jede Motivation.",
-      'fact3': "Ein einzelner sichtbarer Fokus senkt die kognitive Last spürbar. <b>Weniger Optionen heißt mehr Handlung.</b>",
-      'science.quote': "ADHS ist kein Aufmerksamkeits­problem. Es ist ein <em>Performance-Problem</em> — das Wissen ist da, die Umsetzung im Moment ist die Hürde.",
-      'quote.who': "sinngemäß nach Russell A. Barkley",
-      'quote.role': "Klinischer Psychologe, ADHS-Forscher",
+h1, h2, h3 {
+  font-family: 'Instrument Serif', Georgia, serif;
+  font-weight: 400;
+  line-height: 1.04;
+  letter-spacing: -0.01em;
+  margin: 0;
+  text-wrap: balance;
+}
 
-      'pricing.eyebrow': "Preis",
-      'pricing.title': "Kostenlos starten.<br>Pro, wenn du willst.",
-      'pricing.lede': "Die Basics bleiben für immer gratis. Pro schaltest du frei, wie es zu dir passt — im Abo oder einmalig. Kein Trick, kein Upselling.",
-      'plan.free.name': "Kostenlos",
-      'plan.free.per': "für immer",
-      'plan.free.sub': "Alles, um sofort loszulegen.",
-      'free1': "Unbegrenzte Tasks",
-      'free2': "Privat- &amp; Arbeit-Modus",
-      'free3': "Lachs Theme",
-      'free4': "Morgen-Check",
-      'free5': "Manueller Import",
-      'free6': "Täglich wiederkehrende Tasks",
-      'plan.free.cta': "Kostenlos starten",
-      'plan.pro.badge': "✦ Pro — alles freigeschaltet",
-      'plan.pro.name': "Pro",
-      'plan.pro.sub': "Wähl, was zu dir passt.",
-      'opt.annual.badge': "Beliebt",
-      'opt.annual.label': "Jahresabo",
-      'opt.annual.price': "14,99 €",
-      'opt.annual.per': "/Jahr",
-      'opt.annual.sub': "= 1,25 €/Monat · 7 Tage gratis testen",
-      'opt.monthly.label': "Monatsabo",
-      'opt.monthly.price': "1,99 €",
-      'opt.monthly.per': "/Monat",
-      'opt.monthly.sub': "Monatlich kündbar",
-      'opt.onetime.label': "Einmalig (Lifetime)",
-      'opt.onetime.price': "39,99 €",
-      'opt.onetime.sub': "Einmal zahlen, für immer nutzen.",
-      'pro1': "Alle 6 Pastel-Themes + Hintergründe",
-      'pro2': "KI-Import — Liste reinkopieren, fertig",
-      'pro3': "KI-Texterkennung beim Tippen",
-      'pro4': "Task in Schritte aufteilen",
-      'pro5': "Fokus-Timer (2, 5 oder 10 Minuten)",
-      'pro6': "Shame-free Stats",
-      'pro7': "End-of-Day Rückblick",
-      'pro8': "Push Notifications",
-      'pro9': "Wöchentlich + monatlich wiederkehrend",
-      'plan.pro.cta': "7 Tage gratis testen",
-      'faq.q': "Warum diese Preise?",
-      'faq.a': "JETZT. läuft komplett auf deinem Gerät – keine Server-Kosten für deine Aufgaben. Die KI nutzt Apple Intelligence direkt auf deinem iPhone, nicht in der Cloud. Das Abo gibt dir die Möglichkeit, JETZT. günstig auszuprobieren bevor du dich entscheidest. Es gibt keinen Trick, kein Upselling, keine versteckten Kosten.",
-      'price.tagline': "„Kein Trick. Kein Upselling. Keine versteckten Kosten.\"",
+p { margin: 0; text-wrap: pretty; }
+a { color: inherit; text-decoration: none; }
 
-      'footer.tag': "Eine Aufgabe. Jetzt. Die To-do-App, die dein Gehirn nicht bestraft.",
-      'footer.privacy': "Datenschutzerklärung",
-      'footer.imprint': "Impressum",
-      'footer.copy': "© 2026 JETZT. — Alle Rechte vorbehalten.",
-      'footer.made': "Mit <span class=\"heart\">❤</span> gebaut von jemandem, der selbst ADHS hat."
-    },
+.wrap {
+  width: 100%;
+  max-width: var(--maxw);
+  margin-inline: auto;
+  padding-inline: 28px;
+}
 
-    en: {
-      'nav.morgen': "Morning check",
-      'nav.liste': "Capture",
-      'nav.stats': "Stats",
-      'nav.pricing': "Pricing",
-      'nav.cta': "Start for free",
+section { position: relative; }
 
-      'hero.pill': "Built for ADHD brains",
-      'hero.h1': "One task.<br><em>Now.</em>",
-      'hero.sub': "Your day, one card at a time. The to-do app that understands how your ADHD brain actually works.",
-      'hero.cta': "Start for free",
-      'store.small': "Download on the",
-      'hero.note1': "Free to start",
-      'hero.note2': "Pro from €1.99/month",
-      'hero.note3': "7-day free trial",
+/* ---- shared section heading ---- */
+.eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  font-size: 13px;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--accent-ink);
+  margin-bottom: 22px;
+}
+.eyebrow::before {
+  content: "";
+  width: 22px; height: 1px;
+  background: var(--accent);
+  opacity: 0.7;
+}
+.section-title { font-size: clamp(34px, 5.2vw, 60px); }
+.section-lede {
+  color: var(--text-soft);
+  font-size: clamp(17px, 1.5vw, 20px);
+  max-width: 46ch;
+  margin-top: 18px;
+}
 
-      'problem.eyebrow': "The problem",
-      'problem.title': "Other apps make<br>it worse.",
-      'problem.lede': "To-do apps were built for brains that can just \"start.\" Yours works differently — and that's okay.",
-      'pain1': "You open the app, see 47 to-dos, and close it again.",
-      'pain1.tag': "Overwhelm, not laziness.",
-      'pain2': "Streaks that punish you the moment you skip a single day.",
-      'pain2.tag': "Guilt sold as a feature.",
-      'pain3': "Lists that feel like accusations — longer, louder, every day.",
-      'pain3.tag': "More pressure, less done.",
+/* ============================================================
+   NAV
+   ============================================================ */
+.nav {
+  position: sticky; top: 0; z-index: 50;
+  backdrop-filter: blur(14px);
+  background: linear-gradient(to bottom, var(--nav-bg-1), var(--nav-bg-2));
+  border-bottom: 1px solid transparent;
+  transition: border-color 0.4s var(--ease), background 0.4s var(--ease);
+}
+.nav.scrolled { border-bottom-color: var(--hairline); }
+.nav-inner {
+  display: flex; align-items: center; justify-content: space-between;
+  height: 72px;
+}
+.logo {
+  font-family: 'Geist', sans-serif;
+  font-weight: 800;
+  font-size: 19px; letter-spacing: 0.3em;
+  color: var(--text);
+  display: inline-flex; align-items: baseline;
+}
+.logo .dot { color: var(--accent-ink); margin-left: -0.16em; }
+.nav-links { display: flex; align-items: center; gap: 34px; }
+.nav-links a {
+  font-size: 15px; color: var(--text-soft);
+  transition: color 0.25s var(--ease);
+}
+.nav-links a:hover { color: var(--text); }
 
-      'morgen.eyebrow': "Morning check",
-      'morgen.title': "Your day.<br>Sorted in 30 seconds.",
-      'morgen.lede': "Three short questions each morning: energy, meetings, deadline pressure. JETZT. builds your day from that — and only shows what's actually doable today.",
-      'morgen.p1': "<strong>Energy first.</strong> Low, medium or high — your day adapts to you, not the other way round.",
-      'morgen.p2': "<strong>Skipping is fine.</strong> No nagging, no reminder loop, no guilt.",
+/* language switch (DE/EN) */
+.nav-right { display: flex; align-items: center; gap: 16px; }
+.lang-switch {
+  display: inline-flex; align-items: center; gap: 2px;
+  background: var(--surface-soft); border: 1px solid var(--hairline-2);
+  border-radius: var(--r-pill); padding: 3px;
+}
+.lang-switch button {
+  font-family: inherit; font-size: 12.5px; font-weight: 600; letter-spacing: 0.04em;
+  color: var(--text-soft); background: none; border: none; cursor: pointer;
+  padding: 5px 11px; border-radius: var(--r-pill);
+  transition: color 0.2s var(--ease), background 0.2s var(--ease);
+}
+.lang-switch button:hover { color: var(--text); }
+.lang-switch button.on { background: var(--accent); color: #3a230f; }
 
-      'liste.eyebrow': "The list",
-      'liste.title': "All captured.<br>Head clear.",
-      'liste.lede': "Just write what you're up to — <em>\"Dentist tomorrow at 12\"</em>. JETZT. detects deadline and energy automatically. The list holds everything; the focus screen later shows only what fits right now.",
-      'liste.p1': "<strong>One sentence is enough.</strong> No form, no fields to click through.",
-      'liste.p2': "<strong>Recurring.</strong> Daily, weekly or monthly — set once, always there.",
-      'ki.badge.title': "On-device AI — powered by Apple Intelligence",
-      'ki.badge.sub': "Everything happens right on your device. Your data never leaves it.",
+/* ============================================================
+   BUTTONS
+   ============================================================ */
+.btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: 10px;
+  font-family: inherit; font-size: 16px; font-weight: 700;
+  padding: 14px 26px; border-radius: calc(13px * var(--radius-scale) + 2px);
+  border: 1px solid transparent; cursor: pointer;
+  transition: transform 0.25s var(--ease), box-shadow 0.3s var(--ease), background 0.3s var(--ease), filter 0.18s var(--ease);
+}
+.btn-primary {
+  background: var(--accent); color: #3a230f;
+}
+.btn-primary:hover { transform: translateY(-2px); filter: brightness(1.04); }
+.btn-ghost {
+  background: var(--surface-soft); color: var(--text);
+  border-color: var(--hairline-2);
+}
+.btn-ghost:hover { background: var(--surface-soft); border-color: var(--accent); }
+.btn-sm { padding: 10px 18px; font-size: 14px; }
 
-      'stats.eyebrow': "Stats",
-      'stats.title': "Progress.<br>No pressure.",
-      'stats.lede': "Weekly overview and end-of-day recap — no streaks, no percentages, no red numbers. Just what you got done. A day off costs nothing.",
-      'stats.p1': "<strong>Shame-free.</strong> The stats count wins, not misses.",
-      'stats.p2': "<strong>Close the day.</strong> A calm full stop in the evening instead of an open list.",
+/* ============================================================
+   HERO
+   ============================================================ */
+.hero { padding-top: clamp(56px, 8vw, 104px); padding-bottom: clamp(60px, 8vw, 110px); }
+.hero-grid {
+  display: grid;
+  grid-template-columns: 1.05fr 0.95fr;
+  gap: 56px; align-items: center;
+}
+.hero-pill {
+  display: inline-flex; align-items: center; gap: 9px;
+  padding: 7px 15px 7px 11px; border-radius: var(--r-pill);
+  background: var(--surface-soft); border: 1px solid var(--hairline);
+  font-size: 13.5px; color: var(--text-soft); margin-bottom: 28px;
+}
+.hero-pill .ping { width: 8px; height: 8px; border-radius: 50%; background: var(--mint); box-shadow: 0 0 0 4px rgba(126,207,192,0.18); }
+.hero h1 {
+  font-size: clamp(48px, 8vw, 92px);
+  line-height: 1.04;
+}
+.hero h1 em { font-style: italic; color: var(--accent-ink); }
+.hero-sub {
+  margin-top: 30px; font-size: clamp(18px, 1.7vw, 22px);
+  color: var(--text-soft); max-width: 30ch;
+}
+.hero-cta { display: flex; align-items: center; gap: 16px; margin-top: 38px; flex-wrap: wrap; }
+.hero-note {
+  margin-top: 22px; font-size: 14px; color: var(--text-faint);
+  display: flex; align-items: center; gap: 14px; flex-wrap: wrap;
+}
+.hero-note .sep { width: 4px; height: 4px; border-radius: 50%; background: var(--text-faint); }
 
-      'features.eyebrow': "All in",
-      'features.title': "Few features.<br>The right ones.",
-      'feat1.h': "One focus",
-      'feat1.p': "Four tabs — focus, list, stats, more. In focus there is only ever one card.",
-      'feat2.h': "AI import",
-      'feat2.p': "Paste a list, done. JETZT. turns it into individual tasks with deadline and energy.",
-      'feat3.h': "Split it up",
-      'feat3.p': "Too big? JETZT. breaks a task into small steps you can actually start.",
-      'feat4.h': "Energy planning",
-      'feat4.p': "Every task has a level: low, medium, high. Focus only shows what matches your energy today.",
-      'feat5.h': "Focus timer",
-      'feat5.p': "2, 5 or 10 minutes — with a Live Activity on your lock screen. \"Just 2 minutes? Just get started.\"",
-      'feat6.h': "Personal &amp; work",
-      'feat6.p': "Separate tasks, separate themes, one device. Off the clock really means off the clock.",
+.hero-phone-wrap { display: flex; justify-content: center; position: relative; }
+.hero-phone-wrap::after {
+  content: ""; position: absolute; inset: 8% 14% 4%;
+  background: radial-gradient(60% 50% at 50% 40%, rgba(var(--accent-rgb), 0.22), transparent 70%);
+  filter: blur(20px); z-index: -1;
+}
 
-      'founder.quote': "I built JETZT. for myself.<br>Because no other app ever worked<br><em>the way my head does.</em>",
-      'founder.cite': "Built by someone who has ADHD themselves.",
+/* ============================================================
+   PHONE / DEVICE FRAME
+   ============================================================ */
+.phone {
+  width: 290px; aspect-ratio: 9 / 19.5;
+  background: #0a0a0c;
+  border-radius: calc(50px * var(--radius-scale) + 6px);
+  padding: 7px;
+  border: 1px solid rgba(255,255,255,0.14);
+  box-shadow:
+    0 0 0 1px rgba(0,0,0,0.55),
+    0 44px 80px -40px rgba(0,0,0,0.8);
+  position: relative;
+}
+.phone.float { animation: floaty 7s ease-in-out infinite; }
+@keyframes floaty { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-12px); } }
+.phone-notch {
+  position: absolute; top: 15px; left: 50%; transform: translateX(-50%);
+  width: 84px; height: 25px; background: #000; border-radius: var(--r-pill); z-index: 6;
+}
+/* ---- the in-phone app is LIGHT, matching the real JETZT. app ---- */
+.screen {
+  --app-bg-top: #1c2238;
+  --app-bg-bot: #161b2c;
+  --app-card: #262d4c;
+  --app-ink: #eef1f6;
+  --app-soft: #8d95a9;
+  --app-shadow: 0 18px 34px -20px rgba(0,0,0,0.6);
+  --on-accent: #3a230f;
+  --dot-empty: rgba(255,255,255,0.14);
+  --seg-track: rgba(255,255,255,0.08);
+  --hairline-app: rgba(255,255,255,0.13);
+  --ar: calc(13px * var(--radius-scale) + 2px);
+  width: 100%; height: 100%;
+  border-radius: calc(44px * var(--radius-scale) + 4px);
+  background: linear-gradient(180deg, var(--app-bg-top), var(--app-bg-bot) 72%);
+  overflow: hidden; position: relative;
+  display: flex; flex-direction: column;
+  padding: 42px 15px 15px;
+  color: var(--app-ink);
+  font-size: 13px;
+}
 
-      'themes.eyebrow': "Color system",
-      'themes.title': "Paint your day<br>the way you need it.",
-      'themes.lede': "6 accents, 6 backgrounds — freely combinable. Tap through and see live how the app feels. No theme shouts, none judges. <span class=\"themes-free\">Salmon is free — all 6 come with Pro.</span>",
-      'pick.accent': "Accent color",
-      'pick.bg': "Background",
-      'tp.privat': "Personal",
-      'tp.work': "Work",
-      'tp.title': "Submit tax return",
-      'tp.chip': "Fri 21 Aug at 17:00",
-      'tp.later': "← Later",
-      'tp.done': "Done →",
-      'tp.2min': "Just 2 minutes?",
-      'tp.startsub': "Just get started.",
-      'tp.start': "Start",
-      'tp.add': "Add task",
+/* ============================================================
+   COLOR THEMES — one class on <html> reskins page + phone
+   (mirrors the app's "Hintergrund" picker)
+   ============================================================ */
+.theme-nacht {
+  --navy:#0f1729; --navy-deep:#0b1120;
+  --card:#1c2540; --card-2:#232e52; --surface-soft:rgba(255,255,255,0.03);
+  --hairline:rgba(255,255,255,0.08); --hairline-2:rgba(255,255,255,0.14);
+  --text:#f1ece8; --text-soft:rgba(241,236,232,0.72); --text-faint:rgba(241,236,232,0.46);
+  --nav-bg-1:rgba(15,23,41,0.86); --nav-bg-2:rgba(15,23,41,0.5); --card-shadow:none;
+}
+.theme-nacht .screen { --app-bg-top:#1c2238; --app-bg-bot:#161b2c; --app-card:#262d4c; --app-ink:#eef1f6; --app-soft:#8d95a9; --dot-empty:rgba(255,255,255,0.14); --seg-track:rgba(255,255,255,0.08); --hairline-app:rgba(255,255,255,0.13); --app-shadow:0 18px 34px -20px rgba(0,0,0,0.6); }
 
-      'tp.tab1': "JETZT.",
-      'tp.tab2': "List",
-      'tp.tab3': "Stats",
-      'tp.tab4': "More",
-      'pay.badge': "✦ 7-day free trial",
-      'pay.title': "How your free trial works",
-      'pay.sub': "Try it first, decide after. In that order.",
-      'pay.t1': "6 themes",
-      'pay.t2': "Focus timer",
-      'pay.t3': "Shame-free stats",
-      'pay.d0.h': "Today",
-      'pay.d0.p': "Everything unlocked – the full app, no limits.",
-      'pay.d5.h': "Day 5",
-      'pay.d5.p': "We remind you by push that the trial is ending.",
-      'pay.d7.h': "Day 7",
-      'pay.d7.p': "First charge of €14.99. Cancel any time before that.",
-      'pay.zahlungsart': "Payment",
-      'pay.seg.y': "Annual",
-      'pay.seg.m': "Monthly",
-      'pay.seg.o': "One-time",
-      'pay.y.price': "€14.99/year",
-      'pay.y.sub': "= €1.25/month",
-      'pay.y.badge': "−37%",
-      'pay.m.price': "€1.99/month",
-      'pay.m.sub': "Cancel anytime",
-      'pay.o.price': "€39.99",
-      'pay.o.sub': "Pay once, use forever.",
-      'pay.foot': "Cancel anytime · Reminder on day 5",
-      'cmp.tag.free': "Free",
-      'cmp.tag.pro': "Pro",
-      'cmp.tasks': "Unlimited tasks",
-      'cmp.modes': "Personal &amp; work mode",
-      'cmp.morning': "Morning check",
-      'cmp.focus': "Focus screen with one card",
-      'cmp.themes': "Themes",
-      'cmp.themes.free': "Salmon",
-      'cmp.themes.pro': "All 6 + backgrounds",
-      'cmp.recurring': "Recurring tasks",
-      'cmp.recurring.free': "Daily",
-      'cmp.recurring.pro': "Daily, weekly, monthly",
-      'cmp.import': "Import",
-      'cmp.import.free': "Manual",
-      'cmp.import.pro': "AI import: paste a list",
-      'cmp.ai': "AI text recognition while typing",
-      'cmp.split': "Split tasks into steps",
-      'cmp.timer': "Focus timer",
-      'cmp.timer.pro': "2, 5 or 10 minutes",
-      'cmp.stats': "Shame-free stats",
-      'cmp.recap': "End-of-day recap",
-      'cmp.push': "Push notifications",
-      'pay.cta': "Start 7-day free trial",
-      'science.eyebrow': "The basis",
-      'science.title': "Not invented.<br>Researched.",
-      'fact1': "With ADHD, self-regulation lags behind the typical developmental age — <b>procrastination is neurological, not a character flaw.</b>",
-      'fact2': "The biggest hurdle is <b>task initiation</b> — starting. One tiny first step bypasses the block more reliably than any motivation.",
-      'fact3': "A single visible focus measurably lowers cognitive load. <b>Fewer options means more action.</b>",
-      'science.quote': "ADHD isn't a problem of attention. It's a <em>performance problem</em> — the knowledge is there; acting on it in the moment is the hurdle.",
-      'quote.who': "paraphrased from Russell A. Barkley",
-      'quote.role': "Clinical psychologist, ADHD researcher",
+.theme-lachs {
+  --navy:#46322d; --navy-deep:#3a2823;
+  --card:#5b453e; --card-2:#654d45; --surface-soft:rgba(255,255,255,0.04);
+  --hairline:rgba(255,255,255,0.10); --hairline-2:rgba(255,255,255,0.17);
+  --text:#f4ebe6; --text-soft:rgba(244,235,230,0.74); --text-faint:rgba(244,235,230,0.5);
+  --nav-bg-1:rgba(70,50,45,0.88); --nav-bg-2:rgba(70,50,45,0.5); --card-shadow:none;
+}
+.theme-lachs .screen { --app-bg-top:#503a34; --app-bg-bot:#46322d; --app-card:#5b453e; --app-ink:#f4ebe6; --app-soft:#b6a097; --dot-empty:rgba(255,255,255,0.15); --seg-track:rgba(255,255,255,0.09); --hairline-app:rgba(255,255,255,0.14); --app-shadow:0 18px 34px -20px rgba(0,0,0,0.5); }
 
-      'pricing.eyebrow': "Pricing",
-      'pricing.title': "Start free.<br>Go Pro if you want.",
-      'pricing.lede': "The basics stay free forever. Unlock Pro the way that suits you — subscription or one-time. No trick, no upselling.",
-      'plan.free.name': "Free",
-      'plan.free.per': "forever",
-      'plan.free.sub': "Everything to get going right away.",
-      'free1': "Unlimited tasks",
-      'free2': "Personal &amp; work mode",
-      'free3': "Salmon theme",
-      'free4': "Morning check",
-      'free5': "Manual import",
-      'free6': "Daily recurring tasks",
-      'plan.free.cta': "Start for free",
-      'plan.pro.badge': "✦ Pro — everything unlocked",
-      'plan.pro.name': "Pro",
-      'plan.pro.sub': "Pick what suits you.",
-      'opt.annual.badge': "Popular",
-      'opt.annual.label': "Annual",
-      'opt.annual.price': "€14.99",
-      'opt.annual.per': "/year",
-      'opt.annual.sub': "= €1.25/month · 7-day free trial",
-      'opt.monthly.label': "Monthly",
-      'opt.monthly.price': "€1.99",
-      'opt.monthly.per': "/month",
-      'opt.monthly.sub': "Cancel anytime",
-      'opt.onetime.label': "One-time (lifetime)",
-      'opt.onetime.price': "€39.99",
-      'opt.onetime.sub': "Pay once, use forever.",
-      'pro1': "All 6 pastel themes + backgrounds",
-      'pro2': "AI import — paste a list, done",
-      'pro3': "AI text recognition while typing",
-      'pro4': "Split tasks into steps",
-      'pro5': "Focus timer (2, 5 or 10 minutes)",
-      'pro6': "Shame-free stats",
-      'pro7': "End-of-day recap",
-      'pro8': "Push notifications",
-      'pro9': "Weekly + monthly recurring",
-      'plan.pro.cta': "Start 7-day free trial",
-      'faq.q': "Why these prices?",
-      'faq.a': "JETZT. runs entirely on your device – no server costs for your tasks. The AI uses Apple Intelligence right on your iPhone, not in the cloud. The subscription lets you try JETZT. cheaply before you commit. There's no trick, no upselling, no hidden costs.",
-      'price.tagline': "\"No trick. No upselling. No hidden costs.\"",
+.theme-petrol {
+  --navy:#1a4942; --navy-deep:#143a34;
+  --card:#23574e; --card-2:#2b6258; --surface-soft:rgba(255,255,255,0.04);
+  --hairline:rgba(255,255,255,0.10); --hairline-2:rgba(255,255,255,0.17);
+  --text:#e8f1ee; --text-soft:rgba(232,241,238,0.74); --text-faint:rgba(232,241,238,0.5);
+  --nav-bg-1:rgba(26,73,66,0.9); --nav-bg-2:rgba(26,73,66,0.5); --card-shadow:none;
+}
+.theme-petrol .screen { --app-bg-top:#1f574e; --app-bg-bot:#1a4942; --app-card:#256056; --app-ink:#e8f1ee; --app-soft:#8fb6ac; --dot-empty:rgba(255,255,255,0.15); --seg-track:rgba(255,255,255,0.09); --hairline-app:rgba(255,255,255,0.14); --app-shadow:0 18px 34px -20px rgba(0,0,0,0.5); }
 
-      'footer.tag': "One task. Now. The to-do app that doesn't punish your brain.",
-      'footer.privacy': "Privacy Policy",
-      'footer.imprint': "Imprint",
-      'footer.copy': "© 2026 JETZT. — All rights reserved.",
-      'footer.made': "Built with <span class=\"heart\">❤</span> by someone who has ADHD themselves."
-    }
-  };
+.theme-hell {
+  --accent-ink: color-mix(in oklab, var(--accent) 46%, #5a1a00);
+  --navy:#eef0f4; --navy-deep:#e3e6ee;
+  --card:#ffffff; --card-2:#ffffff; --surface-soft:#ffffff;
+  --hairline:rgba(20,28,46,0.10); --hairline-2:rgba(20,28,46,0.16);
+  --text:#1b2233; --text-soft:rgba(27,34,51,0.66); --text-faint:rgba(27,34,51,0.42);
+  --nav-bg-1:rgba(238,240,244,0.85); --nav-bg-2:rgba(238,240,244,0.5); --card-shadow:0 14px 36px -22px rgba(20,30,55,0.30);
+}
+.theme-hell .screen { --app-bg-top:#f1f2f6; --app-bg-bot:#e7e9f0; --app-card:#fff; --app-ink:#1b2233; --app-soft:#97a0ae; --dot-empty:#dbe0e7; --seg-track:rgba(0,0,0,0.05); --hairline-app:rgba(0,0,0,0.10); --app-shadow:0 16px 30px -18px rgba(31,41,61,0.22); }
 
-  function apply(lang) {
-    if (!I18N[lang]) lang = 'de';
-    document.documentElement.lang = lang;
+.theme-creme {
+  --accent-ink: color-mix(in oklab, var(--accent) 46%, #5a1a00);
+  --navy:#faf1ec; --navy-deep:#f3e6dd;
+  --card:#fffaf7; --card-2:#fffaf7; --surface-soft:#fffaf7;
+  --hairline:rgba(60,40,30,0.10); --hairline-2:rgba(60,40,30,0.16);
+  --text:#2b231f; --text-soft:rgba(43,35,31,0.66); --text-faint:rgba(43,35,31,0.42);
+  --nav-bg-1:rgba(250,241,236,0.85); --nav-bg-2:rgba(250,241,236,0.5); --card-shadow:0 14px 36px -22px rgba(90,60,40,0.22);
+}
+.theme-creme .screen { --app-bg-top:#fbf3ee; --app-bg-bot:#f6e8e0; --app-card:#fff; --app-ink:#2b231f; --app-soft:#aa9b92; --dot-empty:#e7ddd6; --seg-track:rgba(0,0,0,0.05); --hairline-app:rgba(0,0,0,0.09); --app-shadow:0 16px 30px -18px rgba(80,55,40,0.20); }
 
-    var dict = I18N[lang];
-    var nodes = document.querySelectorAll('[data-i18n]');
-    for (var i = 0; i < nodes.length; i++) {
-      var k = nodes[i].getAttribute('data-i18n');
-      if (dict[k] != null) nodes[i].innerHTML = dict[k];
-    }
+.theme-mint {
+  --accent-ink: color-mix(in oklab, var(--accent) 46%, #5a1a00);
+  --navy:#f0f7f6; --navy-deep:#e5efee;
+  --card:#ffffff; --card-2:#ffffff; --surface-soft:#ffffff;
+  --hairline:rgba(23,33,32,0.09); --hairline-2:rgba(23,33,32,0.15);
+  --text:#172120; --text-soft:#556560; --text-faint:rgba(85,101,96,0.72);
+  --nav-bg-1:rgba(240,247,246,0.86); --nav-bg-2:rgba(240,247,246,0.5); --card-shadow:0 14px 36px -24px rgba(20,50,45,0.20);
+}
+.theme-mint .screen { --app-bg-top:#f2f8f7; --app-bg-bot:#eaf3f2; --app-card:#fff; --app-ink:#172120; --app-soft:#8aa39c; --dot-empty:#dbe6e4; --seg-track:rgba(0,0,0,0.05); --hairline-app:rgba(0,0,0,0.09); --app-shadow:0 16px 30px -18px rgba(31,61,50,0.20); }
+.screen-status {
+  position: absolute; top: 15px; left: 22px; right: 20px;
+  display: flex; justify-content: space-between; align-items: center;
+  font-size: 12.5px; font-weight: 700; color: var(--app-ink); z-index: 5;
+}
+.screen-status .dots { display: flex; gap: 5px; align-items: center; opacity: 0.9; }
+.screen-status .bar { width: 18px; height: 9px; border: 1.3px solid var(--app-ink); border-radius: 2.5px; position: relative; }
+.screen-status .bar::after { content: ""; position: absolute; inset: 1.4px; right: 5px; background: var(--app-ink); border-radius: 1px; }
 
-    var shots = SHOTS[lang];
-    var imgs = document.querySelectorAll('[data-shot]');
-    for (var j = 0; j < imgs.length; j++) {
-      var s = shots[imgs[j].getAttribute('data-shot')];
-      if (s) { imgs[j].setAttribute('src', s[0]); imgs[j].setAttribute('alt', s[1]); }
-    }
+/* top bar: TWO rows — logo + quick actions, then segment + tools (matches the real app) */
+.app-bar { display: flex; flex-direction: column; gap: 12px; }
+.app-bar-row { display: flex; align-items: center; justify-content: space-between; }
+.app-logo { font-weight: 800; font-size: 17px; letter-spacing: -0.015em; color: var(--app-ink); }
+.app-logo i { color: var(--accent-ink); font-style: normal; }
+.app-quick { display: flex; align-items: center; gap: 9px; }
+.circ-btn {
+  width: 31px; height: 31px; border-radius: 50%; border: none; padding: 0;
+  background: var(--app-card); box-shadow: var(--app-shadow);
+  display: grid; place-items: center; cursor: pointer;
+}
+.circ-btn svg { width: 15px; height: 15px; display: block; }
+.circ-btn.bolt { color: #f3b13c; }
+.circ-btn.add { color: var(--app-ink); }
+/* Privat/Work segmented control: track + light thumb */
+.seg { display: inline-flex; align-items: center; gap: 2px; background: var(--seg-track); border-radius: calc(7px * var(--radius-scale) + 1px); padding: 2px; }
+.seg span { font-size: 12.5px; font-weight: 700; color: var(--app-soft); padding: 5px 15px; border-radius: calc(5px * var(--radius-scale) + 1px); }
+.seg span.on { background: var(--app-card); color: var(--app-ink); box-shadow: 0 1px 5px rgba(0,0,0,0.14); }
+/* row-2 tool icons */
+.app-tools { display: flex; align-items: center; gap: 16px; color: var(--app-ink); }
+.app-tools svg { width: 18px; height: 18px; display: block; opacity: 0.82; }
 
-    var btns = document.querySelectorAll('#langSwitch button');
-    for (var b = 0; b < btns.length; b++) {
-      var on = btns[b].getAttribute('data-lang') === lang;
-      btns[b].classList.toggle('on', on);
-      btns[b].setAttribute('aria-pressed', on);
-    }
-    try { localStorage.setItem('jetzt_lang', lang); } catch (e) {}
+.app-stage { flex: 1; display: flex; flex-direction: column; justify-content: center; min-height: 0; }
+.app-label { font-size: 10px; font-weight: 800; letter-spacing: 0.16em; text-transform: uppercase; color: var(--app-soft); margin-bottom: 9px; }
+.app-q { font-weight: 700; font-size: 18px; line-height: 1.2; color: var(--app-ink); margin-bottom: 16px; letter-spacing: -0.01em; }
+
+/* the ONE task card */
+.task-card {
+  background: var(--app-card);
+  border-radius: var(--ar);
+  padding: 26px 22px 28px;
+  position: relative;
+  box-shadow: var(--app-shadow);
+}
+.task-card::before {
+  content: ""; position: absolute; left: 13px; right: 13px; top: -7px; height: 20px;
+  background: var(--accent); border-radius: 14px 14px 0 0; z-index: -1;
+}
+.task-energy { display: flex; align-items: center; gap: 26px; }
+.edots { display: flex; gap: 6px; }
+.edots i { width: 11px; height: 11px; border-radius: 50%; display: block; }
+.edots.low i  { background: #4fbf8c; }
+.edots.mid i  { background: #e8b53d; }
+.edots.high i { background: var(--accent); }
+.elabel { font-size: 13px; font-weight: 600; letter-spacing: 0.01em; }
+.elabel.low { color: #44b487; } .elabel.mid { color: #d6a531; } .elabel.high { color: var(--accent-ink); }
+.task-title { font-weight: 800; font-size: 29px; line-height: 1.1; margin-top: 20px; color: var(--app-ink); letter-spacing: -0.025em; }
+
+/* bottom: 2-minute start bar + actions */
+.app-bottom { display: flex; flex-direction: column; gap: 9px; }
+.start-bar {
+  display: flex; align-items: center; gap: 8px; background: var(--app-card);
+  border-radius: var(--ar); padding: 5px 5px 5px 16px; box-shadow: var(--app-shadow);
+}
+.start-bar .ph { flex: 1; font-size: 12.5px; color: var(--app-soft); }
+.start-bar .start { display: inline-flex; align-items: center; gap: 6px; background: var(--accent); color: var(--on-accent); font-weight: 700; font-size: 12.5px; padding: 9px 15px; border-radius: calc(9px * var(--radius-scale) + 1px); }
+.start-bar .start svg { width: 10px; height: 10px; }
+.app-actions-row { display: flex; gap: 9px; }
+.act {
+  flex: 1; display: flex; align-items: center; justify-content: center; gap: 7px;
+  font-family: inherit; font-weight: 700; font-size: 13px; padding: 14px; border-radius: var(--ar);
+  cursor: pointer; border: none; transition: transform 0.18s var(--ease), filter 0.18s var(--ease);
+}
+.act svg { width: 14px; height: 14px; }
+.act.later { background: var(--app-card); color: var(--app-soft); box-shadow: var(--app-shadow); }
+.act.go { background: var(--accent); color: #3a230f; }
+.act.go:hover { filter: brightness(1.04); }
+.act:active { transform: scale(0.98); }
+
+/* done state (light) */
+.task-done {
+  position: absolute; inset: 0; z-index: 6;
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  text-align: center; gap: 14px; padding: 30px;
+  background: linear-gradient(180deg, var(--app-bg-top), var(--app-bg-bot));
+  opacity: 0; pointer-events: none; transform: scale(0.96);
+  transition: opacity 0.5s var(--ease), transform 0.5s var(--ease);
+}
+.screen.is-done .task-done { opacity: 1; pointer-events: auto; transform: scale(1); }
+.screen.is-done .app-bar,
+.screen.is-done .app-stage,
+.screen.is-done .app-bottom { opacity: 0; transition: opacity 0.3s var(--ease); }
+.done-ring {
+  width: 76px; height: 76px; border-radius: 50%;
+  background: rgba(var(--accent-rgb), 0.18); border: 1.5px solid var(--accent);
+  display: grid; place-items: center; color: var(--accent-ink);
+}
+.done-ring svg { width: 32px; height: 32px; }
+.done-title { font-weight: 700; font-size: 25px; color: var(--app-ink); letter-spacing: -0.01em; }
+.done-sub { font-size: 13px; color: var(--app-soft); max-width: 22ch; line-height: 1.5; }
+.done-reset {
+  margin-top: 6px; background: var(--app-card); border: none; box-shadow: var(--app-shadow);
+  color: var(--app-ink); padding: 11px 18px; border-radius: var(--r-pill);
+  font-family: inherit; font-weight: 700; font-size: 13px; cursor: pointer;
+}
+
+/* energy selector (Morgen-Check) */
+.energy-grid { display: flex; gap: 8px; }
+.ecard {
+  flex: 1; background: var(--app-card); border: 1.5px solid transparent; border-radius: var(--ar);
+  padding: 16px 6px 14px; text-align: center; box-shadow: var(--app-shadow);
+}
+.ecard.sel { border-color: var(--accent); }
+.ecard .ed { display: flex; justify-content: center; gap: 4px; margin-bottom: 11px; }
+.ecard .ed i { width: 9px; height: 9px; border-radius: 50%; background: var(--dot-empty); }
+.ecard.low .ed i:nth-child(1) { background: #5cc596; }
+.ecard.mid .ed i:nth-child(-n+2) { background: #f1c04c; }
+.ecard.high .ed i { background: var(--accent); }
+.ecard .en { font-size: 12.5px; font-weight: 700; color: var(--app-ink); }
+.ecard.sel .en { color: var(--accent-ink); }
+
+/* done list (Heute geschafft) */
+.done-list { display: flex; flex-direction: column; gap: 9px; }
+.done-item {
+  display: flex; align-items: center; gap: 12px;
+  padding: 13px 15px; border-radius: var(--ar);
+  background: var(--app-card); box-shadow: var(--app-shadow);
+  font-size: 13px; font-weight: 500; color: var(--app-soft);
+}
+.done-item .tick { width: 21px; height: 21px; flex: none; border-radius: 50%; background: var(--accent); color: #fff; display: grid; place-items: center; }
+.done-item .tick svg { width: 12px; height: 12px; }
+.done-item s { text-decoration-color: var(--app-soft); }
+
+/* ============================================================
+   PROBLEM
+   ============================================================ */
+.problem { padding: clamp(70px, 9vw, 120px) 0; }
+.problem-head { max-width: 720px; margin-bottom: 56px; }
+.pain-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; }
+.pain-card {
+  background: var(--surface-soft);
+  border: 1px solid var(--hairline); border-radius: var(--r-lg);
+  padding: 32px 28px; position: relative;
+  box-shadow: var(--card-shadow);
+  transition: transform 0.4s var(--ease), border-color 0.4s var(--ease);
+}
+.pain-card:hover { transform: translateY(-5px); border-color: var(--hairline-2); }
+.pain-num {
+  font-family: 'Instrument Serif', serif; font-size: 17px; font-style: italic;
+  color: var(--text-faint); margin-bottom: 20px;
+}
+.pain-card p { font-size: 20px; line-height: 1.42; color: var(--text); font-family: 'Instrument Serif', serif; }
+.pain-card .pain-tag { display:block; margin-top:18px; font-size: 13.5px; color: var(--text-faint); font-family: 'Geist', sans-serif; }
+
+/* ============================================================
+   SOLUTION / HOW IT WORKS
+   ============================================================ */
+.solution { padding: clamp(70px, 9vw, 120px) 0; }
+.solution-head { text-align: center; display: flex; flex-direction: column; align-items: center; margin-bottom: 70px; }
+.steps { display: grid; grid-template-columns: repeat(3, 1fr); gap: 40px; align-items: start; }
+.step { display: flex; flex-direction: column; align-items: center; text-align: center; }
+.step .phone { transform: scale(0.92); margin-bottom: 8px; }
+.step-no {
+  font-family: 'Instrument Serif', serif; font-style: italic; font-size: 16px;
+  color: var(--accent-ink); margin-top: 14px;
+}
+.step h3 { font-size: 27px; margin-top: 8px; }
+.step p { color: var(--text-soft); font-size: 15.5px; margin-top: 12px; max-width: 30ch; }
+
+/* ============================================================
+   FEATURES
+   ============================================================ */
+.features { padding: clamp(70px, 9vw, 120px) 0; }
+.features-head { margin-bottom: 54px; max-width: 640px; }
+.feat-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
+.feat-card {
+  background: var(--card); border: 1px solid var(--hairline);
+  border-radius: var(--r-lg); padding: 30px 28px;
+  box-shadow: var(--card-shadow);
+  transition: transform 0.4s var(--ease), border-color 0.4s var(--ease), background 0.4s var(--ease);
+}
+.feat-card:hover { transform: translateY(-5px); border-color: rgba(var(--accent-rgb), 0.4); }
+.feat-ico {
+  width: 50px; height: 50px; border-radius: var(--r-sm);
+  display: grid; place-items: center; font-size: 22px; margin-bottom: 22px;
+  background: rgba(var(--accent-rgb), 0.12); color: var(--accent-ink);
+  border: 1px solid rgba(var(--accent-rgb), 0.22);
+}
+.feat-card h3 { font-size: 23px; }
+.feat-card p { color: var(--text-soft); font-size: 15px; margin-top: 10px; }
+
+/* ============================================================
+   SCIENCE
+   ============================================================ */
+.science { padding: clamp(70px, 9vw, 120px) 0; }
+.science-grid { display: grid; grid-template-columns: 0.9fr 1.1fr; gap: 64px; align-items: center; }
+.science-facts { display: flex; flex-direction: column; gap: 26px; margin-top: 36px; }
+.fact { display: flex; gap: 18px; align-items: flex-start; }
+.fact .stat {
+  font-family: 'Instrument Serif', serif; font-size: 40px; color: var(--accent-ink);
+  line-height: 1; flex: none; width: 96px; text-align: right;
+}
+.fact .ftxt { font-size: 15.5px; color: var(--text-soft); }
+.fact .ftxt b { color: var(--text); font-weight: 500; }
+.quote-card {
+  background: linear-gradient(160deg, var(--card), var(--navy-deep));
+  border: 1px solid var(--hairline); border-radius: var(--r-lg);
+  padding: 48px 44px; position: relative;
+}
+.quote-card .mark {
+  font-family: 'Instrument Serif', serif; font-size: 86px; line-height: 0.6;
+  color: rgba(var(--accent-rgb), 0.4); position: absolute; top: 26px; left: 34px;
+}
+.quote-card blockquote {
+  margin: 0; font-family: 'Instrument Serif', serif; font-size: clamp(26px, 2.6vw, 34px);
+  line-height: 1.3; padding-top: 30px;
+}
+.quote-card blockquote em { color: var(--accent-ink); font-style: italic; }
+.quote-cite { margin-top: 36px; display: flex; align-items: center; gap: 14px; }
+.quote-cite .av {
+  width: 44px; height: 44px; border-radius: 50%;
+  background: linear-gradient(135deg, var(--accent), rgba(var(--accent-rgb),0.4));
+  display: grid; place-items: center; font-weight: 600; color: #1a1206; font-size: 15px;
+}
+.quote-cite .who { font-size: 15px; font-weight: 500; }
+.quote-cite .role { font-size: 13px; color: var(--text-faint); }
+
+/* ============================================================
+   PRICING
+   ============================================================ */
+.pricing { padding: clamp(70px, 9vw, 120px) 0; }
+.pricing-head { text-align: center; display: flex; flex-direction: column; align-items: center; margin-bottom: 56px; }
+.price-card {
+  max-width: 520px; margin-inline: auto;
+  background: linear-gradient(170deg, var(--card-2), var(--card));
+  border: 1px solid rgba(var(--accent-rgb), 0.3); border-radius: var(--r-lg);
+  padding: 46px 44px; position: relative; overflow: hidden;
+  box-shadow: 0 40px 90px -50px rgba(0,0,0,0.9);
+}
+.price-card::before {
+  content: ""; position: absolute; top: -40%; right: -20%;
+  width: 320px; height: 320px; border-radius: 50%;
+  background: radial-gradient(circle, rgba(var(--accent-rgb),0.18), transparent 65%);
+}
+.price-badge {
+  display: inline-flex; align-items:center; gap: 8px; font-size: 13px; font-weight: 500; white-space: nowrap;
+  color: var(--accent-ink); border: 1px solid rgba(var(--accent-rgb),0.35); border-radius: var(--r-pill);
+  padding: 6px 14px; background: rgba(var(--accent-rgb),0.08);
+}
+.price-amount { display: flex; align-items: baseline; gap: 6px; margin: 24px 0 6px; }
+.price-amount .cur { font-family: 'Instrument Serif', serif; font-size: 34px; color: var(--text-soft); }
+.price-amount .num { font-family: 'Instrument Serif', serif; font-size: 78px; line-height: 1; }
+.price-amount .once { font-size: 15px; color: var(--text-faint); margin-left: 8px; }
+.price-sub { color: var(--text-soft); font-size: 15px; }
+.price-list { list-style: none; padding: 0; margin: 30px 0; display: grid; gap: 14px; }
+.price-list li { display: flex; align-items: center; gap: 13px; font-size: 15.5px; }
+.price-list .ck {
+  width: 22px; height: 22px; flex: none; border-radius: 50%;
+  background: rgba(var(--accent-rgb), 0.16); color: var(--accent-ink);
+  display: grid; place-items: center;
+}
+.price-list .ck svg { width: 12px; height: 12px; }
+.price-card .btn-primary { width: 100%; }
+.price-addon {
+  margin-top: 22px; padding-top: 20px; border-top: 1px solid var(--hairline);
+  display: flex; align-items: flex-start; gap: 11px;
+}
+.price-addon .addon-ico {
+  flex: none; width: 26px; height: 26px; border-radius: 8px;
+  background: rgba(var(--accent-rgb), 0.12); color: var(--accent-ink);
+  display: grid; place-items: center; font-size: 13px; margin-top: 1px;
+}
+.price-addon .addon-body { font-size: 13.5px; line-height: 1.55; color: var(--text-faint); }
+.price-addon .addon-body strong { color: var(--text-soft); font-weight: 600; }
+.price-addon .addon-body .addon-opt { color: var(--accent-ink); font-weight: 600; }
+.price-foot { text-align: center; margin-top: 18px; font-size: 13.5px; color: var(--text-faint); }
+.price-tagline { text-align:center; font-family:'Instrument Serif', serif; font-style: italic; font-size: 20px; color: var(--text-soft); margin-top: 26px; }
+
+/* ============================================================
+   THEME SWITCHER (the 6-themes demo)
+   ============================================================ */
+.themes-band {
+  border-top: 1px solid var(--hairline); border-bottom: 1px solid var(--hairline);
+  padding: clamp(54px, 7vw, 84px) 0;
+  background: var(--surface-soft);
+}
+.themes-inner { display: grid; grid-template-columns: 1fr 1fr; gap: 56px; align-items: center; }
+/* settings-sheet-style picker: Akzentfarbe + Hintergrund */
+.picker { margin-top: 34px; display: flex; flex-direction: column; gap: 28px; }
+.pick-group .pick-label {
+  display: block; font-size: 12px; font-weight: 500; letter-spacing: 0.14em;
+  text-transform: uppercase; color: var(--text-faint); margin-bottom: 18px;
+}
+.swatch-row { display: grid; grid-template-columns: repeat(6, 1fr); gap: 12px; max-width: 430px; }
+.swatch {
+  display: flex; flex-direction: column; align-items: center; gap: 9px;
+  background: none; border: none; padding: 0; cursor: pointer; font-family: inherit;
+}
+.swatch .dot {
+  width: 44px; height: 44px; border-radius: 50%; position: relative;
+  display: grid; place-items: center;
+  box-shadow: 0 0 0 2px var(--navy), 0 0 0 2px transparent;
+  transition: transform 0.2s var(--ease), box-shadow 0.2s var(--ease);
+}
+.swatch:hover .dot { transform: scale(1.08); }
+.swatch.sel .dot { box-shadow: 0 0 0 3px var(--navy), 0 0 0 5px currentColor; }
+.swatch .dot .ck { width: 18px; height: 18px; opacity: 0; transform: scale(0.5); transition: opacity 0.2s var(--ease), transform 0.2s var(--ease); }
+.swatch .dot .ck svg { width: 100%; height: 100%; display: block; }
+.swatch.sel .dot .ck { opacity: 1; transform: scale(1); }
+.swatch .nm { font-size: 12px; color: var(--text-soft); transition: color 0.2s var(--ease); }
+.swatch.sel .nm { color: var(--text); font-weight: 500; }
+.themes-phone { display: flex; justify-content: center; }
+
+/* ============================================================
+   FOOTER
+   ============================================================ */
+.footer { padding: 70px 0 48px; border-top: 1px solid var(--hairline); margin-top: 20px; }
+.footer-top { display: flex; justify-content: space-between; align-items: flex-start; gap: 40px; flex-wrap: wrap; }
+.footer .logo { font-size: 23px; }
+.footer-tag { color: var(--text-soft); font-size: 15px; margin-top: 14px; max-width: 34ch; }
+.footer-links { display: flex; gap: 30px; flex-wrap: wrap; }
+.footer-links a { font-size: 15px; color: var(--text-soft); transition: color 0.25s var(--ease); }
+.footer-links a:hover { color: var(--text); }
+.badges { display: flex; gap: 14px; margin-top: 26px; flex-wrap: wrap; }
+.badge {
+  display: flex; align-items: center; gap: 11px;
+  border: 1px solid var(--hairline-2); border-radius: var(--r-sm);
+  padding: 9px 17px; background: rgba(255,255,255,0.03); opacity: 0.7;
+}
+.badge .bi { width: 24px; height: 24px; color: var(--text-soft); }
+.badge .bt { line-height: 1.2; }
+.badge .bt small { display: block; font-size: 10px; color: var(--text-faint); letter-spacing: 0.04em; }
+.badge .bt strong { font-size: 15px; font-weight: 500; }
+.badge .soon { font-size: 9px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--accent-ink); border: 1px solid rgba(var(--accent-rgb),0.4); padding: 2px 6px; border-radius: var(--r-pill); margin-left: 4px; }
+.footer-base {
+  display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 14px;
+  margin-top: 54px; padding-top: 26px; border-top: 1px solid var(--hairline);
+  font-size: 13.5px; color: var(--text-faint);
+}
+.footer-base .heart { color: var(--accent-ink); }
+
+/* ============================================================
+   APP SCREENS — Morgen-Check · Stats · Celebration (mockups)
+   ============================================================ */
+/* shared full-screen takeover (no app-bar) */
+.mc, .cel, .st { display: flex; flex-direction: column; height: 100%; }
+
+/* --- Morgen-Check --- */
+.mc-h { font-weight: 800; font-size: 25px; letter-spacing: -0.02em; color: var(--app-ink); }
+.mc-sub { font-size: 12px; color: var(--app-soft); margin-top: 5px; }
+.mc-q { font-size: 9.5px; font-weight: 800; letter-spacing: 0.15em; text-transform: uppercase; color: var(--app-soft); margin: 17px 0 8px; }
+.mc-row { display: flex; gap: 7px; }
+.mc-card {
+  flex: 1; background: var(--app-card); border: 1.5px solid transparent;
+  border-radius: var(--ar); padding: 11px 4px 9px; text-align: center; box-shadow: var(--app-shadow);
+}
+.mc-card .em { font-size: 19px; line-height: 1; }
+.mc-card .cl { font-size: 10.5px; font-weight: 700; color: var(--app-ink); margin-top: 6px; }
+.mc-card.sel { border-color: var(--accent); }
+.mc-card.sel .cl { color: var(--accent-ink); }
+.mc-go {
+  margin-top: auto; background: var(--accent); color: var(--on-accent); border: none;
+  border-radius: var(--ar); padding: 14px; font-family: inherit; font-weight: 700; font-size: 13.5px; text-align: center;
+}
+
+/* --- Stats --- */
+.st-top { display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; margin-bottom: 4px; }
+.st-x { justify-self: start; width: 18px; height: 18px; color: var(--app-soft); }
+.st-title { justify-self: center; font-weight: 700; font-size: 14px; color: var(--app-ink); }
+.seg3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0; background: var(--seg-track); border-radius: calc(13px * var(--radius-scale) + 2px); padding: 3px; margin: 15px 0 13px; }
+.seg3 span { text-align: center; font-size: 11px; font-weight: 700; color: var(--app-soft); padding: 7px 0; border-radius: calc(10px * var(--radius-scale) + 1px); }
+.seg3 span.on { background: var(--accent); color: var(--on-accent); }
+.st-card { background: var(--app-card); border-radius: var(--ar); padding: 15px 16px; box-shadow: var(--app-shadow); margin-bottom: 9px; }
+.st-num { font-size: 38px; font-weight: 800; color: var(--accent-ink); line-height: 1; }
+.st-lbl { font-weight: 800; font-size: 15px; color: var(--app-ink); margin-top: 5px; }
+.st-cap { font-size: 11px; color: var(--app-soft); margin-top: 2px; }
+.st-eyebrow { font-size: 9px; font-weight: 800; letter-spacing: 0.15em; text-transform: uppercase; color: var(--app-soft); margin-bottom: 7px; }
+.st-line { font-size: 12px; color: var(--app-soft); }
+.st-big2 { font-weight: 800; font-size: 16px; color: var(--app-ink); margin-top: 3px; letter-spacing: -0.01em; }
+.st-finish { margin-top: auto; text-align: center; border: 1.5px solid var(--hairline-app); border-radius: var(--ar); padding: 13px; font-weight: 700; font-size: 12.5px; color: var(--accent-ink); }
+
+/* --- Celebration --- */
+.cel { align-items: center; justify-content: center; text-align: center; gap: 11px; padding: 24px; }
+.cel .emoji { font-size: 42px; }
+.cel .ct { font-weight: 800; font-size: 24px; color: var(--app-ink); letter-spacing: -0.02em; }
+.cel .cs { font-size: 12.5px; color: var(--app-soft); line-height: 1.5; max-width: 24ch; }
+.cel .cbtn { margin-top: 8px; background: var(--accent); color: var(--on-accent); border-radius: var(--r-pill); padding: 12px 22px; font-weight: 700; font-size: 13px; }
+
+/* --- Gallery section --- */
+.gallery { padding: clamp(70px, 9vw, 120px) 0; }
+.gallery-head { text-align: center; display: flex; flex-direction: column; align-items: center; margin-bottom: 60px; }
+.gallery-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 40px; align-items: start; }
+.gallery-item { display: flex; flex-direction: column; align-items: center; text-align: center; }
+.gallery-item .phone { transform: scale(0.94); margin-bottom: 6px; }
+.gallery-item .gcap-no { font-family: 'Instrument Serif', serif; font-style: italic; font-size: 16px; color: var(--accent-ink); margin-top: 14px; }
+.gallery-item h3 { font-size: 25px; margin-top: 8px; }
+.gallery-item p { color: var(--text-soft); font-size: 15px; margin-top: 10px; max-width: 30ch; }
+
+/* ============================================================
+   SCROLL ANIMATIONS — subtle & calm
+   ============================================================ */
+@media (prefers-reduced-motion: no-preference) {
+  .reveal {
+    opacity: 0; transform: translateY(30px) scale(0.99);
+    transition: opacity 0.95s var(--ease), transform 1s var(--ease);
   }
+  .reveal.in { opacity: 1; transform: none; }
+  .reveal.d1 { transition-delay: 0.09s; }
+  .reveal.d2 { transition-delay: 0.18s; }
+  .reveal.d3 { transition-delay: 0.27s; }
+}
 
-  function init() {
-    var saved = null;
-    try { saved = localStorage.getItem('jetzt_lang'); } catch (e) {}
-    var nav = (navigator.language || 'de').slice(0, 2).toLowerCase();
-    apply(saved || (nav === 'en' ? 'en' : 'de'));
+/* ============================================================
+   RESPONSIVE
+   ============================================================ */
+@media (max-width: 940px) {
+  .hero-grid { grid-template-columns: 1fr; gap: 40px; }
+  .hero-phone-wrap { order: -1; }
+  .pain-grid, .feat-grid, .steps, .gallery-grid { grid-template-columns: 1fr; }
+  .steps, .gallery-grid { gap: 56px; max-width: 360px; margin-inline: auto; }
+  .science-grid, .themes-inner { grid-template-columns: 1fr; gap: 40px; }
+  .nav-links { display: none; }
+}
+@media (max-width: 620px) {
+  body { font-size: 16px; }
+  .wrap { padding-inline: 20px; }
+  .feat-grid { gap: 14px; }
+  .price-card, .quote-card { padding: 34px 26px; }
+  .footer-top { flex-direction: column; }
+}
 
-    var sw = document.getElementById('langSwitch');
-    if (sw) sw.addEventListener('click', function (e) {
-      var b = e.target.closest ? e.target.closest('button[data-lang]') : null;
-      if (b) apply(b.getAttribute('data-lang'));
-    });
+/* ============================================================
+   PREMIUM MOTION SYSTEM
+   ============================================================ */
+
+/* --- scroll progress bar --- */
+.scroll-progress {
+  position: fixed; top: 0; left: 0; height: 2.5px; width: 100%;
+  transform: scaleX(0); transform-origin: 0 50%;
+  background: linear-gradient(90deg, rgba(var(--accent-rgb), 0.5), var(--accent));
+  box-shadow: 0 0 14px rgba(var(--accent-rgb), 0.55);
+  z-index: 200; pointer-events: none;
+  transition: background 0.4s var(--ease);
+}
+
+/* --- cursor-tracked ambient glow (dark sections) --- */
+.pointer-glow {
+  position: fixed; width: 540px; height: 540px; left: 0; top: 0;
+  margin: -270px 0 0 -270px; border-radius: 50%;
+  background: radial-gradient(circle, rgba(var(--accent-rgb), 0.10), transparent 65%);
+  pointer-events: none; z-index: 0; opacity: 0;
+  transition: opacity 0.6s var(--ease);
+  will-change: transform;
+}
+
+/* --- floating depth orbs in hero --- */
+.hero { position: relative; overflow: visible; }
+.hero-orb {
+  position: absolute; border-radius: 50%; pointer-events: none; z-index: -1;
+  filter: blur(46px); opacity: 0.5; will-change: transform;
+}
+.hero-orb.a { width: 340px; height: 340px; top: -60px; right: 4%;
+  background: radial-gradient(circle, rgba(var(--accent-rgb), 0.34), transparent 70%); }
+.hero-orb.b { width: 300px; height: 300px; bottom: -40px; left: -30px;
+  background: radial-gradient(circle, rgba(126, 207, 192, 0.22), transparent 70%); }
+
+/* --- animated status ping --- */
+@media (prefers-reduced-motion: no-preference) {
+  .hero-pill .ping { position: relative; }
+  .hero-pill .ping::after {
+    content: ""; position: absolute; inset: 0; border-radius: 50%;
+    background: var(--mint); animation: pingPulse 2.6s var(--ease) infinite;
   }
+  @keyframes pingPulse {
+    0% { transform: scale(1); opacity: 0.7; }
+    70%, 100% { transform: scale(3.4); opacity: 0; }
+  }
+}
 
-  if (document.readyState !== 'loading') init();
-  else document.addEventListener('DOMContentLoaded', init);
-})();
+/* --- headline shine sweep on the accent line --- */
+.hero h1 em {
+  position: relative;
+  background: linear-gradient(100deg,
+    var(--accent) 0%, var(--accent) 38%,
+    color-mix(in oklch, var(--accent) 55%, #fff) 50%,
+    var(--accent) 62%, var(--accent) 100%);
+  background-size: 250% 100%;
+  -webkit-background-clip: text; background-clip: text;
+  -webkit-text-fill-color: transparent; color: transparent;
+}
+@media (prefers-reduced-motion: no-preference) {
+  .hero h1 em { animation: shineSweep 5.5s var(--ease) 1.2s infinite; }
+  @keyframes shineSweep {
+    0%, 22% { background-position: 130% 0; }
+    48%, 100% { background-position: -30% 0; }
+  }
+}
+
+/* --- magnetic CTA + sheen sweep --- */
+.btn-primary { position: relative; overflow: hidden; isolation: isolate; }
+.btn-primary::after {
+  content: ""; position: absolute; inset: 0; z-index: 1;
+  background: linear-gradient(105deg, transparent 30%, rgba(255,255,255,0.45) 48%, transparent 66%);
+  transform: translateX(-130%); pointer-events: none;
+}
+@media (prefers-reduced-motion: no-preference) {
+  .btn-primary:hover::after { animation: sheen 0.85s var(--ease); }
+  @keyframes sheen { to { transform: translateX(130%); } }
+}
+.btn { will-change: transform; }
+.btn-primary:active { transform: translateY(0) scale(0.97); }
+
+/* --- 3D tilt cards --- */
+.pain-grid, .feat-grid { perspective: 1100px; }
+.pain-card, .feat-card, .price-card {
+  transform-style: preserve-3d;
+  transition: transform 0.4s var(--ease), border-color 0.4s var(--ease),
+              background 0.4s var(--ease), box-shadow 0.4s var(--ease);
+}
+.pain-card.tilt, .feat-card.tilt {
+  transition: transform 0.12s linear, border-color 0.4s var(--ease),
+              background 0.4s var(--ease), box-shadow 0.4s var(--ease);
+}
+.feat-card:hover, .pain-card:hover {
+  box-shadow: 0 30px 70px -40px rgba(0,0,0,0.85), 0 0 0 1px rgba(var(--accent-rgb), 0.12);
+}
+.feat-card .feat-ico, .pain-card .pain-num { transition: transform 0.4s var(--ease); }
+.feat-card:hover .feat-ico { transform: translateZ(34px) scale(1.04); }
+.pain-card:hover .pain-num { transform: translateZ(28px); }
+
+/* --- count-up tabular alignment --- */
+.fact .stat, .price-amount .num { font-variant-numeric: tabular-nums; }
+
+/* --- gentle parallax hook for gallery phones --- */
+.gallery-item .phone, .step .phone { will-change: transform; }
+
+@media (prefers-reduced-motion: reduce) {
+  .scroll-progress, .pointer-glow, .hero-orb { display: none; }
+  html { scroll-behavior: auto; }
+}
+
+/* ============================================================
+   SCREENSHOT PHONE — real app captures inside the device frame
+   ============================================================ */
+.phone.shot { background: #0a0a0c; aspect-ratio: auto; height: auto; }
+.phone.shot .phone-notch { display: none; }
+.screen-shot {
+  width: 100%; aspect-ratio: 1320 / 2868; height: auto;
+  border-radius: calc(44px * var(--radius-scale) + 4px);
+  overflow: hidden; position: relative; background: #e8f0eb;
+}
+.screen-shot img { width: 100%; height: 100%; object-fit: cover; object-position: center; display: block; }
+
+/* ---- themes-band phone: mirror the real home screen (recolors live) ---- */
+.task-card.home { text-align: left; padding: 18px 18px 20px; }
+.task-card.home::before { left: 0; right: auto; top: 16px; bottom: 16px; height: auto; width: 5px; border-radius: 0 5px 5px 0; z-index: 1; }
+.tc-top { display: flex; align-items: center; justify-content: space-between; }
+.tc-brand { font-size: 9.5px; font-weight: 800; letter-spacing: 0.22em; color: var(--accent-ink); }
+.tc-dots { display: flex; gap: 5px; }
+.tc-dots i { width: 7px; height: 7px; border-radius: 50%; background: var(--accent); }
+.tc-dots i:last-child { background: rgba(var(--accent-rgb), 0.3); }
+.task-card.home .task-title { font-size: 24px; margin-top: 14px; }
+.tc-chip { display: inline-flex; align-items: center; gap: 6px; margin-top: 14px; padding: 6px 11px; border-radius: var(--r-pill); background: rgba(var(--accent-rgb), 0.13); color: var(--accent-ink); font-size: 12px; font-weight: 600; }
+.tc-chip svg { width: 13px; height: 13px; }
+.swipe-row { display: flex; justify-content: space-between; padding: 0 4px 2px; font-size: 11.5px; font-weight: 600; color: var(--app-soft); }
+.start-bar .ph b { display: block; color: var(--app-ink); font-weight: 800; font-size: 12.5px; }
+.add-task { display: flex; align-items: center; justify-content: center; gap: 8px; background: var(--accent); color: var(--on-accent); font-weight: 800; font-size: 13px; padding: 13px; border-radius: var(--ar); }
+.add-task svg { width: 15px; height: 15px; }
+
+/* ============================================================
+   HERO — App Store badge button
+   ============================================================ */
+.store-btn {
+  display: inline-flex; align-items: center; gap: 11px;
+  padding: 11px 20px; border-radius: calc(13px * var(--radius-scale) + 2px);
+  border: 1px solid var(--hairline-2); background: var(--surface-soft);
+  color: var(--text); transition: border-color 0.25s var(--ease), transform 0.25s var(--ease);
+}
+.store-btn:hover { border-color: var(--accent); transform: translateY(-2px); }
+.store-btn .store-ico { width: 26px; height: 26px; flex: none; }
+.store-btn .store-txt { display: flex; flex-direction: column; line-height: 1.15; text-align: left; }
+.store-btn .store-txt small { font-size: 10.5px; color: var(--text-faint); letter-spacing: 0.03em; }
+.store-btn .store-txt strong { font-size: 16px; font-weight: 600; }
+
+/* ============================================================
+   KI-TEXTERKENNUNG
+   ============================================================ */
+.ki { padding: clamp(70px, 9vw, 120px) 0; }
+.ki-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: center; }
+.ki-copy .section-lede { max-width: 42ch; }
+.ki-copy .section-lede em { font-family: 'Instrument Serif', serif; font-style: italic; color: var(--accent-ink); }
+.ki-points { list-style: none; padding: 0; margin: 34px 0 0; display: flex; flex-direction: column; gap: 16px; }
+.ki-points li { display: flex; gap: 14px; align-items: flex-start; font-size: 15.5px; color: var(--text-soft); }
+.ki-points li strong { color: var(--text); font-weight: 600; }
+.ki-points .kp-ico {
+  flex: none; width: 38px; height: 38px; border-radius: var(--r-sm);
+  display: grid; place-items: center; font-size: 18px;
+  background: rgba(var(--accent-rgb), 0.12); border: 1px solid rgba(var(--accent-rgb), 0.22);
+}
+.ai-badge {
+  margin-top: 34px; display: flex; gap: 14px; align-items: flex-start;
+  padding: 18px 20px; border-radius: var(--r-md);
+  background: rgba(var(--accent-rgb), 0.08); border: 1px solid rgba(var(--accent-rgb), 0.28);
+}
+.ai-badge .ai-spark {
+  flex: none; width: 32px; height: 32px; border-radius: 50%;
+  display: grid; place-items: center; font-size: 16px;
+  background: rgba(var(--accent-rgb), 0.16); color: var(--accent-ink);
+}
+.ai-badge .ai-text { display: flex; flex-direction: column; gap: 3px; }
+.ai-badge .ai-text strong { font-size: 14.5px; font-weight: 600; color: var(--text); }
+.ai-badge .ai-text span { font-size: 13.5px; color: var(--text-soft); line-height: 1.5; }
+
+.ki-phones { position: relative; display: flex; justify-content: center; align-items: center; min-height: 540px; }
+.ki-phones .phone { position: absolute; }
+.ki-phones .ki-back { transform: scale(0.82) translate(74px, 18px) rotate(5deg); opacity: 0.92; z-index: 1; }
+.ki-phones .ki-front { transform: scale(0.92) translate(-58px, -6px) rotate(-3deg); z-index: 2; }
+
+/* ============================================================
+   ONBOARDING — horizontal scroll-snap strip of 6 screens
+   ============================================================ */
+.onboarding { padding: clamp(70px, 9vw, 120px) 0 clamp(60px, 7vw, 90px); overflow: hidden; }
+.onboarding-head { max-width: 640px; margin-bottom: 50px; }
+.ob-strip {
+  display: flex; gap: 30px; align-items: flex-start;
+  overflow-x: auto; scroll-snap-type: x mandatory;
+  padding: 6px clamp(20px, calc((100vw - var(--maxw)) / 2 + 28px), 50vw) 22px;
+  -webkit-overflow-scrolling: touch; scrollbar-width: none;
+}
+.ob-strip::-webkit-scrollbar { display: none; }
+.ob-card {
+  margin: 0; flex: none; scroll-snap-align: center;
+  display: flex; flex-direction: column; align-items: center; text-align: center;
+}
+.ob-card .phone { transform: scale(0.82); transform-origin: top center; margin-bottom: -34px; }
+.ob-card figcaption {
+  display: flex; flex-direction: column; align-items: center; gap: 8px;
+  font-size: 15px; font-weight: 500; color: var(--text); max-width: 21ch;
+}
+.ob-card .ob-no {
+  font-family: 'Instrument Serif', serif; font-style: italic; font-size: 15px; color: var(--accent-ink);
+}
+
+/* ============================================================
+   FOUNDER NOTE
+   ============================================================ */
+.founder { padding: clamp(40px, 6vw, 70px) 0; }
+.founder-card {
+  margin: 0; text-align: center; max-width: 760px; margin-inline: auto;
+  display: flex; flex-direction: column; align-items: center;
+}
+.founder-card blockquote {
+  margin: 0; font-family: 'Instrument Serif', serif;
+  font-size: clamp(28px, 4vw, 46px); line-height: 1.22; color: var(--text);
+}
+.founder-card blockquote em { font-style: italic; color: var(--accent-ink); }
+.founder-card figcaption {
+  margin-top: 26px; display: inline-flex; align-items: center; gap: 9px;
+  font-size: 14.5px; color: var(--text-soft);
+}
+.founder-card figcaption .heart { color: var(--accent-ink); }
+
+/* ============================================================
+   PRICING — two-tier (Free vs Pro)
+   ============================================================ */
+.plans {
+  display: grid; grid-template-columns: 1fr 1.08fr; gap: 22px;
+  max-width: 880px; margin-inline: auto; align-items: stretch;
+}
+.plan {
+  display: flex; flex-direction: column;
+  background: var(--surface-soft); border: 1px solid var(--hairline);
+  border-radius: var(--r-lg); padding: 38px 34px; position: relative;
+  box-shadow: var(--card-shadow);
+}
+.plan-pro {
+  background: linear-gradient(170deg, var(--card-2), var(--card));
+  border-color: rgba(var(--accent-rgb), 0.4);
+  box-shadow: 0 40px 90px -50px rgba(0,0,0,0.55);
+  overflow: hidden;
+}
+.plan-pro::before {
+  content: ""; position: absolute; top: -40%; right: -20%;
+  width: 320px; height: 320px; border-radius: 50%;
+  background: radial-gradient(circle, rgba(var(--accent-rgb),0.16), transparent 65%); pointer-events: none;
+}
+.plan-badge {
+  align-self: flex-start; display: inline-flex; align-items: center; gap: 8px;
+  font-size: 12.5px; font-weight: 500; white-space: nowrap; color: var(--accent-ink);
+  border: 1px solid rgba(var(--accent-rgb),0.35); border-radius: var(--r-pill);
+  padding: 5px 13px; background: rgba(var(--accent-rgb),0.08); margin-bottom: 18px;
+}
+.plan-name { font-size: 30px; }
+.plan-price { display: flex; align-items: baseline; gap: 5px; margin: 14px 0 6px; }
+.plan-price .cur { font-family: 'Instrument Serif', serif; font-size: 30px; color: var(--text-soft); }
+.plan-price .num { font-family: 'Instrument Serif', serif; font-size: 58px; line-height: 1; font-variant-numeric: tabular-nums; }
+.plan-price .per { font-size: 14px; color: var(--text-faint); margin-left: 6px; }
+.plan-sub { color: var(--text-soft); font-size: 14.5px; }
+.plan-list { list-style: none; padding: 0; margin: 26px 0 30px; display: grid; gap: 13px; flex: 1; }
+.plan-list li { display: flex; align-items: flex-start; gap: 12px; font-size: 15px; color: var(--text); }
+.plan-list .ck {
+  flex: none; width: 21px; height: 21px; border-radius: 50%; margin-top: 1px;
+  background: rgba(var(--accent-rgb), 0.16); color: var(--accent-ink);
+  display: grid; place-items: center; font-size: 12px; font-weight: 700;
+}
+.plan-cta { width: 100%; margin-top: auto; }
+
+.themes-free { color: var(--accent-ink); }
+
+/* ============================================================
+   MOCK PHONE — mirrors the shipped focus screen (recolors live)
+   ============================================================ */
+.app-head { display: flex; align-items: center; justify-content: space-between; }
+.app-head .app-logo { font-size: 21px; font-weight: 800; letter-spacing: -0.02em; }
+.app-head .flame {
+  width: 30px; height: 30px; border-radius: 50%; background: var(--app-card);
+  display: grid; place-items: center; font-size: 14px; box-shadow: var(--app-shadow);
+}
+.mode-seg {
+  align-self: flex-start;
+  display: inline-flex; margin-top: 12px; padding: 2px; border-radius: var(--r-pill);
+  background: var(--seg-track); font-size: 11px; font-weight: 600; color: var(--app-soft);
+}
+.mode-seg span { padding: 5px 13px; border-radius: var(--r-pill); }
+.mode-seg span.on { background: var(--app-card); color: var(--app-ink); box-shadow: var(--app-shadow); }
+
+.tabbar-row { display: flex; align-items: center; gap: 8px; }
+.tabbar {
+  flex: 1; display: flex; align-items: center; justify-content: space-between;
+  background: var(--app-card); border-radius: var(--r-pill); padding: 7px 6px;
+  box-shadow: var(--app-shadow);
+}
+.tabbar .tab {
+  display: flex; flex-direction: column; align-items: center; gap: 3px;
+  padding: 3px 7px; border-radius: var(--r-pill); color: var(--app-soft);
+}
+.tabbar .tab svg { width: 15px; height: 15px; }
+.tabbar .tab b { font-size: 8px; font-weight: 700; letter-spacing: 0.01em; }
+.tabbar .tab.on { background: rgba(var(--accent-rgb), 0.14); color: var(--accent-ink); }
+.fab {
+  flex: none; width: 42px; height: 42px; border-radius: 50%;
+  background: var(--accent); color: var(--on-accent);
+  display: grid; place-items: center; box-shadow: var(--app-shadow);
+}
+.fab svg { width: 17px; height: 17px; }
+
+/* ============================================================
+   PRICING — Free vs Pro comparison
+   ============================================================ */
+.compare {
+  max-width: 900px; margin-inline: auto;
+  background: var(--card); border: 1px solid var(--hairline);
+  border-radius: var(--r-lg); box-shadow: var(--card-shadow);
+  padding: 8px 8px 26px;
+}
+.cmp-head, .cmp-row, .cmp-ctas {
+  display: grid; grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr) minmax(0, 1.25fr);
+  column-gap: 14px;
+}
+.cmp-head { align-items: end; padding: 24px 22px 20px; }
+.cmp-h { display: flex; flex-direction: column; gap: 6px; text-align: center; }
+.cmp-h.pro {
+  background: rgba(var(--accent-rgb), 0.09); border: 1px solid rgba(var(--accent-rgb), 0.3);
+  border-radius: var(--r-md); padding: 18px 16px 16px; margin: -6px -6px 0;
+}
+.cmp-name { font-size: 15px; font-weight: 600; color: var(--text); }
+.cmp-h.pro .cmp-name { color: var(--accent-ink); }
+.cmp-price { display: flex; flex-direction: column; gap: 3px; }
+.cmp-price b { font-family: 'Instrument Serif', serif; font-weight: 400; font-size: clamp(24px, 2.6vw, 31px); line-height: 1.05; color: var(--text); }
+.cmp-price small { font-size: 12px; color: var(--text-soft); }
+.cmp-h > .cmp-price { font-family: 'Instrument Serif', serif; font-size: clamp(24px, 2.6vw, 31px); color: var(--text); }
+.cmp-note { font-size: 12px; color: var(--text-faint); }
+.cmp-note.trial { margin-top: 2px; }
+.cmp-h .pay-seg { margin: 4px 0 2px; }
+.cmp-h .pay-seg label { padding: 7px 4px; font-size: 12px; }
+.cmp-prices { display: block; }
+.cmp-price.y, .cmp-price.m, .cmp-price.o { display: none; }
+.cmp-h.pro:has(#payY:checked) .cmp-price.y,
+.cmp-h.pro:has(#payM:checked) .cmp-price.m,
+.cmp-h.pro:has(#payO:checked) .cmp-price.o { display: flex; }
+
+.cmp-h.pro:has(#payO:checked) .cmp-note.trial { display: none; }
+.cmp-rows { border-top: 1px solid var(--hairline); }
+.cmp-row { align-items: center; padding: 14px 22px; border-bottom: 1px solid var(--hairline); }
+.cmp-row:last-child { border-bottom: none; }
+.cmp-f { font-size: 15px; color: var(--text); }
+.cmp-c { display: flex; align-items: center; justify-content: center; gap: 8px; text-align: center; }
+.cmp-c.pro { background: rgba(var(--accent-rgb), 0.06); border-inline: 1px solid rgba(var(--accent-rgb), 0.18); align-self: stretch; margin: -14px -6px; padding: 14px 10px; }
+.cmp-row:last-child .cmp-c.pro { border-bottom: 1px solid rgba(var(--accent-rgb), 0.18); border-radius: 0 0 var(--r-sm) var(--r-sm); }
+.cmp-c .ck {
+  width: 21px; height: 21px; border-radius: 50%; flex: none;
+  background: rgba(var(--accent-rgb), 0.16); color: var(--accent-ink);
+  display: grid; place-items: center; font-size: 12px; font-weight: 700;
+}
+.cmp-c .dash { color: var(--text-faint); font-size: 15px; }
+.cmp-c .val { font-size: 13.5px; line-height: 1.4; color: var(--text-soft); }
+.cmp-c.pro .val { color: var(--text); }
+.cmp-tag { display: none; }
+
+.cmp-ctas { align-items: center; padding: 24px 22px 0; }
+.cmp-ctas .btn { width: 100%; }
+
+@media (max-width: 720px) {
+  .compare { padding: 8px 8px 22px; }
+  .cmp-head { grid-template-columns: 1fr; gap: 14px; padding: 20px 16px 18px; text-align: center; }
+  .cmp-h.feature { display: none; }
+  .cmp-h { border: 1px solid var(--hairline); border-radius: var(--r-md); padding: 16px; margin: 0; }
+  .cmp-row { grid-template-columns: 1fr 1fr; gap: 10px 12px; padding: 16px; }
+  .cmp-f { grid-column: 1 / -1; font-weight: 600; }
+  .cmp-c { justify-content: flex-start; flex-direction: column; align-items: flex-start; gap: 5px; margin: 0; padding: 10px 12px; border-radius: var(--r-sm); background: var(--surface-soft); border: 1px solid var(--hairline); }
+  .cmp-c.pro { border: 1px solid rgba(var(--accent-rgb), 0.28); background: rgba(var(--accent-rgb), 0.07); }
+  .cmp-row:last-child .cmp-c.pro { border-radius: var(--r-sm); }
+  .cmp-tag { display: block; font-size: 10px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-faint); }
+  .cmp-ctas { grid-template-columns: 1fr; gap: 10px; padding: 20px 16px 0; }
+  .cmp-cta-slot { display: none; }
+}
+.pay-tiles { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin: 24px 0 26px; }
+.pay-tile { display: flex; flex-direction: column; align-items: center; gap: 9px; }
+.pay-tile .pt-art {
+  width: 100%; height: 72px; border-radius: var(--r-sm); background: var(--card);
+  border: 1px solid var(--hairline); display: grid; place-items: center;
+}
+.pt-art.themes { grid-template-columns: repeat(3, 12px); gap: 7px; place-content: center; }
+.pt-art.themes i { width: 12px; height: 12px; border-radius: 50%; }
+.pt-art.themes i:nth-child(1) { background: #f0a184; }
+.pt-art.themes i:nth-child(2) { background: #74cbb8; }
+.pt-art.themes i:nth-child(3) { background: #b3a4da; }
+.pt-art.themes i:nth-child(4) { background: #dca92c; }
+.pt-art.themes i:nth-child(5) { background: #e892ab; }
+.pt-art.themes i:nth-child(6) { background: #7d9cb5; }
+.pt-art.timer { position: relative; font-size: 0; }
+.pt-art.timer::before {
+  content: ""; width: 42px; height: 42px; border-radius: 50%;
+  background: conic-gradient(var(--accent) 0 62%, rgba(var(--accent-rgb), 0.18) 62% 100%);
+  mask: radial-gradient(circle, transparent 0 15px, #000 16px);
+  -webkit-mask: radial-gradient(circle, transparent 0 15px, #000 16px);
+}
+.pt-art.timer::after {
+  content: "2:00"; position: absolute; inset: 0; display: grid; place-items: center;
+  font-size: 12px; font-weight: 700; color: var(--text);
+}
+.pt-art.bars { display: flex; align-items: flex-end; gap: 4px; height: 72px; padding: 16px 0; }
+.pt-art.bars i { width: 7px; border-radius: 3px; background: rgba(var(--accent-rgb), 0.3); }
+.pt-art.bars i:nth-child(1) { height: 40%; }
+.pt-art.bars i:nth-child(2) { height: 62%; }
+.pt-art.bars i:nth-child(3) { height: 48%; }
+.pt-art.bars i.hi { height: 100%; background: var(--accent); }
+.pt-art.bars i:nth-child(5) { height: 70%; }
+.pt-art.bars i:nth-child(6) { height: 34%; }
+.pay-tile .pt-cap { font-size: 12px; font-weight: 600; color: var(--text-soft); text-align: center; }
+
+.pay-timeline { list-style: none; padding: 0; margin: 0 0 26px; }
+.pay-timeline li { position: relative; padding: 0 0 20px 26px; }
+.pay-timeline li::before {
+  content: ""; position: absolute; left: 0; top: 4px; width: 10px; height: 10px;
+  border-radius: 50%; background: var(--accent);
+}
+.pay-timeline li.last::before { background: var(--card); border: 2px solid rgba(var(--accent-rgb), 0.45); }
+.pay-timeline li::after {
+  content: ""; position: absolute; left: 4.5px; top: 16px; bottom: 2px; width: 1px;
+  background: var(--hairline-2);
+}
+.pay-timeline li.last { padding-bottom: 0; }
+.pay-timeline li.last::after { display: none; }
+.pay-timeline b { display: block; font-size: 14.5px; color: var(--text); margin-bottom: 3px; }
+.pay-timeline span { font-size: 13.5px; line-height: 1.5; color: var(--text-soft); }
+
+.pay { border-top: 1px solid var(--hairline); padding-top: 22px; }
+.pay-label {
+  display: block; font-size: 11px; font-weight: 600; letter-spacing: 0.13em;
+  text-transform: uppercase; color: var(--text-faint); margin-bottom: 11px;
+}
+.pay-seg {
+  display: grid; grid-template-columns: repeat(3, 1fr); padding: 3px;
+  background: var(--seg-track, rgba(0,0,0,0.05)); border-radius: var(--r-pill);
+}
+.pay-seg input { position: absolute; opacity: 0; pointer-events: none; }
+.pay-seg label {
+  text-align: center; padding: 9px 6px; border-radius: var(--r-pill); cursor: pointer;
+  font-size: 13.5px; font-weight: 600; color: var(--text-soft);
+  transition: background 0.2s var(--ease), color 0.2s var(--ease);
+}
+.pay-seg label:hover { color: var(--text); }
+.pay-seg input:checked + label { background: var(--card); color: var(--text); box-shadow: var(--card-shadow); }
+.pay-price { display: none; margin-top: 18px; }
+.pay:has(#payY:checked) .pay-price.y,
+.pay:has(#payM:checked) .pay-price.m,
+.pay:has(#payO:checked) .pay-price.o { display: block; }
+.pay-price b { display: block; font-family: 'Instrument Serif', serif; font-size: 38px; line-height: 1.1; color: var(--text); }
+.pay-price .pp-sub { display: inline-flex; align-items: center; gap: 10px; margin-top: 6px; font-size: 13.5px; color: var(--text-soft); }
+.pay-price .pp-sub em {
+  font-style: normal; font-weight: 700; font-size: 12px; color: var(--on-accent);
+  background: var(--accent); padding: 3px 9px; border-radius: var(--r-pill);
+}
+.pay-foot { margin: 14px 0 0; text-align: center; font-size: 12.5px; color: var(--text-faint); }
+.plan-pro .plan-name { font-size: clamp(22px, 2.4vw, 27px); line-height: 1.2; }
+@media (max-width: 460px) {
+  .pay-seg { grid-template-columns: 1fr; }
+  .pay-tiles { gap: 7px; }
+}
+
+/* ============================================================
+   CALM STORY BLOCKS — one screen, one thought
+   ============================================================ */
+.story { padding: clamp(64px, 8vw, 116px) 0; }
+.story-grid { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(36px, 6vw, 84px); align-items: center; }
+.story-copy .section-lede { max-width: 44ch; }
+.story-copy .section-lede em { font-family: 'Instrument Serif', serif; font-style: italic; color: var(--accent-ink); }
+.story-points { list-style: none; padding: 0; margin: 30px 0 0; display: flex; flex-direction: column; gap: 15px; max-width: 46ch; }
+.story-points li { font-size: 15.5px; line-height: 1.65; color: var(--text-soft); padding-left: 18px; position: relative; }
+.story-points li::before { content: ""; position: absolute; left: 0; top: 9px; width: 7px; height: 7px; border-radius: 50%; background: var(--accent); }
+.story-points strong { color: var(--text); font-weight: 600; }
+.story-phone { display: flex; justify-content: center; }
+.story.alt .story-phone { order: -1; }
+@media (max-width: 940px) {
+  .story-grid { grid-template-columns: 1fr; gap: 34px; }
+  .story-phone { order: -1; }
+}
+
+/* ---- problem: quiet stacked list instead of a card grid ---- */
+.pain-list { list-style: none; padding: 0; margin: 42px 0 0; max-width: 780px; display: flex; flex-direction: column; }
+.pain-list li {
+  display: grid; grid-template-columns: auto 1fr; column-gap: 22px; align-items: baseline;
+  padding: 26px 0; border-top: 1px solid var(--hairline);
+}
+.pain-list li:last-child { border-bottom: 1px solid var(--hairline); }
+.pain-list .pain-num { font-family: 'Instrument Serif', serif; font-style: italic; font-size: 17px; color: var(--accent-ink); }
+.pain-list p { margin: 0; font-size: clamp(17px, 2vw, 21px); line-height: 1.5; color: var(--text); }
+.pain-list .pain-tag { grid-column: 2; margin-top: 8px; font-size: 13.5px; color: var(--text-faint); }
+
+/* ---- features: calm two-column list, no cards ---- */
+.feat-list {
+  list-style: none; padding: 0; margin: 44px 0 0;
+  display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 4px 60px;
+}
+.feat-list li { padding: 26px 0; border-top: 1px solid var(--hairline); }
+.feat-list h3 { font-size: 19px; margin: 0 0 8px; }
+.feat-list p { margin: 0; font-size: 15px; line-height: 1.65; color: var(--text-soft); max-width: 42ch; }
+@media (max-width: 760px) { .feat-list { grid-template-columns: 1fr; gap: 0; } }
+
+/* ---- pricing: "why these prices" as a calm centered block ---- */
+.why-block { max-width: 620px; margin: clamp(44px, 6vw, 76px) auto 0; text-align: center; }
+.why-block h3 { font-size: clamp(22px, 2.6vw, 30px); margin: 0 0 16px; }
+.why-block p { margin: 0; font-size: 15px; line-height: 1.75; color: var(--text-soft); }
+.why-block .why-tag { margin-top: 18px; font-family: 'Instrument Serif', serif; font-style: italic; font-size: 18px; color: var(--accent-ink); }
+
+/* ---- Pro price options (radio rows) ---- */
+.price-options { display: flex; flex-direction: column; gap: 10px; margin: 22px 0 26px; }
+.price-opt {
+  position: relative; display: grid; grid-template-columns: auto 1fr; column-gap: 12px;
+  align-items: center; padding: 14px 16px; cursor: pointer;
+  border: 1.5px solid var(--hairline-2); border-radius: var(--r-md);
+  background: var(--surface-soft); transition: border-color 0.2s var(--ease), background 0.2s var(--ease);
+}
+.price-opt input { -webkit-appearance: none; appearance: none; margin: 0; grid-row: span 2;
+  width: 20px; height: 20px; border-radius: 50%; border: 2px solid var(--hairline-2);
+  cursor: pointer; transition: border-color 0.2s var(--ease); position: relative; }
+.price-opt input:checked { border-color: var(--accent); }
+.price-opt input:checked::after { content: ""; position: absolute; inset: 3px; border-radius: 50%; background: var(--accent); }
+.price-opt:hover { border-color: rgba(var(--accent-rgb), 0.5); }
+.price-opt:has(input:checked) { border-color: var(--accent); background: rgba(var(--accent-rgb), 0.07); }
+.price-opt.best { border-color: rgba(var(--accent-rgb), 0.45); }
+.po-main { display: flex; align-items: baseline; justify-content: space-between; gap: 10px; }
+.po-label { font-weight: 600; font-size: 15.5px; color: var(--text); }
+.po-price { font-family: 'Instrument Serif', serif; color: var(--text); white-space: nowrap; }
+.po-price b { font-size: 24px; font-weight: 400; font-variant-numeric: tabular-nums; }
+.po-price span { font-size: 13px; color: var(--text-faint); margin-left: 2px; }
+.po-sub { grid-column: 2; font-size: 12.5px; color: var(--text-soft); margin-top: 3px; }
+.po-badge {
+  position: absolute; top: -10px; right: 14px; font-size: 11px; font-weight: 600; letter-spacing: 0.02em;
+  color: var(--on-accent, #3a230f); background: var(--accent); padding: 3px 10px; border-radius: var(--r-pill);
+}
+
+/* ---- "Warum diese Preise?" accordion ---- */
+.price-faq {
+  max-width: 880px; margin: 26px auto 0; border: 1px solid var(--hairline);
+  border-radius: var(--r-md); background: var(--surface-soft); overflow: hidden;
+}
+.price-faq summary {
+  list-style: none; cursor: pointer; display: flex; align-items: center; justify-content: space-between;
+  gap: 12px; padding: 18px 22px; font-size: 15.5px; font-weight: 600; color: var(--text);
+}
+.price-faq summary::-webkit-details-marker { display: none; }
+.price-faq .faq-chev { font-size: 20px; color: var(--accent-ink); font-weight: 400; transition: transform 0.25s var(--ease); line-height: 1; }
+.price-faq[open] .faq-chev { transform: rotate(45deg); }
+.price-faq p { margin: 0; padding: 0 22px 22px; font-size: 14.5px; line-height: 1.7; color: var(--text-soft); max-width: 62ch; }
+
+/* ============================================================
+   RESPONSIVE — new sections
+   ============================================================ */
+@media (max-width: 940px) {
+  .ki-grid { grid-template-columns: 1fr; gap: 30px; }
+  .ki-phones { min-height: 470px; order: -1; }
+  .plans { grid-template-columns: 1fr; max-width: 440px; }
+}
+@media (max-width: 620px) {
+  .hero-cta { gap: 12px; }
+  .ob-strip { gap: 16px; }
+}
