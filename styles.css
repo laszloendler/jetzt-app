@@ -283,14 +283,14 @@ section { position: relative; }
 }
 .theme-lachs .screen { --app-bg-top:#503a34; --app-bg-bot:#46322d; --app-card:#5b453e; --app-ink:#f4ebe6; --app-soft:#b6a097; --dot-empty:rgba(255,255,255,0.15); --seg-track:rgba(255,255,255,0.09); --hairline-app:rgba(255,255,255,0.14); --app-shadow:0 18px 34px -20px rgba(0,0,0,0.5); }
 
-.theme-petrol {
-  --navy:#1a4942; --navy-deep:#143a34;
-  --card:#23574e; --card-2:#2b6258; --surface-soft:rgba(255,255,255,0.04);
+.theme-lila {
+  --navy:#45127f; --navy-deep:#3a0f6b;
+  --card:#57209a; --card-2:#6029a6; --surface-soft:rgba(255,255,255,0.04);
   --hairline:rgba(255,255,255,0.10); --hairline-2:rgba(255,255,255,0.17);
-  --text:#e8f1ee; --text-soft:rgba(232,241,238,0.74); --text-faint:rgba(232,241,238,0.5);
-  --nav-bg-1:rgba(26,73,66,0.9); --nav-bg-2:rgba(26,73,66,0.5); --card-shadow:none;
+  --text:#efe8f7; --text-soft:rgba(239,232,247,0.78); --text-faint:rgba(239,232,247,0.55);
+  --nav-bg-1:rgba(69,18,127,0.9); --nav-bg-2:rgba(69,18,127,0.5); --card-shadow:none;
 }
-.theme-petrol .screen { --app-bg-top:#1f574e; --app-bg-bot:#1a4942; --app-card:#256056; --app-ink:#e8f1ee; --app-soft:#8fb6ac; --dot-empty:rgba(255,255,255,0.15); --seg-track:rgba(255,255,255,0.09); --hairline-app:rgba(255,255,255,0.14); --app-shadow:0 18px 34px -20px rgba(0,0,0,0.5); }
+.theme-lila .screen { --app-bg-top:#4d1689; --app-bg-bot:#45127f; --app-card:#57209a; --app-ink:#efe8f7; --app-soft:#c4b0e0; --dot-empty:rgba(255,255,255,0.15); --seg-track:rgba(255,255,255,0.09); --hairline-app:rgba(255,255,255,0.14); --app-shadow:0 18px 34px -20px rgba(0,0,0,0.5); }
 
 .theme-hell {
   --accent-ink: color-mix(in oklab, var(--accent) 46%, #5a1a00);
@@ -1242,13 +1242,13 @@ section { position: relative; }
 /* ---- problem: quiet stacked list instead of a card grid ---- */
 .pain-list { list-style: none; padding: 0; margin: 42px 0 0; max-width: 780px; display: flex; flex-direction: column; }
 .pain-list li {
-  display: grid; grid-template-columns: auto 1fr; column-gap: 22px; align-items: baseline;
+  display: grid; grid-template-columns: 1fr; align-items: baseline;
   padding: 26px 0; border-top: 1px solid var(--hairline);
 }
 .pain-list li:last-child { border-bottom: 1px solid var(--hairline); }
 .pain-list .pain-num { font-family: 'Instrument Serif', serif; font-style: italic; font-size: 17px; color: var(--accent-ink); }
 .pain-list p { margin: 0; font-size: clamp(17px, 2vw, 21px); line-height: 1.5; color: var(--text); }
-.pain-list .pain-tag { grid-column: 2; margin-top: 8px; font-size: 13.5px; color: var(--text-faint); }
+.pain-list .pain-tag { grid-column: 1; margin-top: 8px; font-size: 13.5px; color: var(--text-faint); }
 
 /* ---- features: calm two-column list, no cards ---- */
 .feat-list {

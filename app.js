@@ -62,10 +62,10 @@
   var BACKGROUNDS = [
     { name: 'Nacht',        cls: 'theme-nacht',  hex: '#0f1729' },
     { name: 'Dunkel Lachs', cls: 'theme-lachs',  hex: '#46322d' },
-    { name: 'Petrol',       cls: 'theme-petrol', hex: '#1a4942' },
+    { name: 'Lila',         cls: 'theme-lila',   hex: '#45127f' },
     { name: 'Hell',         cls: 'theme-hell',   hex: '#eef0f4' },
     { name: 'Creme',        cls: 'theme-creme',  hex: '#faf1ec' },
-    { name: 'Mint',         cls: 'theme-mint',   hex: '#e8f0eb' }
+    { name: 'Salbei',       cls: 'theme-mint',   hex: '#e8f0eb' }
   ];
 
   var root = document.documentElement;
