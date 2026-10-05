@@ -31,7 +31,7 @@
       'nav.pricing': "Preis",
       'nav.cta': "Kostenlos starten",
 
-      'hero.pill': "Von jemandem mit ADHS gebaut",
+      'hero.pill': "Für alle, denen das Anfangen schwerfällt",
       'hero.h1': "Eine Aufgabe.<br><em>Jetzt.</em>",
       'hero.sub': "Eine Karte nach der anderen. Für alle, die bei 47 offenen Aufgaben erstarren, statt anzufangen.",
       'hero.cta': "Kostenlos starten",
@@ -84,9 +84,6 @@
       'feat5.p': "Zwei, fünf oder zehn Minuten, auch auf dem Sperrbildschirm. Meistens reichen die ersten zwei zum Anfangen.",
       'feat6.h': "Privat und Arbeit",
       'feat6.p': "Zwei getrennte Bereiche auf einem Gerät. Nach Feierabend schaltest du die Arbeit einfach weg.",
-
-      'founder.quote': "Ich habe JETZT. für mich gebaut, weil keine andere App so funktioniert hat <em>wie mein Kopf.</em>",
-      'founder.cite': "Laszlo Endler, hat selbst ADHS",
 
       'themes.eyebrow': "Farbsystem",
       'themes.title': "Sechs Farben,<br>auch dunkel.",
@@ -156,7 +153,7 @@
       'cmp.push': "Erinnerungen",
       'pay.cta': "7 Tage kostenlos testen",
       'science.eyebrow': "Die Grundlage",
-      'science.title': "Worauf das aufbaut",
+      'science.title': "Was die Forschung<br>dazu sagt",
       'fact1': "Bei ADHS entwickelt sich die Selbststeuerung langsamer, nach Russell A. Barkley um etwa 30 Prozent. Aufschieben ist deshalb <b>kein Charakterfehler</b>.",
       'fact2': "Am schwersten ist der Anfang. Ein kleiner erster Schritt hilft dabei mehr als jede Motivation, deshalb startet der Timer mit zwei Minuten.",
       'fact3': "Wer nur eine Aufgabe sieht, muss nicht zwischen vielen wählen. Genau dieses Wählen kostet bei ADHS die meiste Kraft.",
@@ -210,7 +207,6 @@
       'footer.privacy': "Datenschutzerklärung",
       'footer.imprint': "Impressum",
       'footer.copy': "© 2026 JETZT. — Alle Rechte vorbehalten.",
-      'footer.made': "Gebaut von Laszlo Endler, der selbst ADHS hat."
     },
 
     en: {
@@ -220,7 +216,7 @@
       'nav.pricing': "Pricing",
       'nav.cta': "Start for free",
 
-      'hero.pill': "Built by someone with ADHD",
+      'hero.pill': "For anyone who struggles to get started",
       'hero.h1': "One task.<br><em>Now.</em>",
       'hero.sub': "One card at a time. For anyone who freezes at 47 open tasks instead of getting started.",
       'hero.cta': "Start for free",
@@ -273,9 +269,6 @@
       'feat5.p': "Two, five or ten minutes, on your lock screen too. The first two are usually enough to get going.",
       'feat6.h': "Personal and work",
       'feat6.p': "Two separate spaces on one device. After work, you just switch work off.",
-
-      'founder.quote': "I built JETZT. for myself, because no other app worked <em>the way my head does.</em>",
-      'founder.cite': "Laszlo Endler, has ADHD himself",
 
       'themes.eyebrow': "Color system",
       'themes.title': "Six colors,<br>dark ones too.",
@@ -345,7 +338,7 @@
       'cmp.push': "Reminders",
       'pay.cta': "Start 7-day free trial",
       'science.eyebrow': "The basis",
-      'science.title': "What it's based on",
+      'science.title': "What the research<br>says",
       'fact1': "With ADHD, self-regulation develops more slowly, by about 30 percent according to Russell A. Barkley. Putting things off is <b>not a character flaw</b>.",
       'fact2': "Starting is the hardest part. A small first step helps more than any amount of motivation, which is why the timer starts at two minutes.",
       'fact3': "If you only see one task, you don't have to choose between many. With ADHD, that choosing is what drains you most.",
@@ -399,7 +392,6 @@
       'footer.privacy': "Privacy Policy",
       'footer.imprint': "Imprint",
       'footer.copy': "© 2026 JETZT. — All rights reserved.",
-      'footer.made': "Built by Laszlo Endler, who has ADHD himself."
     }
   };
 
