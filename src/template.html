@@ -1,0 +1,210 @@
+<!doctype html>
+<html lang="{{lang}}">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{{title}}</title>
+<meta name="description" content="{{desc}}">
+<meta name="apple-itunes-app" content="app-id=6775079850">
+<link rel="alternate" hreflang="de" href="https://laszloendler.github.io/jetzt-app/">
+<link rel="alternate" hreflang="en" href="https://laszloendler.github.io/jetzt-app/en/">
+<link rel="stylesheet" href="{{root}}site.css">
+<script>document.documentElement.classList.add('js')</script>
+</head>
+<body>
+<div class="wrap">
+<header class="top">
+<a class="logo" href="{{home}}" aria-label="JETZT.">JETZT<span>.</span></a>
+<nav aria-label="{{nav_label}}">
+<a href="#tag">{{nav_day}}</a>
+<a href="#preis">{{nav_price}}</a>
+<a href="{{other_href}}" lang="{{other_lang}}">{{other_name}}</a>
+</nav>
+</header>
+
+<main>
+<section class="board night" aria-labelledby="titel">
+<div>
+<h1 id="titel">{{h1}}</h1>
+<p class="sub">{{sub}}</p>
+<div class="act">
+<a class="btn" href="https://apps.apple.com/app/id6775079850"><svg width="18" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M16.5 1.5c.1 1-.3 2-1 2.8-.7.8-1.8 1.4-2.8 1.3-.1-1 .4-2 1-2.7.7-.8 1.9-1.3 2.8-1.4zM20 17.2c-.5 1.2-.8 1.7-1.5 2.8-1 1.5-2.3 3.3-4 3.4-1.5 0-1.9-1-3.9-1-2 0-2.4 1-3.9 1-1.7 0-3-1.7-3.9-3.1C-.3 16.9-.6 11 1.9 8c1-1.4 2.6-2.3 4.2-2.3 1.6 0 2.6 1 3.9 1 1.3 0 2-1 3.9-1 1.4 0 2.9.8 3.9 2.1-3.4 1.9-2.9 6.8.3 8.4z"/></svg>{{cta}}</a>
+<p class="price">{{price_note}}</p>
+</div>
+</div>
+
+<div class="display" id="display" aria-label="{{display_label}}" role="group">
+<div class="call">
+<span class="lbl" id="call-lbl">{{call}}</span>
+<canvas class="matrix" id="matrix" aria-hidden="true"></canvas><span class="matrix-text num" aria-hidden="true">001</span>
+<span></span>
+<span class="area"><small>{{area_label}}</small><span id="area">{{t0_area}}</span></span>
+</div>
+<p class="sr" id="live" aria-live="polite"></p>
+<div class="screen">
+<article class="fcard" id="fcard">
+<div class="fhead"><span class="fbrand">JETZT</span><span class="fdots" aria-hidden="true"><i></i><i></i><i></i></span></div>
+<p class="ftitle" id="ftitle">{{t0_title}}</p>
+<ul class="flist" id="flist">{{t0_list}}</ul>
+<span class="fchip" id="fchip"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7.5v5l3 2" stroke-linecap="round" stroke-linejoin="round"/></svg><span id="fchip-t">{{t0_chip}}</span></span>
+<p class="fempty" id="fempty" hidden>{{empty}}</p>
+</article>
+<div class="swipe">
+<button type="button" id="later">{{later}}</button>
+<button type="button" id="done">{{done}}</button>
+</div>
+<div class="startbar">
+<div><b id="sb-h">{{two_min}}</b><span id="sb-s">{{just_start}}</span></div>
+<button type="button" class="btn" id="start" aria-pressed="false">{{start}}</button>
+</div>
+</div>
+<p class="tally"><span>{{done_today}} <b class="num" id="n-done">0</b></span><span>{{in_list}} <b class="num" id="n-list">46</b></span><span class="ex">{{example}}</span></p>
+</div>
+</section>
+
+<section class="sec" aria-labelledby="problem">
+<h2 class="h2" id="problem">{{problem_title}}</h2>
+<p class="lede">{{problem_lede}}</p>
+<div class="queue">
+<div>
+<ol class="tickets" aria-hidden="true">{{tickets}}</ol>
+<p class="tickets-cap">{{tickets_cap}}</p>
+</div>
+<ul class="pains">
+<li><p>{{pain1}}<em>{{pain1_tag}}</em></p></li>
+<li><p>{{pain2}}<em>{{pain2_tag}}</em></p></li>
+<li><p>{{pain3}}</p></li>
+</ul>
+</div>
+</section>
+
+<section class="sec" id="tag" aria-labelledby="tag-h">
+<h2 class="h2" id="tag-h">{{day_title}}</h2>
+<div class="day">
+<article class="drow">
+<p class="when">{{when1}}</p>
+<div>
+<h3>{{morgen_title}}</h3>
+<p class="lede">{{morgen_lede}}</p>
+<ul class="points"><li>{{morgen_p1}}</li><li>{{morgen_p2}}</li></ul>
+</div>
+<img class="shot" src="{{root}}shots/{{lang}}/{{shot_morning}}" width="1320" height="2868" loading="lazy" alt="{{alt_morning}}">
+</article>
+<article class="drow">
+<p class="when">{{when2}}</p>
+<div>
+<h3>{{liste_title}}</h3>
+<p class="lede">{{liste_lede}}</p>
+<ul class="points"><li>{{liste_p1}}</li><li>{{liste_p2}}</li></ul>
+<p class="ai"><strong>{{ai_title}}</strong><span>{{ai_sub}}</span></p>
+</div>
+<img class="shot" src="{{root}}shots/{{lang}}/{{shot_list}}" width="1320" height="2868" loading="lazy" alt="{{alt_list}}">
+</article>
+<article class="drow">
+<p class="when">{{when3}}</p>
+<div>
+<h3>{{stats_title}}</h3>
+<p class="lede">{{stats_lede}}</p>
+<ul class="points"><li>{{stats_p1}}</li><li>{{stats_p2}}</li></ul>
+</div>
+<img class="shot" src="{{root}}shots/{{lang}}/{{shot_stats}}" width="1320" height="2868" loading="lazy" alt="{{alt_stats}}">
+</article>
+</div>
+</section>
+
+<section class="sec" aria-labelledby="feats-h">
+<h2 class="h2" id="feats-h">{{features_title}}</h2>
+<div class="feats">
+<dl>
+<div class="feat"><dt>{{feat1_h}}</dt><dd>{{feat1_p}}</dd></div>
+<div class="feat"><dt>{{feat4_h}}</dt><dd>{{feat4_p}}</dd></div>
+<div class="feat"><dt>{{feat5_h}}</dt><dd>{{feat5_p}}</dd></div>
+<div class="feat"><dt>{{feat6_h}}</dt><dd>{{feat6_p}}</dd></div>
+<div class="feat"><dt>{{feat2_h}}</dt><dd>{{feat2_p}}</dd></div>
+<div class="feat"><dt>{{feat3_h}}</dt><dd>{{feat3_p}}</dd></div>
+</dl>
+</div>
+</section>
+
+<section class="sec colors" aria-labelledby="farben">
+<div>
+<h2 class="h2" id="farben">{{themes_title}}</h2>
+<p class="lede">{{themes_lede}}</p>
+<form class="picker" id="picker">
+<fieldset><legend>{{pick_accent}}</legend><div class="sw">{{accents}}</div></fieldset>
+<fieldset><legend>{{pick_bg}}</legend><div class="sw">{{bgs}}</div></fieldset>
+</form>
+<p class="free">{{themes_free}}</p>
+</div>
+<figure class="preview" id="preview" style="margin:0">
+<div class="pcard">
+<div class="fhead"><span class="fbrand">JETZT</span><span class="fdots" aria-hidden="true"><i></i><i></i><i></i></span></div>
+<p class="ftitle">{{t1_title}}</p>
+<span class="fchip"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7.5v5l3 2" stroke-linecap="round" stroke-linejoin="round"/></svg>{{t1_chip}}</span>
+</div>
+<div class="pbar"><div><b>{{two_min}}</b><span>{{just_start}}</span></div><span class="pstart">{{start}}</span></div>
+<figcaption>{{example}}</figcaption>
+</figure>
+</section>
+
+<section class="sec research" aria-labelledby="forschung">
+<div>
+<h2 class="h2" id="forschung">{{science_title}}</h2>
+<figure class="quote" style="margin-top:40px">
+<blockquote><p>{{science_quote}}</p></blockquote>
+<figcaption>{{quote_who}}, {{quote_role}}</figcaption>
+</figure>
+</div>
+<ul class="facts"><li>{{fact1}}</li><li>{{fact2}}</li><li>{{fact3}}</li></ul>
+</section>
+
+<section class="sec" id="preis" aria-labelledby="preis-h">
+<h2 class="h2" id="preis-h">{{pricing_title}}</h2>
+<p class="lede">{{pricing_lede}}</p>
+<div class="plans">
+<table>
+<caption class="sr">{{table_cap}}</caption>
+<thead><tr><th scope="col"><span class="sr">{{col_feature}}</span></th><th scope="col">{{free}}</th><th scope="col">Pro</th></tr></thead>
+<tbody>{{rows}}</tbody>
+</table>
+<div class="pro">
+<h3>JETZT. Pro</h3>
+<ul>
+<li><b class="num">{{p_year}}</b><span>{{p_year_sub}}</span></li>
+<li><b class="num">{{p_month}}</b><span>{{p_month_sub}}</span></li>
+<li><b class="num">{{p_once}}</b><span>{{p_once_sub}}</span></li>
+</ul>
+<p>{{trial}}</p>
+<a class="btn" href="https://apps.apple.com/app/id6775079850">{{cta}}</a>
+</div>
+</div>
+<div class="why">
+<h3>{{faq_q}}</h3>
+<p>{{faq_a}}</p>
+</div>
+</section>
+
+<section class="close night" aria-labelledby="schluss">
+<div>
+<h2 id="schluss">{{close_title}}</h2>
+<p>{{close_sub}}</p>
+<div style="margin-top:32px"><a class="btn" href="https://apps.apple.com/app/id6775079850">{{cta}}</a></div>
+</div>
+<div class="call" aria-hidden="true">
+<span class="lbl">{{call}}</span>
+<canvas class="matrix" data-text="001"></canvas><span class="matrix-text num">001</span>
+</div>
+</section>
+</main>
+
+<footer class="foot">
+<span>© 2026 Laszlo Endler</span>
+<a href="https://laszloendler.github.io/jetzt-app-legal/JETZT-Datenschutzerklaerung.html">{{privacy}}</a>
+<a href="https://laszloendler.github.io/jetzt-app-legal/JETZT-Impressum.html">{{imprint}}</a>
+<a href="{{other_href}}" lang="{{other_lang}}">{{other_name}}</a>
+</footer>
+</div>
+<script type="application/json" id="data">{{data}}</script>
+<script src="{{root}}site.js"></script>
+</body>
+</html>

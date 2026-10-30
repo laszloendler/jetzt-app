@@ -1,0 +1,210 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>JETZT. One task. Now.</title>
+<meta name="description" content="JETZT. only ever shows you one task and helps you get started. For iPhone, free on the App Store.">
+<meta name="apple-itunes-app" content="app-id=6775079850">
+<link rel="alternate" hreflang="de" href="https://laszloendler.github.io/jetzt-app/">
+<link rel="alternate" hreflang="en" href="https://laszloendler.github.io/jetzt-app/en/">
+<link rel="stylesheet" href="../site.css">
+<script>document.documentElement.classList.add('js')</script>
+</head>
+<body>
+<div class="wrap">
+<header class="top">
+<a class="logo" href="./" aria-label="JETZT.">JETZT<span>.</span></a>
+<nav aria-label="Main menu">
+<a href="#tag">The day</a>
+<a href="#preis">Pricing</a>
+<a href="../" lang="de">Deutsch</a>
+</nav>
+</header>
+
+<main>
+<section class="board night" aria-labelledby="titel">
+<div>
+<h1 id="titel">One task. Now<span class="pt">.</span></h1>
+<p class="sub">One card at a time. For anyone who freezes at 47 open tasks instead of getting started.</p>
+<div class="act">
+<a class="btn" href="https://apps.apple.com/app/id6775079850"><svg width="18" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M16.5 1.5c.1 1-.3 2-1 2.8-.7.8-1.8 1.4-2.8 1.3-.1-1 .4-2 1-2.7.7-.8 1.9-1.3 2.8-1.4zM20 17.2c-.5 1.2-.8 1.7-1.5 2.8-1 1.5-2.3 3.3-4 3.4-1.5 0-1.9-1-3.9-1-2 0-2.4 1-3.9 1-1.7 0-3-1.7-3.9-3.1C-.3 16.9-.6 11 1.9 8c1-1.4 2.6-2.3 4.2-2.3 1.6 0 2.6 1 3.9 1 1.3 0 2-1 3.9-1 1.4 0 2.9.8 3.9 2.1-3.4 1.9-2.9 6.8.3 8.4z"/></svg>Download free</a>
+<p class="price">For iPhone. Pro from €17.99 a year, free for a week.</p>
+</div>
+</div>
+
+<div class="display" id="display" aria-label="Example: the JETZT. focus screen" role="group">
+<div class="call">
+<span class="lbl" id="call-lbl">Now calling</span>
+<canvas class="matrix" id="matrix" aria-hidden="true"></canvas><span class="matrix-text num" aria-hidden="true">001</span>
+<span></span>
+<span class="area"><small>Space</small><span id="area">Personal</span></span>
+</div>
+<p class="sr" id="live" aria-live="polite"></p>
+<div class="screen">
+<article class="fcard" id="fcard">
+<div class="fhead"><span class="fbrand">JETZT</span><span class="fdots" aria-hidden="true"><i></i><i></i><i></i></span></div>
+<p class="ftitle" id="ftitle">Buy wall paint</p>
+<ul class="flist" id="flist"><li><button type="button" aria-pressed="false"><span class="bx"><svg width="12" height="10" viewBox="0 0 12 10" aria-hidden="true"><path d="M1 5l3.5 3.5L11 1" fill="none" stroke="#151c2e" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span class="tx">NCS S 1002-Y</span></button></li><li><button type="button" aria-pressed="false"><span class="bx"><svg width="12" height="10" viewBox="0 0 12 10" aria-hidden="true"><path d="M1 5l3.5 3.5L11 1" fill="none" stroke="#151c2e" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span class="tx">2 × 5 liters</span></button></li></ul>
+<span class="fchip" id="fchip"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7.5v5l3 2" stroke-linecap="round" stroke-linejoin="round"/></svg><span id="fchip-t">Today, 6:00 PM</span></span>
+<p class="fempty" id="fempty" hidden>That was every example. In the app, the next card would be up now.</p>
+</article>
+<div class="swipe">
+<button type="button" id="later">← Later</button>
+<button type="button" id="done">Done →</button>
+</div>
+<div class="startbar">
+<div><b id="sb-h">Just 2 minutes?</b><span id="sb-s">Just get started.</span></div>
+<button type="button" class="btn" id="start" aria-pressed="false">Start ▶</button>
+</div>
+</div>
+<p class="tally"><span>Done today <b class="num" id="n-done">0</b></span><span>In your list <b class="num" id="n-list">46</b></span><span class="ex">Example</span></p>
+</div>
+</section>
+
+<section class="sec" aria-labelledby="problem">
+<h2 class="h2" id="problem">Most to-do apps show you everything at once<span class="pt">.</span></h2>
+<p class="lede">They're built for people who see a list and dive in. If looking at the list already wears you out, that's not on you.</p>
+<div class="queue">
+<div>
+<ol class="tickets" aria-hidden="true"><li class="on"><b>001</b>Buy wall paint</li><li><b>002</b>File tax return</li><li><b>003</b>Send quote to Ms. Kaya</li><li><b>004</b>Call the dentist</li><li><b>005</b>Return the bottles</li><li><b>006</b>Birthday present for Lena</li><li><b>007</b>Clean out the basement</li><li><b>008</b>Cancel phone contract</li><li><b>009</b>Get back to Tom</li><li><b>010</b>Bike to the repair shop</li><li><b>011</b>Move doctor's appointment</li><li><b>012</b>Prepare apartment handover</li><li><b>013</b>File bank statements</li><li><b>014</b>Proofread application</li><li><b>015</b>Take parcel to post office</li><li><b>016</b>Hang up the laundry</li><li><b>017</b>Call Mom back</li><li><b>018</b>Mow the lawn</li><li><b>019</b>Slides for Monday</li><li><b>020</b>Renew passport</li><li><b>021</b>Invoice the client</li><li><b>022</b>Clean the windows</li><li><b>023</b>Compare insurance</li><li><b>024</b>Empty the dishwasher</li><li><b>025</b>Daycare form</li><li><b>026</b>Sort emails</li><li><b>027</b>Water the plants</li><li><b>028</b>Get an oil change</li><li><b>029</b>Book flight to Lisbon</li><li><b>030</b>Laptop backup</li><li><b>031</b>Recycle glass</li><li><b>032</b>Check utility bill</li><li><b>033</b>Appointment at city hall</li><li><b>034</b>Dig out winter clothes</li><li><b>035</b>Read quarterly report</li><li><b>036</b>Print photos</li><li><b>037</b>Sign homework</li><li><b>038</b>Pick up prescription</li><li><b>039</b>Defrost the freezer</li><li><b>040</b>Cancel subscription</li><li><b>041</b>Order business cards</li><li><b>042</b>Assemble the shelf</li><li><b>043</b>Call the tax advisor</li><li><b>044</b>Shoes to the cobbler</li><li><b>045</b>Change passwords</li><li><b>046</b>Write a thank-you card</li><li><b>047</b>Buy running shoes</li></ol>
+<p class="tickets-cap">Example: 47 open tasks. JETZT. calls one of them, the rest wait.</p>
+</div>
+<ul class="pains">
+<li><p>You open the app, see 47 tasks, and close it again.<em>That's overload, not laziness.</em></p></li>
+<li><p>A streak counter that drops back to zero the first time you skip a day.<em>And the next morning you want to open it even less.</em></p></li>
+<li><p>A list that grows every day and reminds you of everything that's still open.</p></li>
+</ul>
+</div>
+</section>
+
+<section class="sec" id="tag" aria-labelledby="tag-h">
+<h2 class="h2" id="tag-h">A day with JETZT<span class="pt">.</span></h2>
+<div class="day">
+<article class="drow">
+<p class="when">Morning</p>
+<div>
+<h3>Three questions sort your day.</h3>
+<p class="lede">How much energy have you got? Any meetings? Anything urgent? JETZT. builds your day from that and only shows you what's realistic today.</p>
+<ul class="points"><li><strong>Energy first.</strong> On a slow day the easy things move up, on a good day the big ones.</li><li><strong>Not in the mood?</strong> Tap Skip and the app won't ask again.</li></ul>
+</div>
+<img class="shot" src="../shots/en/04-morning-check.png" width="1320" height="2868" loading="lazy" alt="Morning check: pick energy, meetings and deadline pressure">
+</article>
+<article class="drow">
+<p class="when">During the day</p>
+<div>
+<h3>Write it the way you'd say it.</h3>
+<p class="lede">Type <em>“Dentist tomorrow at noon”</em> and the date is set. Everything goes into the list, but the card only shows what fits right now.</p>
+<ul class="points"><li><strong>Whole lists at once.</strong> Paste your notes and JETZT. turns them into separate tasks.</li><li><strong>Your shopping list on the card.</strong> Milk, bread and apples sit right on the card, and you tick them off in the store.</li></ul>
+<p class="ai"><strong>Apple Intelligence, right on your iPhone</strong><span>Your tasks don't leave the device for detection.</span></p>
+</div>
+<img class="shot" src="../shots/en/02-list.png" width="1320" height="2868" loading="lazy" alt="Task list with open and completed tasks">
+</article>
+<article class="drow">
+<p class="when">Evening</p>
+<div>
+<h3>Only what you got done counts here.</h3>
+<p class="lede">The stats show your week and what you finished today. Skip a day and you don't start over from zero.</p>
+<ul class="points"><li><strong>A sentence, not a grade.</strong> After three tasks it says “Good on you for getting started”, not a percentage.</li><li><strong>Wrap up the day.</strong> In the evening, one tap moves what's left to tomorrow and you can close the app.</li></ul>
+</div>
+<img class="shot" src="../shots/en/05-stats.png" width="1320" height="2868" loading="lazy" alt="Stats screen: tasks completed this week and end of day">
+</article>
+</div>
+</section>
+
+<section class="sec" aria-labelledby="feats-h">
+<h2 class="h2" id="feats-h">What else is in there<span class="pt">.</span></h2>
+<div class="feats">
+<dl>
+<div class="feat"><dt>One card</dt><dd>The focus screen only ever holds one task. Tap it to edit.</dd></div>
+<div class="feat"><dt>Energy</dt><dd>Every task is light, medium or heavy. You see what fits your energy today.</dd></div>
+<div class="feat"><dt>Focus timer</dt><dd>Two, five or ten minutes, on your lock screen too. The first two are usually enough to get going.</dd></div>
+<div class="feat"><dt>Personal and work</dt><dd>Two separate spaces on one device. After work, you just switch work off.</dd></div>
+<div class="feat"><dt>Add several tasks</dt><dd>Paste a list from your notes or an email and JETZT. turns it into separate tasks with dates.</dd></div>
+<div class="feat"><dt>Timed tasks move up</dt><dd>If a task has a time, it moves to the front half an hour before.</dd></div>
+</dl>
+</div>
+</section>
+
+<section class="sec colors" aria-labelledby="farben">
+<div>
+<h2 class="h2" id="farben">Six colors, dark ones too<span class="pt">.</span></h2>
+<p class="lede">Six accent colors and six backgrounds, mix them however you like. Try them here and the card updates right away.</p>
+<form class="picker" id="picker">
+<fieldset><legend>Accent color</legend><div class="sw"><label><input type="radio" name="accent" value="salmon" checked><i style="background:#f4a68a"></i>Salmon</label><label><input type="radio" name="accent" value="mint"><i style="background:#7ecfc0"></i>Mint</label><label><input type="radio" name="accent" value="lavender"><i style="background:#b8a9d9"></i>Lavender</label><label><input type="radio" name="accent" value="butter"><i style="background:#d4a830"></i>Butter</label><label><input type="radio" name="accent" value="blush"><i style="background:#e890a8"></i>Blush</label><label><input type="radio" name="accent" value="slate"><i style="background:#7a9bb5"></i>Slate</label></div></fieldset>
+<fieldset><legend>Background</legend><div class="sw"><label><input type="radio" name="bg" value="mintLight" checked><i style="background:#e8f8eb"></i>Sage</label><label><input type="radio" name="bg" value="cream"><i style="background:#fff3e7"></i>Cream</label><label><input type="radio" name="bg" value="light"><i style="background:#f2f2f7"></i>Light</label><label><input type="radio" name="bg" value="night"><i style="background:#0f1729"></i>Night</label><label><input type="radio" name="bg" value="darkSalmon"><i style="background:#5d3a32"></i>Dark Salmon</label><label><input type="radio" name="bg" value="darkPurple"><i style="background:#45127f"></i>Purple</label></div></fieldset>
+</form>
+<p class="free">Salmon is free, the rest come with Pro.</p>
+</div>
+<figure class="preview" id="preview" style="margin:0">
+<div class="pcard">
+<div class="fhead"><span class="fbrand">JETZT</span><span class="fdots" aria-hidden="true"><i></i><i></i><i></i></span></div>
+<p class="ftitle">File tax return</p>
+<span class="fchip"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7.5v5l3 2" stroke-linecap="round" stroke-linejoin="round"/></svg>Fri, 5:00 PM</span>
+</div>
+<div class="pbar"><div><b>Just 2 minutes?</b><span>Just get started.</span></div><span class="pstart">Start ▶</span></div>
+<figcaption>Example</figcaption>
+</figure>
+</section>
+
+<section class="sec research" aria-labelledby="forschung">
+<div>
+<h2 class="h2" id="forschung">What the research says<span class="pt">.</span></h2>
+<figure class="quote" style="margin-top:40px">
+<blockquote><p>With ADHD, knowing what to do is rarely the problem. Doing it at the right moment is.</p></blockquote>
+<figcaption>Paraphrased from Russell A. Barkley, clinical psychologist and ADHD researcher</figcaption>
+</figure>
+</div>
+<ul class="facts"><li>With ADHD, self-regulation develops more slowly, by about 30 percent according to Russell A. Barkley. Putting things off is <b>not a character flaw</b>.</li><li>Starting is the hardest part. A small first step helps more than any amount of motivation, which is why the timer starts at two minutes.</li><li>If you only see one task, you don't have to choose between many. With ADHD, that choosing is what drains you most.</li></ul>
+</section>
+
+<section class="sec" id="preis" aria-labelledby="preis-h">
+<h2 class="h2" id="preis-h">Start free. Go Pro if you want<span class="pt">.</span></h2>
+<p class="lede">The basics are free, now and later. Pro comes as a subscription or a one-time purchase.</p>
+<div class="plans">
+<table>
+<caption class="sr">Features in the free version and in Pro</caption>
+<thead><tr><th scope="col"><span class="sr">Feature</span></th><th scope="col">Free</th><th scope="col">Pro</th></tr></thead>
+<tbody><tr><th scope="row">Unlimited tasks</th><td><svg width="20" height="20" viewBox="0 0 20 20" aria-hidden="true"><path d="M4 10.5l4 4L16 6" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg><span class="sr">included</span></td><td><svg width="20" height="20" viewBox="0 0 20 20" aria-hidden="true"><path d="M4 10.5l4 4L16 6" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg><span class="sr">included</span></td></tr><tr><th scope="row">Personal and work</th><td><svg width="20" height="20" viewBox="0 0 20 20" aria-hidden="true"><path d="M4 10.5l4 4L16 6" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg><span class="sr">included</span></td><td><svg width="20" height="20" viewBox="0 0 20 20" aria-hidden="true"><path d="M4 10.5l4 4L16 6" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg><span class="sr">included</span></td></tr><tr><th scope="row">Morning check</th><td><svg width="20" height="20" viewBox="0 0 20 20" aria-hidden="true"><path d="M4 10.5l4 4L16 6" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg><span class="sr">included</span></td><td><svg width="20" height="20" viewBox="0 0 20 20" aria-hidden="true"><path d="M4 10.5l4 4L16 6" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg><span class="sr">included</span></td></tr><tr><th scope="row">Focus screen with one card</th><td><svg width="20" height="20" viewBox="0 0 20 20" aria-hidden="true"><path d="M4 10.5l4 4L16 6" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg><span class="sr">included</span></td><td><svg width="20" height="20" viewBox="0 0 20 20" aria-hidden="true"><path d="M4 10.5l4 4L16 6" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg><span class="sr">included</span></td></tr><tr><th scope="row">Colors</th><td>Salmon</td><td>All six and all backgrounds</td></tr><tr><th scope="row">Recurring tasks</th><td>Daily</td><td>Daily, weekly, monthly</td></tr><tr><th scope="row">Add several tasks</th><td>Without AI</td><td>Sorted with AI</td></tr><tr><th scope="row">Detection as you type</th><td><span class="no" aria-hidden="true">–</span><span class="sr">not included</span></td><td><svg width="20" height="20" viewBox="0 0 20 20" aria-hidden="true"><path d="M4 10.5l4 4L16 6" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg><span class="sr">included</span></td></tr><tr><th scope="row">Checklists on the card</th><td><span class="no" aria-hidden="true">–</span><span class="sr">not included</span></td><td><svg width="20" height="20" viewBox="0 0 20 20" aria-hidden="true"><path d="M4 10.5l4 4L16 6" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg><span class="sr">included</span></td></tr><tr><th scope="row">Focus timer</th><td><span class="no" aria-hidden="true">–</span><span class="sr">not included</span></td><td>2, 5 or 10 minutes</td></tr><tr><th scope="row">Stats</th><td><span class="no" aria-hidden="true">–</span><span class="sr">not included</span></td><td><svg width="20" height="20" viewBox="0 0 20 20" aria-hidden="true"><path d="M4 10.5l4 4L16 6" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg><span class="sr">included</span></td></tr><tr><th scope="row">Evening recap</th><td><span class="no" aria-hidden="true">–</span><span class="sr">not included</span></td><td><svg width="20" height="20" viewBox="0 0 20 20" aria-hidden="true"><path d="M4 10.5l4 4L16 6" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg><span class="sr">included</span></td></tr><tr><th scope="row">Reminders</th><td><span class="no" aria-hidden="true">–</span><span class="sr">not included</span></td><td><svg width="20" height="20" viewBox="0 0 20 20" aria-hidden="true"><path d="M4 10.5l4 4L16 6" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg><span class="sr">included</span></td></tr></tbody>
+</table>
+<div class="pro">
+<h3>JETZT. Pro</h3>
+<ul>
+<li><b class="num">€17.99</b><span>a year, so €1.50 a month</span></li>
+<li><b class="num">€1.99</b><span>a month, cancel anytime</span></li>
+<li><b class="num">€39.99</b><span>one-time, yours forever</span></li>
+</ul>
+<p>Try the annual plan free for 7 days. The app reminds you on day 5, and you can cancel anytime before.</p>
+<a class="btn" href="https://apps.apple.com/app/id6775079850">Download free</a>
+</div>
+</div>
+<div class="why">
+<h3>Why these prices?</h3>
+<p>JETZT. runs on your iPhone, Apple Intelligence features included. We don't need a server for your tasks. There's a subscription anyway, because it lets you try the app for little money and see if it helps. If you'd rather pay once and never think about it again, go for the one-time purchase.</p>
+</div>
+</section>
+
+<section class="close night" aria-labelledby="schluss">
+<div>
+<h2 id="schluss">Your first card is ready<span class="pt">.</span></h2>
+<p>Download, type one task, start for two minutes. You'll only see the rest of the list when you want to.</p>
+<div style="margin-top:32px"><a class="btn" href="https://apps.apple.com/app/id6775079850">Download free</a></div>
+</div>
+<div class="call" aria-hidden="true">
+<span class="lbl">Now calling</span>
+<canvas class="matrix" data-text="001"></canvas><span class="matrix-text num">001</span>
+</div>
+</section>
+</main>
+
+<footer class="foot">
+<span>© 2026 Laszlo Endler</span>
+<a href="https://laszloendler.github.io/jetzt-app-legal/JETZT-Datenschutzerklaerung.html">Privacy Policy</a>
+<a href="https://laszloendler.github.io/jetzt-app-legal/JETZT-Impressum.html">Imprint</a>
+<a href="../" lang="de">Deutsch</a>
+</footer>
+</div>
+<script type="application/json" id="data">{"start": "Start ▶", "stop": "Pause", "call": "Now calling", "focus": "Focus", "allDone": "That's everything for today.", "callSay": "Now calling {n}: {t}", "timerSay": "Two minutes are running.", "timeUp": "Two minutes done.", "tasks": [{"title": "Buy wall paint", "chip": "Today, 6:00 PM", "area": "Personal", "list": ["NCS S 1002-Y", "2 × 5 liters"]}, {"title": "File tax return", "chip": "Fri, 5:00 PM", "area": "Personal"}, {"title": "Send quote to Ms. Kaya", "chip": "Today, 11:30 AM", "area": "Work"}, {"title": "Call the dentist", "chip": "Tomorrow", "area": "Personal"}, {"title": "Return the bottles", "chip": "", "area": "Personal"}], "accents": [{"key": "salmon", "accent": "#f4a68a", "onLight": "#c34112", "onDark": "#f6b8a1", "soft": "rgba(244,166,138,.13)"}, {"key": "mint", "accent": "#7ecfc0", "onLight": "#2d786a", "onDark": "#85d2c4", "soft": "rgba(126,207,192,.13)"}, {"key": "lavender", "accent": "#b8a9d9", "onLight": "#7b5fb8", "onDark": "#cabee2", "soft": "rgba(184,169,217,.13)"}, {"key": "butter", "accent": "#d4a830", "onLight": "#876a1c", "onDark": "#e0c16b", "soft": "rgba(212,168,48,.13)"}, {"key": "blush", "accent": "#e890a8", "onLight": "#ce2b57", "onDark": "#f0b6c6", "soft": "rgba(232,144,168,.13)"}, {"key": "slate", "accent": "#7a9bb5", "onLight": "#4f728e", "onDark": "#b5c7d6", "soft": "rgba(122,155,181,.13)"}], "bgs": [{"key": "mintLight", "hex": "#e8f8eb", "card": "#ffffff", "dark": false}, {"key": "cream", "hex": "#fff3e7", "card": "#ffffff", "dark": false}, {"key": "light", "hex": "#f2f2f7", "card": "#ffffff", "dark": false}, {"key": "night", "hex": "#0f1729", "card": "#232741", "dark": true}, {"key": "darkSalmon", "hex": "#5d3a32", "card": "#6e483e", "dark": true}, {"key": "darkPurple", "hex": "#45127f", "card": "#5e27a6", "dark": true}]}</script>
+<script src="../site.js"></script>
+</body>
+</html>

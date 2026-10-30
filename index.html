@@ -1,364 +1,210 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="de">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>JETZT. — Eine Aufgabe. Jetzt.</title>
-<link rel="stylesheet" href="styles.css?v=16">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>JETZT. Eine Aufgabe. Jetzt.</title>
+<meta name="description" content="JETZT. zeigt dir immer nur eine Aufgabe und hilft beim Anfangen. Für iPhone, kostenlos im App Store.">
+<meta name="apple-itunes-app" content="app-id=6775079850">
+<link rel="alternate" hreflang="de" href="https://laszloendler.github.io/jetzt-app/">
+<link rel="alternate" hreflang="en" href="https://laszloendler.github.io/jetzt-app/en/">
+<link rel="stylesheet" href="site.css">
+<script>document.documentElement.classList.add('js')</script>
 </head>
 <body>
-
-<div class="scroll-progress" id="scrollProgress"></div>
-<div class="pointer-glow" id="pointerGlow"></div>
-
-<!-- ============================ NAV ============================ -->
-<nav class="nav" id="nav">
-  <div class="wrap nav-inner">
-    <a class="logo" href="#top">JETZT<span class="dot">.</span></a>
-    <div class="nav-links">
-      <a href="#morgen" data-i18n="nav.morgen">Morgen-Check</a>
-      <a href="#liste" data-i18n="nav.liste">Erfassen</a>
-      <a href="#statistik" data-i18n="nav.stats">Statistik</a>
-      <a href="#pricing" data-i18n="nav.pricing">Preis</a>
-    </div>
-    <div class="nav-right">
-      <div class="lang-switch" id="langSwitch" role="group" aria-label="Sprache / Language">
-        <button type="button" data-lang="de" class="on">DE</button>
-        <button type="button" data-lang="en">EN</button>
-      </div>
-      <a href="https://apps.apple.com/app/id6775079850" target="_blank" rel="noopener" class="btn btn-primary btn-sm" data-i18n="nav.cta">Kostenlos starten</a>
-    </div>
-  </div>
+<div class="wrap">
+<header class="top">
+<a class="logo" href="./" aria-label="JETZT.">JETZT<span>.</span></a>
+<nav aria-label="Hauptmenü">
+<a href="#tag">Der Tag</a>
+<a href="#preis">Preis</a>
+<a href="en/" lang="en">English</a>
 </nav>
-
-<!-- ============================ HERO ============================ -->
-<header class="hero" id="top" data-screen-label="Hero">
-  <div class="hero-orb a"></div>
-  <div class="wrap hero-grid">
-    <div class="hero-copy">
-      <span class="hero-pill reveal"><span class="ping"></span> <span data-i18n="hero.pill">Für alle, denen das Anfangen schwerfällt</span></span>
-      <h1 class="reveal d1" data-i18n="hero.h1">Eine Aufgabe.<br><em>Jetzt.</em></h1>
-      <p class="hero-sub reveal d2" data-i18n="hero.sub">Eine Karte nach der anderen. Für alle, die bei 47 offenen Aufgaben erstarren, statt anzufangen.</p>
-      <div class="hero-cta reveal d2">
-        <a href="https://apps.apple.com/app/id6775079850" target="_blank" rel="noopener" class="btn btn-primary" data-i18n="hero.cta">Kostenlos starten</a>
-        <a href="https://apps.apple.com/app/id6775079850" target="_blank" rel="noopener" class="store-btn" aria-label="JETZT. im App Store">
-          <svg class="store-ico" viewBox="0 0 24 24" fill="currentColor"><path d="M16.5 1.5c.1 1-.3 2-1 2.8-.7.8-1.8 1.4-2.8 1.3-.1-1 .4-2 1-2.7.7-.8 1.9-1.3 2.8-1.4zM20 17.2c-.5 1.2-.8 1.7-1.5 2.8-1 1.5-2.3 3.3-4 3.4-1.5 0-1.9-1-3.9-1-2 0-2.4 1-3.9 1-1.7 0-3-1.7-3.9-3.1C-.3 16.9-.6 11 1.9 8c1-1.4 2.6-2.3 4.2-2.3 1.6 0 2.6 1 3.9 1 1.3 0 2-1 3.9-1 1.4 0 2.9.8 3.9 2.1-3.4 1.9-2.9 6.8.3 8.4z"/></svg>
-          <span class="store-txt"><small data-i18n="store.small">Laden im</small><strong>App Store</strong></span>
-        </a>
-      </div>
-      <div class="hero-note reveal d3">
-        <span data-i18n="hero.note1">Kostenlos starten</span><span class="sep"></span>
-        <span data-i18n="hero.note2">Pro ab 17,99 € im Jahr</span><span class="sep"></span>
-        <span data-i18n="hero.note3">Eine Woche kostenlos testen</span>
-      </div>
-    </div>
-
-    <div class="hero-phone-wrap reveal d2">
-      <div class="phone shot float">
-        <div class="phone-notch"></div>
-        <div class="screen-shot"><img data-shot="01" src="shots/de/01-fokus.png" alt="JETZT. Fokus-Screen: eine einzelne Aufgabenkarte"></div>
-      </div>
-    </div>
-  </div>
 </header>
 
-<!-- ============================ PROBLEM ============================ -->
-<section class="problem" id="problem" data-screen-label="Problem">
-  <div class="wrap">
-    <div class="problem-head reveal">
-      <h2 class="section-title" data-i18n="problem.title">Die meisten Todo-Apps<br>zeigen dir alles auf einmal.</h2>
-      <p class="section-lede" data-i18n="problem.lede">Sie sind für Leute gebaut, die eine Liste sehen und loslegen. Wenn du beim Anblick der Liste schon müde wirst, liegt das nicht an dir.</p>
-    </div>
-    <ul class="pain-list">
-      <li class="reveal d1"><p data-i18n="pain1">Du öffnest die App und siehst 47 Aufgaben. Du machst die App wieder zu.</p><span class="pain-tag" data-i18n="pain1.tag">Das ist Überforderung, keine Faulheit.</span></li>
-      <li class="reveal d2"><p data-i18n="pain2">Ein Zähler für erledigte Tage am Stück, der wieder bei null anfängt, sobald du einmal aussetzt.</p><span class="pain-tag" data-i18n="pain2.tag">Am nächsten Morgen hast du dann noch weniger Lust.</span></li>
-      <li class="reveal d3"><p data-i18n="pain3">Eine Liste, die jeden Tag länger wird und dich jedes Mal daran erinnert, was noch offen ist.</p></li>
-    </ul>
-  </div>
+<main>
+<section class="board night" aria-labelledby="titel">
+<div>
+<h1 id="titel">Eine Aufgabe. Jetzt<span class="pt">.</span></h1>
+<p class="sub">Eine Karte nach der anderen. Für alle, die bei 47 offenen Aufgaben erstarren, statt anzufangen.</p>
+<div class="act">
+<a class="btn" href="https://apps.apple.com/app/id6775079850"><svg width="18" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M16.5 1.5c.1 1-.3 2-1 2.8-.7.8-1.8 1.4-2.8 1.3-.1-1 .4-2 1-2.7.7-.8 1.9-1.3 2.8-1.4zM20 17.2c-.5 1.2-.8 1.7-1.5 2.8-1 1.5-2.3 3.3-4 3.4-1.5 0-1.9-1-3.9-1-2 0-2.4 1-3.9 1-1.7 0-3-1.7-3.9-3.1C-.3 16.9-.6 11 1.9 8c1-1.4 2.6-2.3 4.2-2.3 1.6 0 2.6 1 3.9 1 1.3 0 2-1 3.9-1 1.4 0 2.9.8 3.9 2.1-3.4 1.9-2.9 6.8.3 8.4z"/></svg>Kostenlos laden</a>
+<p class="price">Für iPhone. Pro ab 17,99 € im Jahr, eine Woche kostenlos testen.</p>
+</div>
+</div>
+
+<div class="display" id="display" aria-label="Beispiel: Fokus-Screen von JETZT." role="group">
+<div class="call">
+<span class="lbl" id="call-lbl">Aufruf</span>
+<canvas class="matrix" id="matrix" aria-hidden="true"></canvas><span class="matrix-text num" aria-hidden="true">001</span>
+<span></span>
+<span class="area"><small>Bereich</small><span id="area">Privat</span></span>
+</div>
+<p class="sr" id="live" aria-live="polite"></p>
+<div class="screen">
+<article class="fcard" id="fcard">
+<div class="fhead"><span class="fbrand">JETZT</span><span class="fdots" aria-hidden="true"><i></i><i></i><i></i></span></div>
+<p class="ftitle" id="ftitle">Wandfarbe kaufen</p>
+<ul class="flist" id="flist"><li><button type="button" aria-pressed="false"><span class="bx"><svg width="12" height="10" viewBox="0 0 12 10" aria-hidden="true"><path d="M1 5l3.5 3.5L11 1" fill="none" stroke="#151c2e" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span class="tx">NCS S 1002-Y</span></button></li><li><button type="button" aria-pressed="false"><span class="bx"><svg width="12" height="10" viewBox="0 0 12 10" aria-hidden="true"><path d="M1 5l3.5 3.5L11 1" fill="none" stroke="#151c2e" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span class="tx">2 × 5 Liter</span></button></li></ul>
+<span class="fchip" id="fchip"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7.5v5l3 2" stroke-linecap="round" stroke-linejoin="round"/></svg><span id="fchip-t">Heute, 18:00</span></span>
+<p class="fempty" id="fempty" hidden>Mehr Beispiele gibt es hier nicht. In der App wäre jetzt die nächste Karte dran.</p>
+</article>
+<div class="swipe">
+<button type="button" id="later">← Später</button>
+<button type="button" id="done">Erledigt →</button>
+</div>
+<div class="startbar">
+<div><b id="sb-h">Nur 2 Minuten?</b><span id="sb-s">Einfach anfangen.</span></div>
+<button type="button" class="btn" id="start" aria-pressed="false">Start ▶</button>
+</div>
+</div>
+<p class="tally"><span>Heute erledigt <b class="num" id="n-done">0</b></span><span>In der Liste <b class="num" id="n-list">46</b></span><span class="ex">Beispiel</span></p>
+</div>
 </section>
 
-<!-- ============================ MORGEN-CHECK ============================ -->
-<section class="story" id="morgen" data-screen-label="Morgen-Check">
-  <div class="wrap story-grid">
-    <div class="story-copy reveal">
-      <h2 class="section-title" data-i18n="morgen.title">Drei Fragen am Morgen,<br>und der Tag ist sortiert.</h2>
-      <p class="section-lede" data-i18n="morgen.lede">Wie viel Energie hast du? Stehen Meetings an? Drängt etwas? Daraus baut JETZT. deinen Tag und zeigt dir nur, was heute realistisch ist.</p>
-      <ul class="story-points">
-        <li data-i18n="morgen.p1"><strong>Energie zuerst.</strong> An einem zähen Tag kommen die leichten Sachen nach vorne, an einem guten die großen.</li>
-        <li data-i18n="morgen.p2"><strong>Keine Lust auf Fragen?</strong> Dann tippst du auf Überspringen, und die App fragt nicht nach.</li>
-      </ul>
-    </div>
-    <div class="story-phone reveal d2">
-      <div class="phone shot">
-        <div class="phone-notch"></div>
-        <div class="screen-shot"><img data-shot="04" src="shots/de/04-morgen-check.png" loading="lazy" alt="Morgen-Check: Energie, Meetings und Deadline-Druck wählen"></div>
-      </div>
-    </div>
-  </div>
+<section class="sec" aria-labelledby="problem">
+<h2 class="h2" id="problem">Die meisten Todo-Apps zeigen dir alles auf einmal<span class="pt">.</span></h2>
+<p class="lede">Sie sind für Leute gebaut, die eine Liste sehen und loslegen. Wenn du beim Anblick der Liste schon müde wirst, liegt das nicht an dir.</p>
+<div class="queue">
+<div>
+<ol class="tickets" aria-hidden="true"><li class="on"><b>001</b>Wandfarbe kaufen</li><li><b>002</b>Steuererklärung abschicken</li><li><b>003</b>Angebot an Frau Kaya schicken</li><li><b>004</b>Zahnarzt anrufen</li><li><b>005</b>Pfandflaschen wegbringen</li><li><b>006</b>Geburtstagsgeschenk für Lena</li><li><b>007</b>Keller aufräumen</li><li><b>008</b>Handyvertrag kündigen</li><li><b>009</b>Rückmeldung an Tom</li><li><b>010</b>Fahrrad zur Werkstatt</li><li><b>011</b>Arzttermin verschieben</li><li><b>012</b>Wohnungsübergabe vorbereiten</li><li><b>013</b>Kontoauszüge abheften</li><li><b>014</b>Bewerbung Korrektur lesen</li><li><b>015</b>Paket zur Post bringen</li><li><b>016</b>Wäsche aufhängen</li><li><b>017</b>Mama zurückrufen</li><li><b>018</b>Rasen mähen</li><li><b>019</b>Präsentation für Montag</li><li><b>020</b>Reisepass verlängern</li><li><b>021</b>Rechnung an Kunden schreiben</li><li><b>022</b>Fenster putzen</li><li><b>023</b>Versicherung vergleichen</li><li><b>024</b>Spülmaschine ausräumen</li><li><b>025</b>Kita-Formular ausfüllen</li><li><b>026</b>Mails sortieren</li><li><b>027</b>Blumen gießen</li><li><b>028</b>Ölwechsel machen lassen</li><li><b>029</b>Flug nach Lissabon buchen</li><li><b>030</b>Laptop-Backup</li><li><b>031</b>Altglas wegbringen</li><li><b>032</b>Nebenkosten prüfen</li><li><b>033</b>Termin beim Bürgeramt</li><li><b>034</b>Wintersachen raussuchen</li><li><b>035</b>Quartalsbericht lesen</li><li><b>036</b>Bilder ausdrucken</li><li><b>037</b>Hausaufgaben unterschreiben</li><li><b>038</b>Rezept abholen</li><li><b>039</b>Kühlschrank abtauen</li><li><b>040</b>Abo kündigen</li><li><b>041</b>Visitenkarten bestellen</li><li><b>042</b>Regal aufbauen</li><li><b>043</b>Steuerberaterin anrufen</li><li><b>044</b>Schuhe zum Schuster</li><li><b>045</b>Passwörter ändern</li><li><b>046</b>Danke-Karte schreiben</li><li><b>047</b>Laufschuhe kaufen</li></ol>
+<p class="tickets-cap">Beispiel: 47 offene Aufgaben. JETZT. ruft eine davon auf, die anderen warten.</p>
+</div>
+<ul class="pains">
+<li><p>Du öffnest die App und siehst 47 Aufgaben. Du machst die App wieder zu.<em>Das ist Überforderung, keine Faulheit.</em></p></li>
+<li><p>Ein Zähler für erledigte Tage am Stück, der wieder bei null anfängt, sobald du einmal aussetzt.<em>Am nächsten Morgen hast du dann noch weniger Lust.</em></p></li>
+<li><p>Eine Liste, die jeden Tag länger wird und dich jedes Mal daran erinnert, was noch offen ist.</p></li>
+</ul>
+</div>
 </section>
 
-<!-- ============================ LISTE / ERFASSEN ============================ -->
-<section class="story alt" id="liste" data-screen-label="Erfassen">
-  <div class="wrap story-grid">
-    <div class="story-phone reveal d2">
-      <div class="phone shot">
-        <div class="phone-notch"></div>
-        <div class="screen-shot"><img data-shot="02" src="shots/de/02-liste.png" loading="lazy" alt="Aufgabenliste mit offenen und erledigten Aufgaben"></div>
-      </div>
-    </div>
-    <div class="story-copy reveal">
-      <h2 class="section-title" data-i18n="liste.title">Aufschreiben,<br>wie du redest.</h2>
-      <p class="section-lede" data-i18n="liste.lede">Tipp <em>„Morgen um 12 zum Zahnarzt“</em>, und der Termin steht drin. Alles landet in der Liste, auf der Karte siehst du aber nur, was gerade passt.</p>
-      <ul class="story-points">
-        <li data-i18n="liste.p1"><strong>Ganze Zettel auf einmal.</strong> Füg deine Notizen ein, JETZT. macht einzelne Aufgaben daraus.</li>
-        <li data-i18n="liste.p2"><strong>Der Einkaufszettel auf der Karte.</strong> Milch, Brot, Äpfel stehen direkt auf der Karte, und du hakst sie im Laden ab.</li>
-      </ul>
-      <div class="ai-badge">
-                <div class="ai-text">
-          <strong data-i18n="ki.badge.title">Apple Intelligence, direkt auf dem iPhone</strong>
-          <span data-i18n="ki.badge.sub">Für die Erkennung verlassen deine Aufgaben das Gerät nicht.</span>
-        </div>
-      </div>
-    </div>
-  </div>
+<section class="sec" id="tag" aria-labelledby="tag-h">
+<h2 class="h2" id="tag-h">So läuft ein Tag mit JETZT<span class="pt">.</span></h2>
+<div class="day">
+<article class="drow">
+<p class="when">Morgens</p>
+<div>
+<h3>Drei Fragen, und der Tag ist sortiert.</h3>
+<p class="lede">Wie viel Energie hast du? Stehen Meetings an? Drängt etwas? Daraus baut JETZT. deinen Tag und zeigt dir nur, was heute realistisch ist.</p>
+<ul class="points"><li><strong>Energie zuerst.</strong> An einem zähen Tag kommen die leichten Sachen nach vorne, an einem guten die großen.</li><li><strong>Keine Lust auf Fragen?</strong> Dann tippst du auf Überspringen, und die App fragt nicht nach.</li></ul>
+</div>
+<img class="shot" src="shots/de/04-morgen-check.png" width="1320" height="2868" loading="lazy" alt="Morgen-Check: Energie, Meetings und Deadline-Druck wählen">
+</article>
+<article class="drow">
+<p class="when">Zwischendurch</p>
+<div>
+<h3>Aufschreiben, wie du redest.</h3>
+<p class="lede">Tipp <em>„Morgen um 12 zum Zahnarzt“</em>, und der Termin steht drin. Alles landet in der Liste, auf der Karte siehst du aber nur, was gerade passt.</p>
+<ul class="points"><li><strong>Ganze Zettel auf einmal.</strong> Füg deine Notizen ein, JETZT. macht einzelne Aufgaben daraus.</li><li><strong>Der Einkaufszettel auf der Karte.</strong> Milch, Brot, Äpfel stehen direkt auf der Karte, und du hakst sie im Laden ab.</li></ul>
+<p class="ai"><strong>Apple Intelligence, direkt auf dem iPhone</strong><span>Für die Erkennung verlassen deine Aufgaben das Gerät nicht.</span></p>
+</div>
+<img class="shot" src="shots/de/02-liste.png" width="1320" height="2868" loading="lazy" alt="Aufgabenliste mit offenen und erledigten Aufgaben">
+</article>
+<article class="drow">
+<p class="when">Abends</p>
+<div>
+<h3>Hier zählt, was du geschafft hast.</h3>
+<p class="lede">Die Statistik zeigt deine Woche und was heute erledigt ist. Wenn du mal einen Tag aussetzt, fängst du nicht wieder bei null an.</p>
+<ul class="points"><li><strong>Ein Satz statt einer Note.</strong> Nach drei erledigten Aufgaben steht da „Gut, dass du angefangen hast“ und keine Prozentzahl.</li><li><strong>Tag abschließen.</strong> Abends schiebst du Offenes mit einem Tipp auf morgen und machst die App zu.</li></ul>
+</div>
+<img class="shot" src="shots/de/05-statistik.png" width="1320" height="2868" loading="lazy" alt="Statistik: Aufgaben dieser Woche und Tagesabschluss">
+</article>
+</div>
 </section>
 
-<!-- ============================ STATISTIK ============================ -->
-<section class="story" id="statistik" data-screen-label="Statistik">
-  <div class="wrap story-grid">
-    <div class="story-copy reveal">
-      <h2 class="section-title" data-i18n="stats.title">Hier zählt,<br>was du geschafft hast.</h2>
-      <p class="section-lede" data-i18n="stats.lede">Die Statistik zeigt deine Woche und was heute erledigt ist. Wenn du mal einen Tag aussetzt, fängst du nicht wieder bei null an.</p>
-      <ul class="story-points">
-        <li data-i18n="stats.p1"><strong>Ein Satz statt einer Note.</strong> Nach drei erledigten Aufgaben steht da „Gut, dass du angefangen hast“ und keine Prozentzahl.</li>
-        <li data-i18n="stats.p2"><strong>Tag abschließen.</strong> Abends schiebst du Offenes mit einem Tipp auf morgen und machst die App zu.</li>
-      </ul>
-    </div>
-    <div class="story-phone reveal d2">
-      <div class="phone shot">
-        <div class="phone-notch"></div>
-        <div class="screen-shot"><img data-shot="05" src="shots/de/05-statistik.png" loading="lazy" alt="Statistik: Aufgaben dieser Woche und Tagesabschluss"></div>
-      </div>
-    </div>
-  </div>
+<section class="sec" aria-labelledby="feats-h">
+<h2 class="h2" id="feats-h">Was sonst noch drin ist<span class="pt">.</span></h2>
+<div class="feats">
+<dl>
+<div class="feat"><dt>Eine Karte</dt><dd>Auf dem Fokus-Screen liegt immer nur eine Aufgabe. Tippst du drauf, kannst du sie bearbeiten.</dd></div>
+<div class="feat"><dt>Energie</dt><dd>Jede Aufgabe ist leicht, mittel oder anstrengend. Gezeigt wird, was zu deiner Energie heute passt.</dd></div>
+<div class="feat"><dt>Fokus-Timer</dt><dd>Zwei, fünf oder zehn Minuten, auch auf dem Sperrbildschirm. Meistens reichen die ersten zwei zum Anfangen.</dd></div>
+<div class="feat"><dt>Privat und Arbeit</dt><dd>Zwei getrennte Bereiche auf einem Gerät. Nach Feierabend schaltest du die Arbeit einfach weg.</dd></div>
+<div class="feat"><dt>Mehrere Aufgaben einfügen</dt><dd>Einen Zettel aus Notizen oder einer Mail einfügen, und JETZT. macht einzelne Aufgaben mit Termin daraus.</dd></div>
+<div class="feat"><dt>Uhrzeit zieht vor</dt><dd>Hat eine Aufgabe eine Uhrzeit, rückt sie eine halbe Stunde vorher nach vorne.</dd></div>
+</dl>
+</div>
 </section>
 
-<!-- ============================ FEATURES (calm list) ============================ -->
-<section class="features" id="features" data-screen-label="Features">
-  <div class="wrap">
-    <div class="features-head reveal">
-      <h2 class="section-title" data-i18n="features.title">Was sonst noch drin ist</h2>
-    </div>
-    <ul class="feat-list">
-      <li class="reveal d1"><h3 data-i18n="feat1.h">Eine Karte</h3><p data-i18n="feat1.p">Auf dem Fokus-Screen liegt immer nur eine Aufgabe. Tippst du drauf, kannst du sie bearbeiten.</p></li>
-      <li class="reveal d1"><h3 data-i18n="feat4.h">Energie</h3><p data-i18n="feat4.p">Jede Aufgabe ist leicht, mittel oder anstrengend. Gezeigt wird, was zu deiner Energie heute passt.</p></li>
-      <li class="reveal d2"><h3 data-i18n="feat5.h">Fokus-Timer</h3><p data-i18n="feat5.p">Zwei, fünf oder zehn Minuten, auch auf dem Sperrbildschirm. Meistens reichen die ersten zwei zum Anfangen.</p></li>
-      <li class="reveal d2"><h3 data-i18n="feat6.h">Privat und Arbeit</h3><p data-i18n="feat6.p">Zwei getrennte Bereiche auf einem Gerät. Nach Feierabend schaltest du die Arbeit einfach weg.</p></li>
-      <li class="reveal d3"><h3 data-i18n="feat2.h">Mehrere Aufgaben einfügen</h3><p data-i18n="feat2.p">Einen Zettel aus Notizen oder einer Mail einfügen, und JETZT. macht einzelne Aufgaben mit Termin daraus.</p></li>
-      <li class="reveal d3"><h3 data-i18n="feat3.h">Uhrzeit zieht vor</h3><p data-i18n="feat3.p">Hat eine Aufgabe eine Uhrzeit, rückt sie eine halbe Stunde vorher nach vorne.</p></li>
-    </ul>
-  </div>
+<section class="sec colors" aria-labelledby="farben">
+<div>
+<h2 class="h2" id="farben">Sechs Farben, auch dunkel<span class="pt">.</span></h2>
+<p class="lede">Sechs Akzentfarben und sechs Hintergründe, frei kombinierbar. Probier sie hier aus, die Karte zeigt sofort, wie es aussieht.</p>
+<form class="picker" id="picker">
+<fieldset><legend>Akzentfarbe</legend><div class="sw"><label><input type="radio" name="accent" value="salmon" checked><i style="background:#f4a68a"></i>Lachs</label><label><input type="radio" name="accent" value="mint"><i style="background:#7ecfc0"></i>Mint</label><label><input type="radio" name="accent" value="lavender"><i style="background:#b8a9d9"></i>Lavendel</label><label><input type="radio" name="accent" value="butter"><i style="background:#d4a830"></i>Butter</label><label><input type="radio" name="accent" value="blush"><i style="background:#e890a8"></i>Rosé</label><label><input type="radio" name="accent" value="slate"><i style="background:#7a9bb5"></i>Schiefer</label></div></fieldset>
+<fieldset><legend>Hintergrund</legend><div class="sw"><label><input type="radio" name="bg" value="mintLight" checked><i style="background:#e8f8eb"></i>Salbei</label><label><input type="radio" name="bg" value="cream"><i style="background:#fff3e7"></i>Creme</label><label><input type="radio" name="bg" value="light"><i style="background:#f2f2f7"></i>Hell</label><label><input type="radio" name="bg" value="night"><i style="background:#0f1729"></i>Nacht</label><label><input type="radio" name="bg" value="darkSalmon"><i style="background:#5d3a32"></i>Dunkel Lachs</label><label><input type="radio" name="bg" value="darkPurple"><i style="background:#45127f"></i>Lila</label></div></fieldset>
+</form>
+<p class="free">Lachs ist kostenlos, alle anderen gibt es mit Pro.</p>
+</div>
+<figure class="preview" id="preview" style="margin:0">
+<div class="pcard">
+<div class="fhead"><span class="fbrand">JETZT</span><span class="fdots" aria-hidden="true"><i></i><i></i><i></i></span></div>
+<p class="ftitle">Steuererklärung abschicken</p>
+<span class="fchip"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7.5v5l3 2" stroke-linecap="round" stroke-linejoin="round"/></svg>Fr., 17:00</span>
+</div>
+<div class="pbar"><div><b>Nur 2 Minuten?</b><span>Einfach anfangen.</span></div><span class="pstart">Start ▶</span></div>
+<figcaption>Beispiel</figcaption>
+</figure>
 </section>
 
-<!-- ============================ THEMES ============================ -->
-<section class="themes-band" id="themes" data-screen-label="Themes">
-  <div class="wrap themes-inner">
-    <div class="reveal">
-      <h2 class="section-title" data-i18n="themes.title">Sechs Farben,<br>auch dunkel.</h2>
-      <p class="section-lede" data-i18n="themes.lede">Sechs Akzentfarben und sechs Hintergründe, frei kombinierbar. Probier sie hier aus, das Handy daneben zeigt sofort, wie es aussieht. <span class="themes-free">Lachs ist kostenlos, alle anderen gibt es mit Pro.</span></p>
-      <div class="picker">
-        <div class="pick-group">
-          <span class="pick-label" data-i18n="pick.accent">Akzentfarbe</span>
-          <div class="swatch-row" id="accentRow"></div>
-        </div>
-        <div class="pick-group">
-          <span class="pick-label" data-i18n="pick.bg">Hintergrund</span>
-          <div class="swatch-row" id="bgRow"></div>
-        </div>
-      </div>
-    </div>
-    <div class="themes-phone reveal d2">
-      <div class="phone">
-        <div class="phone-notch"></div>
-        <div class="screen">
-          <div class="screen-status"><span>9:41</span><span class="dots"><span class="bar"></span></span></div>
-          <div class="app-head">
-            <span class="app-logo">JETZT<i>.</i></span>
-            <span class="flame">🔥</span>
-          </div>
-          <div class="mode-seg"><span class="on" data-i18n="tp.privat">Privat</span><span data-i18n="tp.work">Arbeit</span></div>
-
-          <div class="app-stage">
-            <div class="task-card home">
-              <div class="tc-top">
-                <span class="tc-brand">JETZT</span>
-                <span class="tc-dots"><i></i><i></i><i></i></span>
-              </div>
-              <div class="task-title" data-i18n="tp.title">Steuererklärung abschicken</div>
-              <span class="tc-chip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"></circle><path d="M12 7.5v5l3 2" stroke-linecap="round" stroke-linejoin="round"></path></svg> <span data-i18n="tp.chip">Fr. 21. Aug., 17:00</span></span>
-            </div>
-          </div>
-
-          <div class="app-bottom">
-            <div class="swipe-row"><span data-i18n="tp.later">← Später</span><span data-i18n="tp.done">Erledigt →</span></div>
-            <div class="start-bar"><span class="ph"><b data-i18n="tp.2min">Nur 2 Minuten?</b><span data-i18n="tp.startsub">Einfach anfangen.</span></span><span class="start"><span data-i18n="tp.start">Start</span> <svg viewBox="0 0 24 24" fill="currentColor"><path d="M5 3l14 9-14 9V3z"></path></svg></span></div>
-            <div class="tabbar-row">
-              <div class="tabbar">
-                <span class="tab on">
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-dasharray="3 3"><circle cx="12" cy="12" r="8.5"></circle></svg>
-                  <b data-i18n="tp.tab1">JETZT.</b>
-                </span>
-                <span class="tab">
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="9" y1="6" x2="20" y2="6"></line><line x1="9" y1="12" x2="20" y2="12"></line><line x1="9" y1="18" x2="20" y2="18"></line><circle cx="4.6" cy="6" r="1.3" fill="currentColor" stroke="none"></circle><circle cx="4.6" cy="12" r="1.3" fill="currentColor" stroke="none"></circle><circle cx="4.6" cy="18" r="1.3" fill="currentColor" stroke="none"></circle></svg>
-                  <b data-i18n="tp.tab2">Liste</b>
-                </span>
-                <span class="tab">
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="6" y1="20" x2="6" y2="13"></line><line x1="12" y1="20" x2="12" y2="5"></line><line x1="18" y1="20" x2="18" y2="9"></line></svg>
-                  <b data-i18n="tp.tab3">Statistik</b>
-                </span>
-                <span class="tab">
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="4" y1="9" x2="20" y2="9"></line><line x1="4" y1="16" x2="20" y2="16"></line><circle cx="10" cy="9" r="2.6" fill="var(--app-card)" stroke="currentColor" stroke-width="2"></circle><circle cx="15" cy="16" r="2.6" fill="var(--app-card)" stroke="currentColor" stroke-width="2"></circle></svg>
-                  <b data-i18n="tp.tab4">Mehr</b>
-                </span>
-              </div>
-              <span class="fab" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"><line x1="12" y1="6" x2="12" y2="18"></line><line x1="6" y1="12" x2="18" y2="12"></line></svg></span>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
+<section class="sec research" aria-labelledby="forschung">
+<div>
+<h2 class="h2" id="forschung">Was die Forschung dazu sagt<span class="pt">.</span></h2>
+<figure class="quote" style="margin-top:40px">
+<blockquote><p>Bei ADHS fehlt selten das Wissen, was zu tun ist. Schwer ist es, das im richtigen Moment auch zu tun.</p></blockquote>
+<figcaption>Sinngemäß nach Russell A. Barkley, Klinischer Psychologe und ADHS-Forscher</figcaption>
+</figure>
+</div>
+<ul class="facts"><li>Bei ADHS entwickelt sich die Selbststeuerung langsamer, nach Russell A. Barkley um etwa 30 Prozent. Aufschieben ist deshalb <b>kein Charakterfehler</b>.</li><li>Am schwersten ist der Anfang. Ein kleiner erster Schritt hilft dabei mehr als jede Motivation, deshalb startet der Timer mit zwei Minuten.</li><li>Wer nur eine Aufgabe sieht, muss nicht zwischen vielen wählen. Genau dieses Wählen kostet bei ADHS die meiste Kraft.</li></ul>
 </section>
 
-<!-- ============================ SCIENCE ============================ -->
-<section class="science" id="science" data-screen-label="Wissenschaft">
-  <div class="wrap science-grid">
-    <div class="reveal">
-      <h2 class="section-title" data-i18n="science.title">Was die Forschung<br>dazu sagt</h2>
-      <div class="science-facts">
-        <div class="fact">
-          <p class="ftxt" data-i18n="fact1">Bei ADHS entwickelt sich die Selbststeuerung langsamer, nach Russell A. Barkley um etwa 30 Prozent. Aufschieben ist deshalb <b>kein Charakterfehler</b>.</p>
-        </div>
-        <div class="fact">
-          <p class="ftxt" data-i18n="fact2">Am schwersten ist der Anfang. Ein kleiner erster Schritt hilft dabei mehr als jede Motivation, deshalb startet der Timer mit zwei Minuten.</p>
-        </div>
-        <div class="fact">
-          <p class="ftxt" data-i18n="fact3">Wer nur eine Aufgabe sieht, muss nicht zwischen vielen wählen. Genau dieses Wählen kostet bei ADHS die meiste Kraft.</p>
-        </div>
-      </div>
-    </div>
-    <figure class="quote-card reveal d2">
-      <span class="mark">„</span>
-      <blockquote data-i18n="science.quote">Bei ADHS fehlt selten das Wissen, was zu tun ist. Schwer ist es, das im richtigen Moment auch zu tun.</blockquote>
-      <figcaption class="quote-cite">
-        <span class="av">RB</span>
-        <div>
-          <div class="who" data-i18n="quote.who">sinngemäß nach Russell A. Barkley</div>
-          <div class="role" data-i18n="quote.role">Klinischer Psychologe, ADHS-Forscher</div>
-        </div>
-      </figcaption>
-    </figure>
-  </div>
+<section class="sec" id="preis" aria-labelledby="preis-h">
+<h2 class="h2" id="preis-h">Kostenlos starten. Pro, wenn du willst<span class="pt">.</span></h2>
+<p class="lede">Die Grundfunktionen kosten nichts, auch später nicht. Pro gibt es im Abo oder als Einmalkauf.</p>
+<div class="plans">
+<table>
+<caption class="sr">Funktionen in der kostenlosen Version und in Pro</caption>
+<thead><tr><th scope="col"><span class="sr">Funktion</span></th><th scope="col">Kostenlos</th><th scope="col">Pro</th></tr></thead>
+<tbody><tr><th scope="row">Unbegrenzt viele Aufgaben</th><td><svg width="20" height="20" viewBox="0 0 20 20" aria-hidden="true"><path d="M4 10.5l4 4L16 6" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg><span class="sr">enthalten</span></td><td><svg width="20" height="20" viewBox="0 0 20 20" aria-hidden="true"><path d="M4 10.5l4 4L16 6" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg><span class="sr">enthalten</span></td></tr><tr><th scope="row">Privat und Arbeit</th><td><svg width="20" height="20" viewBox="0 0 20 20" aria-hidden="true"><path d="M4 10.5l4 4L16 6" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg><span class="sr">enthalten</span></td><td><svg width="20" height="20" viewBox="0 0 20 20" aria-hidden="true"><path d="M4 10.5l4 4L16 6" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg><span class="sr">enthalten</span></td></tr><tr><th scope="row">Morgen-Check</th><td><svg width="20" height="20" viewBox="0 0 20 20" aria-hidden="true"><path d="M4 10.5l4 4L16 6" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg><span class="sr">enthalten</span></td><td><svg width="20" height="20" viewBox="0 0 20 20" aria-hidden="true"><path d="M4 10.5l4 4L16 6" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg><span class="sr">enthalten</span></td></tr><tr><th scope="row">Fokus-Screen mit einer Karte</th><td><svg width="20" height="20" viewBox="0 0 20 20" aria-hidden="true"><path d="M4 10.5l4 4L16 6" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg><span class="sr">enthalten</span></td><td><svg width="20" height="20" viewBox="0 0 20 20" aria-hidden="true"><path d="M4 10.5l4 4L16 6" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg><span class="sr">enthalten</span></td></tr><tr><th scope="row">Farben</th><td>Lachs</td><td>Alle sechs und alle Hintergründe</td></tr><tr><th scope="row">Wiederkehrende Aufgaben</th><td>Täglich</td><td>Täglich, wöchentlich, monatlich</td></tr><tr><th scope="row">Mehrere Aufgaben einfügen</th><td>Ohne KI</td><td>Mit KI sortiert</td></tr><tr><th scope="row">Erkennung beim Tippen</th><td><span class="no" aria-hidden="true">–</span><span class="sr">nicht enthalten</span></td><td><svg width="20" height="20" viewBox="0 0 20 20" aria-hidden="true"><path d="M4 10.5l4 4L16 6" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg><span class="sr">enthalten</span></td></tr><tr><th scope="row">Checklisten auf der Karte</th><td><span class="no" aria-hidden="true">–</span><span class="sr">nicht enthalten</span></td><td><svg width="20" height="20" viewBox="0 0 20 20" aria-hidden="true"><path d="M4 10.5l4 4L16 6" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg><span class="sr">enthalten</span></td></tr><tr><th scope="row">Fokus-Timer</th><td><span class="no" aria-hidden="true">–</span><span class="sr">nicht enthalten</span></td><td>2, 5 oder 10 Minuten</td></tr><tr><th scope="row">Statistik</th><td><span class="no" aria-hidden="true">–</span><span class="sr">nicht enthalten</span></td><td><svg width="20" height="20" viewBox="0 0 20 20" aria-hidden="true"><path d="M4 10.5l4 4L16 6" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg><span class="sr">enthalten</span></td></tr><tr><th scope="row">Tagesrückblick am Abend</th><td><span class="no" aria-hidden="true">–</span><span class="sr">nicht enthalten</span></td><td><svg width="20" height="20" viewBox="0 0 20 20" aria-hidden="true"><path d="M4 10.5l4 4L16 6" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg><span class="sr">enthalten</span></td></tr><tr><th scope="row">Erinnerungen</th><td><span class="no" aria-hidden="true">–</span><span class="sr">nicht enthalten</span></td><td><svg width="20" height="20" viewBox="0 0 20 20" aria-hidden="true"><path d="M4 10.5l4 4L16 6" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg><span class="sr">enthalten</span></td></tr></tbody>
+</table>
+<div class="pro">
+<h3>JETZT. Pro</h3>
+<ul>
+<li><b class="num">17,99 €</b><span>im Jahr, also 1,50 € im Monat</span></li>
+<li><b class="num">1,99 €</b><span>im Monat, monatlich kündbar</span></li>
+<li><b class="num">39,99 €</b><span>einmalig, für immer</span></li>
+</ul>
+<p>Das Jahresabo kannst du 7 Tage kostenlos testen. An Tag 5 erinnert dich die App, vorher kannst du jederzeit kündigen.</p>
+<a class="btn" href="https://apps.apple.com/app/id6775079850">Kostenlos laden</a>
+</div>
+</div>
+<div class="why">
+<h3>Warum diese Preise?</h3>
+<p>JETZT. läuft auf deinem iPhone, auch die Erkennung mit Apple Intelligence. Für deine Aufgaben brauchen wir keinen Server. Das Abo gibt es trotzdem, weil du so für wenig Geld ausprobieren kannst, ob dir die App hilft. Wer lieber einmal zahlt und dann nie wieder daran denken will, nimmt den Einmalkauf.</p>
+</div>
 </section>
 
-<!-- ============================ PRICING ============================ -->
-<section class="pricing" id="pricing" data-screen-label="Preis">
-  <div class="wrap">
-    <div class="pricing-head reveal">
-      <h2 class="section-title" data-i18n="pricing.title">Kostenlos starten.<br>Pro, wenn du willst.</h2>
-      <p class="section-lede" style="text-align:center;" data-i18n="pricing.lede">Die Grundfunktionen kosten nichts, auch später nicht. Pro gibt es im Abo oder als Einmalkauf.</p>
-    </div>
-
-    <div class="compare reveal d1">
-      <div class="cmp-head">
-        <div class="cmp-h feature"></div>
-        <div class="cmp-h">
-          <span class="cmp-name" data-i18n="plan.free.name">Kostenlos</span>
-          <span class="cmp-price">€0</span>
-          <span class="cmp-note" data-i18n="plan.free.per">für immer</span>
-        </div>
-        <div class="cmp-h pro">
-          <span class="cmp-name" data-i18n="plan.pro.name">Pro</span>
-          <div class="pay-seg">
-            <input type="radio" name="pay" id="payY" checked><label for="payY" data-i18n="pay.seg.y">Jährlich</label>
-            <input type="radio" name="pay" id="payM"><label for="payM" data-i18n="pay.seg.m">Monatlich</label>
-            <input type="radio" name="pay" id="payO"><label for="payO" data-i18n="pay.seg.o">Einmalig</label>
-          </div>
-          <div class="cmp-prices">
-            <span class="cmp-price y"><b data-i18n="pay.y.price">17,99 €/Jahr</b><small data-i18n="pay.y.sub">= 1,50 €/Monat</small></span>
-            <span class="cmp-price m"><b data-i18n="pay.m.price">1,99 €/Monat</b><small data-i18n="pay.m.sub">Monatlich kündbar</small></span>
-            <span class="cmp-price o"><b data-i18n="pay.o.price">39,99 €</b><small data-i18n="pay.o.sub">Einmal zahlen, für immer nutzen.</small></span>
-          </div>
-          <span class="cmp-note trial" data-i18n="pay.foot">Jederzeit kündbar · Erinnerung an Tag 5</span>
-        </div>
-      </div>
-
-      <div class="cmp-rows">
-        <div class="cmp-row"><span class="cmp-f" data-i18n="cmp.tasks">Unbegrenzt viele Aufgaben</span><span class="cmp-c free"><span class="cmp-tag" data-i18n="cmp.tag.free">Kostenlos</span><span class="ck">✓</span></span><span class="cmp-c pro"><span class="cmp-tag" data-i18n="cmp.tag.pro">Pro</span><span class="ck">✓</span></span></div>
-        <div class="cmp-row"><span class="cmp-f" data-i18n="cmp.modes">Privat und Arbeit</span><span class="cmp-c free"><span class="cmp-tag" data-i18n="cmp.tag.free">Kostenlos</span><span class="ck">✓</span></span><span class="cmp-c pro"><span class="cmp-tag" data-i18n="cmp.tag.pro">Pro</span><span class="ck">✓</span></span></div>
-        <div class="cmp-row"><span class="cmp-f" data-i18n="cmp.morning">Morgen-Check</span><span class="cmp-c free"><span class="cmp-tag" data-i18n="cmp.tag.free">Kostenlos</span><span class="ck">✓</span></span><span class="cmp-c pro"><span class="cmp-tag" data-i18n="cmp.tag.pro">Pro</span><span class="ck">✓</span></span></div>
-        <div class="cmp-row"><span class="cmp-f" data-i18n="cmp.focus">Fokus-Screen mit einer Karte</span><span class="cmp-c free"><span class="cmp-tag" data-i18n="cmp.tag.free">Kostenlos</span><span class="ck">✓</span></span><span class="cmp-c pro"><span class="cmp-tag" data-i18n="cmp.tag.pro">Pro</span><span class="ck">✓</span></span></div>
-        <div class="cmp-row"><span class="cmp-f" data-i18n="cmp.themes">Farben</span><span class="cmp-c free"><span class="cmp-tag" data-i18n="cmp.tag.free">Kostenlos</span><span class="val" data-i18n="cmp.themes.free">Lachs</span></span><span class="cmp-c pro"><span class="cmp-tag" data-i18n="cmp.tag.pro">Pro</span><span class="val" data-i18n="cmp.themes.pro">Alle sechs und alle Hintergründe</span></span></div>
-        <div class="cmp-row"><span class="cmp-f" data-i18n="cmp.recurring">Wiederkehrende Aufgaben</span><span class="cmp-c free"><span class="cmp-tag" data-i18n="cmp.tag.free">Kostenlos</span><span class="val" data-i18n="cmp.recurring.free">Täglich</span></span><span class="cmp-c pro"><span class="cmp-tag" data-i18n="cmp.tag.pro">Pro</span><span class="val" data-i18n="cmp.recurring.pro">Täglich, wöchentlich, monatlich</span></span></div>
-        <div class="cmp-row"><span class="cmp-f" data-i18n="cmp.import">Mehrere Aufgaben einfügen</span><span class="cmp-c free"><span class="cmp-tag" data-i18n="cmp.tag.free">Kostenlos</span><span class="val" data-i18n="cmp.import.free">Ohne KI</span></span><span class="cmp-c pro"><span class="cmp-tag" data-i18n="cmp.tag.pro">Pro</span><span class="val" data-i18n="cmp.import.pro">Mit KI sortiert</span></span></div>
-        <div class="cmp-row"><span class="cmp-f" data-i18n="cmp.ai">Erkennung beim Tippen</span><span class="cmp-c free"><span class="cmp-tag" data-i18n="cmp.tag.free">Kostenlos</span><span class="dash">—</span></span><span class="cmp-c pro"><span class="cmp-tag" data-i18n="cmp.tag.pro">Pro</span><span class="ck">✓</span></span></div>
-        <div class="cmp-row"><span class="cmp-f" data-i18n="cmp.split">Checklisten auf der Karte</span><span class="cmp-c free"><span class="cmp-tag" data-i18n="cmp.tag.free">Kostenlos</span><span class="dash">—</span></span><span class="cmp-c pro"><span class="cmp-tag" data-i18n="cmp.tag.pro">Pro</span><span class="ck">✓</span></span></div>
-        <div class="cmp-row"><span class="cmp-f" data-i18n="cmp.timer">Fokus-Timer</span><span class="cmp-c free"><span class="cmp-tag" data-i18n="cmp.tag.free">Kostenlos</span><span class="dash">—</span></span><span class="cmp-c pro"><span class="cmp-tag" data-i18n="cmp.tag.pro">Pro</span><span class="val" data-i18n="cmp.timer.pro">2, 5 oder 10 Minuten</span></span></div>
-        <div class="cmp-row"><span class="cmp-f" data-i18n="cmp.stats">Statistik</span><span class="cmp-c free"><span class="cmp-tag" data-i18n="cmp.tag.free">Kostenlos</span><span class="dash">—</span></span><span class="cmp-c pro"><span class="cmp-tag" data-i18n="cmp.tag.pro">Pro</span><span class="ck">✓</span></span></div>
-        <div class="cmp-row"><span class="cmp-f" data-i18n="cmp.recap">Tagesrückblick am Abend</span><span class="cmp-c free"><span class="cmp-tag" data-i18n="cmp.tag.free">Kostenlos</span><span class="dash">—</span></span><span class="cmp-c pro"><span class="cmp-tag" data-i18n="cmp.tag.pro">Pro</span><span class="ck">✓</span></span></div>
-        <div class="cmp-row"><span class="cmp-f" data-i18n="cmp.push">Erinnerungen</span><span class="cmp-c free"><span class="cmp-tag" data-i18n="cmp.tag.free">Kostenlos</span><span class="dash">—</span></span><span class="cmp-c pro"><span class="cmp-tag" data-i18n="cmp.tag.pro">Pro</span><span class="ck">✓</span></span></div>
-      </div>
-
-      <div class="cmp-ctas">
-        <div class="cmp-cta-slot"></div>
-        <a href="https://apps.apple.com/app/id6775079850" target="_blank" rel="noopener" class="btn btn-ghost" data-i18n="plan.free.cta">Kostenlos starten</a>
-        <a href="https://apps.apple.com/app/id6775079850" target="_blank" rel="noopener" class="btn btn-primary" data-i18n="pay.cta">7 Tage kostenlos testen</a>
-      </div>
-    </div>
-
-    <div class="why-block reveal d2">
-      <h3 data-i18n="faq.q">Warum diese Preise?</h3>
-      <p data-i18n="faq.a">JETZT. läuft auf deinem iPhone, auch die Erkennung mit Apple Intelligence. Für deine Aufgaben brauchen wir keinen Server. Das Abo gibt es trotzdem, weil du so für wenig Geld ausprobieren kannst, ob dir die App hilft. Wer lieber einmal zahlt und dann nie wieder daran denken will, nimmt den Einmalkauf.</p>
-    </div>
-  </div>
+<section class="close night" aria-labelledby="schluss">
+<div>
+<h2 id="schluss">Die erste Karte liegt bereit<span class="pt">.</span></h2>
+<p>Laden, eine Aufgabe eintippen, zwei Minuten anfangen. Den Rest der Liste siehst du erst, wenn du willst.</p>
+<div style="margin-top:32px"><a class="btn" href="https://apps.apple.com/app/id6775079850">Kostenlos laden</a></div>
+</div>
+<div class="call" aria-hidden="true">
+<span class="lbl">Aufruf</span>
+<canvas class="matrix" data-text="001"></canvas><span class="matrix-text num">001</span>
+</div>
 </section>
+</main>
 
-<!-- ============================ FOOTER ============================ -->
-<footer class="footer" data-screen-label="Footer">
-  <div class="wrap">
-    <div class="footer-top">
-      <div>
-        <a class="logo" href="#top">JETZT<span class="dot">.</span></a>
-        <p class="footer-tag" data-i18n="footer.tag">Eine Aufgabe. Jetzt.</p>
-        <div class="badges">
-          <a class="badge" href="https://apps.apple.com/app/id6775079850" target="_blank" rel="noopener">
-            <svg class="bi" viewBox="0 0 24 24" fill="currentColor"><path d="M16.5 1.5c.1 1-.3 2-1 2.8-.7.8-1.8 1.4-2.8 1.3-.1-1 .4-2 1-2.7.7-.8 1.9-1.3 2.8-1.4zM20 17.2c-.5 1.2-.8 1.7-1.5 2.8-1 1.5-2.3 3.3-4 3.4-1.5 0-1.9-1-3.9-1-2 0-2.4 1-3.9 1-1.7 0-3-1.7-3.9-3.1C-.3 16.9-.6 11 1.9 8c1-1.4 2.6-2.3 4.2-2.3 1.6 0 2.6 1 3.9 1 1.3 0 2-1 3.9-1 1.4 0 2.9.8 3.9 2.1-3.4 1.9-2.9 6.8.3 8.4z"/></svg>
-            <div class="bt"><small data-i18n="store.small">Laden im</small><strong>App Store</strong></div>
-          </a>
-        </div>
-      </div>
-      <nav class="footer-links">
-        <a href="https://laszloendler.github.io/jetzt-app-legal/JETZT-Datenschutzerklaerung.html" target="_blank" rel="noopener" data-i18n="footer.privacy">Datenschutzerklärung</a>
-        <a href="https://laszloendler.github.io/jetzt-app-legal/JETZT-Impressum.html" target="_blank" rel="noopener" data-i18n="footer.imprint">Impressum</a>
-      </nav>
-    </div>
-    <div class="footer-base">
-      <span data-i18n="footer.copy">© 2026 JETZT. — Alle Rechte vorbehalten.</span>
-    </div>
-  </div>
+<footer class="foot">
+<span>© 2026 Laszlo Endler</span>
+<a href="https://laszloendler.github.io/jetzt-app-legal/JETZT-Datenschutzerklaerung.html">Datenschutz</a>
+<a href="https://laszloendler.github.io/jetzt-app-legal/JETZT-Impressum.html">Impressum</a>
+<a href="en/" lang="en">English</a>
 </footer>
-
-<!-- ============================ SCRIPTS ============================ -->
-<script src="app.js?v=16"></script>
-<script src="motion.js?v=16"></script>
-<script src="i18n.js?v=16"></script>
-
-<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
-<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
-<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
-<script type="text/babel" src="tweaks-panel.jsx"></script>
-<div id="tweaks-root"></div>
-<script type="text/babel" src="tweaks-app.jsx"></script>
-
+</div>
+<script type="application/json" id="data">{"start": "Start ▶", "stop": "Pause", "call": "Aufruf", "focus": "Fokus", "allDone": "Für heute ist alles aufgerufen.", "callSay": "Aufruf {n}: {t}", "timerSay": "Zwei Minuten laufen.", "timeUp": "Zwei Minuten geschafft.", "tasks": [{"title": "Wandfarbe kaufen", "chip": "Heute, 18:00", "area": "Privat", "list": ["NCS S 1002-Y", "2 × 5 Liter"]}, {"title": "Steuererklärung abschicken", "chip": "Fr., 17:00", "area": "Privat"}, {"title": "Angebot an Frau Kaya schicken", "chip": "Heute, 11:30", "area": "Arbeit"}, {"title": "Zahnarzt anrufen", "chip": "Morgen", "area": "Privat"}, {"title": "Pfandflaschen wegbringen", "chip": "", "area": "Privat"}], "accents": [{"key": "salmon", "accent": "#f4a68a", "onLight": "#c34112", "onDark": "#f6b8a1", "soft": "rgba(244,166,138,.13)"}, {"key": "mint", "accent": "#7ecfc0", "onLight": "#2d786a", "onDark": "#85d2c4", "soft": "rgba(126,207,192,.13)"}, {"key": "lavender", "accent": "#b8a9d9", "onLight": "#7b5fb8", "onDark": "#cabee2", "soft": "rgba(184,169,217,.13)"}, {"key": "butter", "accent": "#d4a830", "onLight": "#876a1c", "onDark": "#e0c16b", "soft": "rgba(212,168,48,.13)"}, {"key": "blush", "accent": "#e890a8", "onLight": "#ce2b57", "onDark": "#f0b6c6", "soft": "rgba(232,144,168,.13)"}, {"key": "slate", "accent": "#7a9bb5", "onLight": "#4f728e", "onDark": "#b5c7d6", "soft": "rgba(122,155,181,.13)"}], "bgs": [{"key": "mintLight", "hex": "#e8f8eb", "card": "#ffffff", "dark": false}, {"key": "cream", "hex": "#fff3e7", "card": "#ffffff", "dark": false}, {"key": "light", "hex": "#f2f2f7", "card": "#ffffff", "dark": false}, {"key": "night", "hex": "#0f1729", "card": "#232741", "dark": true}, {"key": "darkSalmon", "hex": "#5d3a32", "card": "#6e483e", "dark": true}, {"key": "darkPurple", "hex": "#45127f", "card": "#5e27a6", "dark": true}]}</script>
+<script src="site.js"></script>
 </body>
 </html>
