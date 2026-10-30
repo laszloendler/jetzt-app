@@ -43,19 +43,16 @@
 <p class="sr" id="live" aria-live="polite"></p>
 <div class="screen">
 <article class="fcard" id="fcard">
-<div class="fhead"><span class="fbrand">JETZT</span><span class="fdots" aria-hidden="true"><i></i><i></i><i></i></span></div>
+<div class="fhead"><span class="fchips"><span class="chip"><i class="orb" id="f-orb" data-e="{{t0_energy}}"></i><span id="f-energy">{{t0_energy_label}}</span></span><span class="chip acc" id="fchip"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7.5v5l3 2" stroke-linecap="round" stroke-linejoin="round"/></svg><span id="fchip-t">{{t0_chip}}</span></span></span><span class="ficons" aria-hidden="true"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M9 6h11M9 12h11M9 18h11"/><circle cx="4.5" cy="6" r="1" fill="currentColor"/><circle cx="4.5" cy="12" r="1" fill="currentColor"/><circle cx="4.5" cy="18" r="1" fill="currentColor"/></svg><svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><circle cx="5" cy="12" r="1.8"/><circle cx="12" cy="12" r="1.8"/><circle cx="19" cy="12" r="1.8"/></svg></span></div>
 <p class="ftitle" id="ftitle">{{t0_title}}</p>
 <ul class="flist" id="flist">{{t0_list}}</ul>
-<span class="fchip" id="fchip"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7.5v5l3 2" stroke-linecap="round" stroke-linejoin="round"/></svg><span id="fchip-t">{{t0_chip}}</span></span>
 <p class="fempty" id="fempty" hidden>{{empty}}</p>
+<div class="ftimer"><div><b class="tnum num" id="tnum">2:00</b><span class="tsub" id="tsub">{{just_start}}</span></div><button type="button" class="tpill" id="start"><svg class="play" width="12" height="12" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M6 3.5l15 8.5-15 8.5z"/></svg><span id="start-t">{{start}}</span></button></div>
+<button type="button" class="fdone" id="done"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>{{done_btn}}</button>
 </article>
 <div class="swipe">
 <button type="button" id="later">{{later}}</button>
-<button type="button" id="done">{{done}}</button>
-</div>
-<div class="startbar">
-<div><b id="sb-h">{{two_min}}</b><span id="sb-s">{{just_start}}</span></div>
-<button type="button" class="btn" id="start" aria-pressed="false">{{start}}</button>
+<span aria-hidden="true">{{done_hint}}</span>
 </div>
 </div>
 <p class="tally"><span>{{done_today}} <b class="num" id="n-done">0</b></span><span>{{in_list}} <b class="num" id="n-list">46</b></span><span class="ex">{{example}}</span></p>
@@ -136,13 +133,13 @@
 </form>
 <p class="free">{{themes_free}}</p>
 </div>
-<figure class="preview" id="preview" style="margin:0">
-<div class="pcard">
-<div class="fhead"><span class="fbrand">JETZT</span><span class="fdots" aria-hidden="true"><i></i><i></i><i></i></span></div>
+<figure class="preview" id="preview" style="margin:0" aria-hidden="true">
+<div class="fcard pcard">
+<div class="fhead"><span class="fchips"><span class="chip"><i class="orb" data-e="{{t1_energy}}"></i>{{t1_energy_label}}</span><span class="chip acc"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7.5v5l3 2" stroke-linecap="round" stroke-linejoin="round"/></svg>{{t1_chip}}</span></span><span class="ficons" aria-hidden="true"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M9 6h11M9 12h11M9 18h11"/><circle cx="4.5" cy="6" r="1" fill="currentColor"/><circle cx="4.5" cy="12" r="1" fill="currentColor"/><circle cx="4.5" cy="18" r="1" fill="currentColor"/></svg><svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><circle cx="5" cy="12" r="1.8"/><circle cx="12" cy="12" r="1.8"/><circle cx="19" cy="12" r="1.8"/></svg></span></div>
 <p class="ftitle">{{t1_title}}</p>
-<span class="fchip"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7.5v5l3 2" stroke-linecap="round" stroke-linejoin="round"/></svg>{{t1_chip}}</span>
+<div class="ftimer"><div><b class="tnum num">2:00</b><span class="tsub">{{just_start}}</span></div><span class="tpill"><svg class="play" width="12" height="12" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M6 3.5l15 8.5-15 8.5z"/></svg>{{start}}</span></div>
+<span class="fdone"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>{{done_btn}}</span>
 </div>
-<div class="pbar"><div><b>{{two_min}}</b><span>{{just_start}}</span></div><span class="pstart">{{start}}</span></div>
 <figcaption>{{example}}</figcaption>
 </figure>
 </section>

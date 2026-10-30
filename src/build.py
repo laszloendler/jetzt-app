@@ -32,7 +32,7 @@ S = {
   sub='Eine Karte nach der anderen. Für alle, die bei 47 offenen Aufgaben erstarren, statt anzufangen.',
   cta='Kostenlos laden', price_note='Für iPhone. Pro ab 17,99 € im Jahr, eine Woche kostenlos testen.',
   display_label='Beispiel: Fokus-Screen von JETZT.', call='Aufruf', focus='Fokus', area_label='Bereich',
-  later='← Später', done='Erledigt →', two_min='Nur 2 Minuten?', just_start='Einfach anfangen.', start='Start ▶', stop='Pause',
+  later='← Später', done_hint='Erledigt →', done_btn='Erledigt', two_min='Nur 2 Minuten?', just_start='Einfach anfangen.', start='Start',
   done_today='Heute erledigt', in_list='In der Liste', example='Beispiel',
   empty='Mehr Beispiele gibt es hier nicht. In der App wäre jetzt die nächste Karte dran.',
   problem_title='Die meisten Todo-Apps zeigen dir alles auf einmal' + CLOCK_PT,
@@ -56,13 +56,13 @@ S = {
   stats_lede='Die Statistik zeigt deine Woche und was heute erledigt ist. Wenn du mal einen Tag aussetzt, fängst du nicht wieder bei null an.',
   stats_p1='<strong>Ein Satz statt einer Note.</strong> Nach drei erledigten Aufgaben steht da „Gut, dass du angefangen hast“ und keine Prozentzahl.',
   stats_p2='<strong>Tag abschließen.</strong> Abends schiebst du Offenes mit einem Tipp auf morgen und machst die App zu.',
-  shot_morning='04-morgen-check.png', shot_list='02-liste.png', shot_stats='05-statistik.png',
+  shot_morning='02-morning.png', shot_list='05-list.png', shot_stats='06-stats.png',
   alt_morning='Morgen-Check: Energie, Meetings und Deadline-Druck wählen', alt_list='Aufgabenliste mit offenen und erledigten Aufgaben', alt_stats='Statistik: Aufgaben dieser Woche und Tagesabschluss',
   features_title='Was sonst noch drin ist' + CLOCK_PT,
   feat1_h='Eine Karte', feat1_p='Auf dem Fokus-Screen liegt immer nur eine Aufgabe. Tippst du drauf, kannst du sie bearbeiten.',
   feat2_h='Mehrere Aufgaben einfügen', feat2_p='Einen Zettel aus Notizen oder einer Mail einfügen, und JETZT. macht einzelne Aufgaben mit Termin daraus.',
   feat3_h='Uhrzeit zieht vor', feat3_p='Hat eine Aufgabe eine Uhrzeit, rückt sie eine halbe Stunde vorher nach vorne.',
-  feat4_h='Energie', feat4_p='Jede Aufgabe ist leicht, mittel oder anstrengend. Gezeigt wird, was zu deiner Energie heute passt.',
+  feat4_h='Energie', feat4_p='Jede Aufgabe braucht wenig, mittel oder viel Energie. Gezeigt wird, was zu deiner Energie heute passt.',
   feat5_h='Fokus-Timer', feat5_p='Zwei, fünf oder zehn Minuten, auch auf dem Sperrbildschirm. Meistens reichen die ersten zwei zum Anfangen.',
   feat6_h='Privat und Arbeit', feat6_p='Zwei getrennte Bereiche auf einem Gerät. Nach Feierabend schaltest du die Arbeit einfach weg.',
   themes_title='Sechs Farben, auch dunkel' + CLOCK_PT,
@@ -91,14 +91,16 @@ S = {
   close_title='Die erste Karte liegt bereit' + CLOCK_PT,
   close_sub='Laden, eine Aufgabe eintippen, zwei Minuten anfangen. Den Rest der Liste siehst du erst, wenn du willst.',
   privacy='Datenschutz', imprint='Impressum',
-  js=dict(start='Start ▶', stop='Pause', call='Aufruf', focus='Fokus',
+  js=dict(call='Aufruf', focus='Fokus', energy=dict(low='Wenig', medium='Mittel', high='Viel'),
+          sub=dict(idle='Einfach anfangen.', running='Einfach dranbleiben.', paused='Pausiert.', finished='Gut gemacht!'),
+          pill=dict(idle='Start', running='Läuft', paused='Weiter', finished='Nochmal'),
           allDone='Für heute ist alles aufgerufen.', callSay='Aufruf {n}: {t}', timerSay='Zwei Minuten laufen.', timeUp='Zwei Minuten geschafft.'),
-  queue='''Wandfarbe kaufen|Steuererklärung abschicken|Angebot an Frau Kaya schicken|Zahnarzt anrufen|Pfandflaschen wegbringen|Geburtstagsgeschenk für Lena|Keller aufräumen|Handyvertrag kündigen|Rückmeldung an Tom|Fahrrad zur Werkstatt|Arzttermin verschieben|Wohnungsübergabe vorbereiten|Kontoauszüge abheften|Bewerbung Korrektur lesen|Paket zur Post bringen|Wäsche aufhängen|Mama zurückrufen|Rasen mähen|Präsentation für Montag|Reisepass verlängern|Rechnung an Kunden schreiben|Fenster putzen|Versicherung vergleichen|Spülmaschine ausräumen|Kita-Formular ausfüllen|Mails sortieren|Blumen gießen|Ölwechsel machen lassen|Flug nach Lissabon buchen|Laptop-Backup|Altglas wegbringen|Nebenkosten prüfen|Termin beim Bürgeramt|Wintersachen raussuchen|Quartalsbericht lesen|Bilder ausdrucken|Hausaufgaben unterschreiben|Rezept abholen|Kühlschrank abtauen|Abo kündigen|Visitenkarten bestellen|Regal aufbauen|Steuerberaterin anrufen|Schuhe zum Schuster|Passwörter ändern|Danke-Karte schreiben|Laufschuhe kaufen''',
-  tasks=[dict(title='Wandfarbe kaufen', chip='Heute, 18:00', area='Privat', list=['NCS S 1002-Y', '2 × 5 Liter']),
-         dict(title='Steuererklärung abschicken', chip='Fr., 17:00', area='Privat'),
-         dict(title='Angebot an Frau Kaya schicken', chip='Heute, 11:30', area='Arbeit'),
-         dict(title='Zahnarzt anrufen', chip='Morgen', area='Privat'),
-         dict(title='Pfandflaschen wegbringen', chip='', area='Privat')],
+  queue='''Wocheneinkauf|Wandfarbe kaufen|Angebot an Frau Kaya schicken|Steuererklärung abschicken|Pfandflaschen wegbringen|Geburtstagsgeschenk für Lena|Keller aufräumen|Handyvertrag kündigen|Rückmeldung an Tom|Fahrrad zur Werkstatt|Arzttermin verschieben|Wohnungsübergabe vorbereiten|Kontoauszüge abheften|Bewerbung Korrektur lesen|Paket zur Post bringen|Wäsche aufhängen|Mama zurückrufen|Rasen mähen|Präsentation für Montag|Reisepass verlängern|Rechnung an Kunden schreiben|Fenster putzen|Versicherung vergleichen|Spülmaschine ausräumen|Kita-Formular ausfüllen|Mails sortieren|Blumen gießen|Ölwechsel machen lassen|Flug nach Lissabon buchen|Laptop-Backup|Altglas wegbringen|Nebenkosten prüfen|Termin beim Bürgeramt|Wintersachen raussuchen|Quartalsbericht lesen|Bilder ausdrucken|Hausaufgaben unterschreiben|Rezept abholen|Kühlschrank abtauen|Abo kündigen|Visitenkarten bestellen|Regal aufbauen|Steuerberaterin anrufen|Schuhe zum Schuster|Passwörter ändern|Danke-Karte schreiben|Laufschuhe kaufen''',
+  tasks=[dict(title='Wocheneinkauf', energy='low', chip='Heute, 18:00', area='Privat', list=['Milch', 'Brot', 'Äpfel', 'Tomaten', 'Nudeln']),
+         dict(title='Wandfarbe kaufen', energy='high', chip='Morgen, 10:00', area='Privat'),
+         dict(title='Angebot an Frau Kaya schicken', energy='medium', chip='Heute, 11:30', area='Arbeit'),
+         dict(title='Steuererklärung abschicken', energy='high', chip='Morgen, 17:00', area='Privat'),
+         dict(title='Pfandflaschen wegbringen', energy='low', chip='', area='Privat')],
 ),
 'en': dict(
   title='JETZT. One task. Now.', desc='JETZT. only ever shows you one task and helps you get started. For iPhone, free on the App Store.',
@@ -108,7 +110,7 @@ S = {
   sub='One card at a time. For anyone who freezes at 47 open tasks instead of getting started.',
   cta='Download free', price_note='For iPhone. Pro from €17.99 a year, free for a week.',
   display_label='Example: the JETZT. focus screen', call='Now calling', focus='Focus', area_label='Space',
-  later='← Later', done='Done →', two_min='Just 2 minutes?', just_start='Just get started.', start='Start ▶', stop='Pause',
+  later='← Later', done_hint='Done →', done_btn='Done', two_min='Just 2 minutes?', just_start='Just get started.', start='Start',
   done_today='Done today', in_list='In your list', example='Example',
   empty='That was every example. In the app, the next card would be up now.',
   problem_title='Most to-do apps show you everything at once' + CLOCK_PT,
@@ -132,13 +134,13 @@ S = {
   stats_lede="The stats show your week and what you finished today. Skip a day and you don't start over from zero.",
   stats_p1='<strong>A sentence, not a grade.</strong> After three tasks it says “Good on you for getting started”, not a percentage.',
   stats_p2="<strong>Wrap up the day.</strong> In the evening, one tap moves what's left to tomorrow and you can close the app.",
-  shot_morning='04-morning-check.png', shot_list='02-list.png', shot_stats='05-stats.png',
+  shot_morning='02-morning.png', shot_list='05-list.png', shot_stats='06-stats.png',
   alt_morning='Morning check: pick energy, meetings and deadline pressure', alt_list='Task list with open and completed tasks', alt_stats='Stats screen: tasks completed this week and end of day',
   features_title='What else is in there' + CLOCK_PT,
   feat1_h='One card', feat1_p='The focus screen only ever holds one task. Tap it to edit.',
   feat2_h='Add several tasks', feat2_p='Paste a list from your notes or an email and JETZT. turns it into separate tasks with dates.',
   feat3_h='Timed tasks move up', feat3_p='If a task has a time, it moves to the front half an hour before.',
-  feat4_h='Energy', feat4_p='Every task is light, medium or heavy. You see what fits your energy today.',
+  feat4_h='Energy', feat4_p='Every task needs low, medium or high energy. You see what fits your energy today.',
   feat5_h='Focus timer', feat5_p='Two, five or ten minutes, on your lock screen too. The first two are usually enough to get going.',
   feat6_h='Personal and work', feat6_p='Two separate spaces on one device. After work, you just switch work off.',
   themes_title='Six colors, dark ones too' + CLOCK_PT,
@@ -167,14 +169,16 @@ S = {
   close_title='Your first card is ready' + CLOCK_PT,
   close_sub="Download, type one task, start for two minutes. You'll only see the rest of the list when you want to.",
   privacy='Privacy Policy', imprint='Imprint',
-  js=dict(start='Start ▶', stop='Pause', call='Now calling', focus='Focus',
+  js=dict(call='Now calling', focus='Focus', energy=dict(low='Low', medium='Medium', high='High'),
+          sub=dict(idle='Just get started.', running='Just keep going.', paused='Paused.', finished='Well done!'),
+          pill=dict(idle='Start', running='Running', paused='Resume', finished='Again'),
           allDone="That's everything for today.", callSay='Now calling {n}: {t}', timerSay='Two minutes are running.', timeUp='Two minutes done.'),
-  queue='''Buy wall paint|File tax return|Send quote to Ms. Kaya|Call the dentist|Return the bottles|Birthday present for Lena|Clean out the basement|Cancel phone contract|Get back to Tom|Bike to the repair shop|Move doctor's appointment|Prepare apartment handover|File bank statements|Proofread application|Take parcel to post office|Hang up the laundry|Call Mom back|Mow the lawn|Slides for Monday|Renew passport|Invoice the client|Clean the windows|Compare insurance|Empty the dishwasher|Daycare form|Sort emails|Water the plants|Get an oil change|Book flight to Lisbon|Laptop backup|Recycle glass|Check utility bill|Appointment at city hall|Dig out winter clothes|Read quarterly report|Print photos|Sign homework|Pick up prescription|Defrost the freezer|Cancel subscription|Order business cards|Assemble the shelf|Call the tax advisor|Shoes to the cobbler|Change passwords|Write a thank-you card|Buy running shoes''',
-  tasks=[dict(title='Buy wall paint', chip='Today, 6:00 PM', area='Personal', list=['NCS S 1002-Y', '2 × 5 liters']),
-         dict(title='File tax return', chip='Fri, 5:00 PM', area='Personal'),
-         dict(title='Send quote to Ms. Kaya', chip='Today, 11:30 AM', area='Work'),
-         dict(title='Call the dentist', chip='Tomorrow', area='Personal'),
-         dict(title='Return the bottles', chip='', area='Personal')],
+  queue='''Weekly groceries|Buy wall paint|Send quote to Ms. Kaya|File tax return|Return the bottles|Birthday present for Lena|Clean out the basement|Cancel phone contract|Get back to Tom|Bike to the repair shop|Move doctor's appointment|Prepare apartment handover|File bank statements|Proofread application|Take parcel to post office|Hang up the laundry|Call Mom back|Mow the lawn|Slides for Monday|Renew passport|Invoice the client|Clean the windows|Compare insurance|Empty the dishwasher|Daycare form|Sort emails|Water the plants|Get an oil change|Book flight to Lisbon|Laptop backup|Recycle glass|Check utility bill|Appointment at city hall|Dig out winter clothes|Read quarterly report|Print photos|Sign homework|Pick up prescription|Defrost the freezer|Cancel subscription|Order business cards|Assemble the shelf|Call the tax advisor|Shoes to the cobbler|Change passwords|Write a thank-you card|Buy running shoes''',
+  tasks=[dict(title='Weekly groceries', energy='low', chip='Today, 6:00 PM', area='Personal', list=['Milk', 'Bread', 'Apples', 'Tomatoes', 'Pasta']),
+         dict(title='Buy wall paint', energy='high', chip='Tomorrow, 10:00 AM', area='Personal'),
+         dict(title='Send quote to Ms. Kaya', energy='medium', chip='Today, 11:30 AM', area='Work'),
+         dict(title='File tax return', energy='high', chip='Tomorrow, 5:00 PM', area='Personal'),
+         dict(title='Return the bottles', energy='low', chip='', area='Personal')],
 ),
 }
 
@@ -183,9 +187,11 @@ for lang, s in S.items():
     v = {k: x for k, x in s.items() if isinstance(x, str)}
     v['lang'] = lang
     t0, t1 = s['tasks'][0], s['tasks'][1]
-    v.update(t0_title=t0['title'], t0_chip=t0['chip'], t0_area=t0['area'], t1_title=t1['title'], t1_chip=t1['chip'])
+    en_ = s['js']['energy']
+    v.update(t0_title=t0['title'], t0_chip=t0['chip'], t0_area=t0['area'], t0_energy=t0['energy'], t0_energy_label=en_[t0['energy']],
+             t1_title=t1['title'], t1_chip=t1['chip'], t1_energy=t1['energy'], t1_energy_label=en_[t1['energy']])
     v['t0_list'] = ''.join(
-        f'<li><button type="button" aria-pressed="false"><span class="bx"><svg width="12" height="10" viewBox="0 0 12 10" aria-hidden="true"><path d="M1 5l3.5 3.5L11 1" fill="none" stroke="#151c2e" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span class="tx">{i}</span></button></li>'
+        f'<li><button type="button" aria-pressed="false"><span class="bx"><svg width="14" height="14" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5" fill="none" stroke="#151c2e" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span class="tx">{i}</span></button></li>'
         for i in t0['list'])
     v['tickets'] = ''.join('<li%s><b>%03d</b>%s</li>' % (' class="on"' if n == 1 else '', n, t) for n, t in enumerate(s['queue'].split('|'), 1))
     v['accents'] = ''.join(

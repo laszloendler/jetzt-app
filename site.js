@@ -73,15 +73,31 @@
   document.querySelectorAll('canvas.matrix[data-text]').forEach((c) => new Matrix(c, c.dataset.text));
   const matrix = new Matrix($('matrix'), '001');
 
-  // Fokus-Karte mit Beispielaufgaben.
+  // Fokus-Karte mit Beispielaufgaben, aufgebaut wie in App.tsx.
   const pad = (n) => String(n).padStart(3, '0');
-  let queue = D.tasks.map((t, i) => ({ ...t, i }));
-  let call = 1, done = 0, list = 46, timer = 0, left = 0;
-  const check = '<svg width="12" height="10" viewBox="0 0 12 10" aria-hidden="true"><path d="M1 5l3.5 3.5L11 1" fill="none" stroke="#151c2e" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+  const mmss = (t) => Math.floor(t / 60) + ':' + String(t % 60).padStart(2, '0');
+  let queue = D.tasks.slice();
+  let call = 1, done = 0, list = 46, timer = 0, left = 120;
+  const check = '<svg width="14" height="14" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5" fill="none" stroke="#151c2e" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+
+  const setTimer = (state) => {
+    $('tnum').textContent = mmss(left);
+    $('tsub').textContent = D.sub[state];
+    $('start-t').textContent = D.pill[state];
+    $('start').classList.toggle('run', state !== 'idle');
+  };
+  const stopTimer = () => {
+    clearInterval(timer); timer = 0; left = 120;
+    $('call-lbl').textContent = D.call;
+    setTimer('idle');
+  };
 
   const render = () => {
     const t = queue[0], card = $('fcard');
     $('ftitle').textContent = t ? t.title : D.allDone;
+    $('f-orb').dataset.e = t ? t.energy : 'low';
+    $('f-energy').textContent = t ? D.energy[t.energy] : '';
+    $('f-orb').parentNode.hidden = !t;
     $('fchip').hidden = !(t && t.chip);
     $('fchip-t').textContent = t && t.chip ? t.chip : '';
     $('area').textContent = t ? t.area : '';
@@ -99,11 +115,6 @@
     card.classList.remove('in'); void card.offsetWidth; card.classList.add('in');
   };
 
-  const stopTimer = () => {
-    clearInterval(timer); timer = 0;
-    $('start').textContent = D.start; $('start').setAttribute('aria-pressed', 'false');
-    $('call-lbl').textContent = D.call;
-  };
   const next = (finished) => {
     stopTimer();
     const t = queue.shift();
@@ -121,32 +132,44 @@
   $('done').addEventListener('click', () => next(true));
   $('later').addEventListener('click', () => next(false));
   $('start').addEventListener('click', () => {
-    if (timer) { stopTimer(); matrix.set(pad(call), true); return; }
-    left = 120;
-    const show = () => matrix.set(Math.floor(left / 60) + ':' + String(left % 60).padStart(2, '0'), false);
+    if (timer) {  // laufend → anhalten
+      clearInterval(timer); timer = 0;
+      setTimer('paused');
+      return;
+    }
+    if (left <= 0) left = 120;
     $('call-lbl').textContent = D.focus;
-    $('start').textContent = D.stop; $('start').setAttribute('aria-pressed', 'true');
-    matrix.set('2:00', true);
-    timer = setInterval(() => {
-      left -= 1; show();
-      if (left <= 0) { stopTimer(); $('live').textContent = D.timeUp; }
-    }, 1000);
+    matrix.set(mmss(left), true);
+    setTimer('running');
     $('live').textContent = D.timerSay;
+    timer = setInterval(() => {
+      left -= 1;
+      $('tnum').textContent = mmss(left);
+      matrix.set(mmss(left), false);
+      if (left <= 0) {
+        clearInterval(timer); timer = 0;
+        setTimer('finished');
+        $('live').textContent = D.timeUp;
+      }
+    }, 1000);
   });
 
-  // Farbwahl: Akzent und Hintergrund wie in der App.
-  const pv = $('preview').style;
+  // Farbwahl: Akzent und Hintergrund wie in ThemeContext.tsx.
+  const pv = $('preview').style, pc = document.querySelector('.pcard').style;
   const apply = () => {
     const f = new FormData($('picker'));
     const a = D.accents.find((x) => x.key === f.get('accent'));
     const g = D.bgs.find((x) => x.key === f.get('bg'));
     pv.setProperty('--p-bg', g.hex);
-    pv.setProperty('--p-card', g.card);
-    pv.setProperty('--p-ink', g.dark ? '#e8e8ec' : '#000');
     pv.setProperty('--p-2', g.dark ? '#c0c3cf' : '#3c3c43');
-    pv.setProperty('--p-acc', a.accent);
-    pv.setProperty('--p-accink', g.dark ? a.onDark : a.onLight);
-    pv.setProperty('--p-soft', a.soft);
+    pc.setProperty('--c-card', g.card);
+    pc.setProperty('--c-ink', g.dark ? '#e8e8ec' : '#000');
+    pc.setProperty('--c-2', g.dark ? '#a9adbd' : '#3c3c43');
+    pc.setProperty('--c-neutral', g.dark ? 'rgba(255,255,255,.1)' : 'rgba(118,118,128,.12)');
+    pc.setProperty('--c-hair', g.dark ? 'rgba(255,255,255,.08)' : 'rgba(60,60,67,.1)');
+    pc.setProperty('--c-acc', a.accent);
+    pc.setProperty('--c-accink', g.dark ? a.onDark : a.onLight);
+    pc.setProperty('--c-soft', a.soft);
   };
   $('picker').addEventListener('change', apply);
   apply();
