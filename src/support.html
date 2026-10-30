@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="{{lang}}">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{{s_title}}</title>
+<meta name="description" content="{{s_desc}}">
+<link rel="alternate" hreflang="de" href="https://laszloendler.github.io/jetzt-app/support/">
+<link rel="alternate" hreflang="en" href="https://laszloendler.github.io/jetzt-app/en/support/">
+<link rel="stylesheet" href="{{root}}site.css">
+</head>
+<body>
+<div class="wrap">
+<header class="top">
+<a class="logo" href="{{home}}" aria-label="JETZT.">JETZT<span>.</span></a>
+<nav aria-label="{{nav_label}}">
+<a href="{{home}}#tag">{{nav_day}}</a>
+<a href="{{home}}#preis">{{nav_price}}</a>
+<a href="./" aria-current="page">Support</a>
+<a href="{{s_other_href}}" lang="{{other_lang}}">{{other_name}}</a>
+</nav>
+</header>
+
+<main>
+<section class="board support night" aria-labelledby="titel">
+<div>
+<h1 id="titel">Support<span class="pt">.</span></h1>
+<p class="sub">{{s_lead}}</p>
+</div>
+<div class="desk">
+<span class="lbl">{{s_desk}}</span>
+<a class="mail" href="mailto:laszloendler@proton.me">laszloendler@proton.me</a>
+<p>{{s_hint}}</p>
+</div>
+</section>
+
+<section class="sec faq" aria-labelledby="fragen">
+<h2 class="h2" id="fragen">{{s_faq_title}}</h2>
+<div class="qa">{{s_faq}}</div>
+</section>
+</main>
+
+<footer class="foot">
+<span>© 2026 Laszlo Endler</span>
+<a href="https://laszloendler.github.io/jetzt-app-legal/JETZT-Datenschutzerklaerung.html">{{privacy}}</a>
+<a href="https://laszloendler.github.io/jetzt-app-legal/JETZT-Impressum.html">{{imprint}}</a>
+<a href="{{s_other_href}}" lang="{{other_lang}}">{{other_name}}</a>
+</footer>
+</div>
+</body>
+</html>

@@ -28,6 +28,19 @@ S = {
   title='JETZT. Eine Aufgabe. Jetzt.', desc='JETZT. zeigt dir immer nur eine Aufgabe und hilft beim Anfangen. Für iPhone, kostenlos im App Store.',
   home='./', root='', other_href='en/', other_lang='en', other_name='English',
   nav_label='Hauptmenü', nav_day='Der Tag', nav_price='Preis',
+  s_title='Support · JETZT.', s_desc='Hilfe und Kontakt zu JETZT.', s_lead='Fragen, Fehler oder Wünsche zu JETZT. Ich lese jede Mail selbst.',
+  s_desk='Schreib mir', s_hint='Bei einem Fehler hilft es, wenn du dazuschreibst, welches iPhone und welche iOS-Version du hast und was du gerade gemacht hast.',
+  s_faq_title='Häufige Fragen' + CLOCK_PT, s_other_href='../en/support/', nav_support='Support',
+  faq=[
+  ('Ich habe Pro gekauft, aber es ist nicht freigeschaltet.', 'Tippe in der App unter Mehr auf „Bereits gekauft? Wiederherstellen“ und melde dich mit derselben Apple-ID an, mit der du gekauft hast. Dafür braucht das iPhone Internet. Klappt es offline nicht, ist dein Kauf trotzdem nicht weg.'),
+  ('Wie kündige ich das Abo?', 'In den iPhone-Einstellungen unter Apple-Account → Abos → JETZT. Das Abo verlängert sich, wenn du es nicht mindestens 24 Stunden vor Ende des Zeitraums kündigst. Den Einmalkauf musst du nicht kündigen, er läuft nicht weiter.'),
+  ('Wann endet die Testwoche?', 'Die Testwoche gehört zum Jahresabo. An Tag 5 erinnert dich JETZT. per Mitteilung, dass sie endet, wenn du Mitteilungen erlaubt hast. Kündigst du vorher, wird nichts abgebucht.'),
+  ('Wie bekomme ich mein Geld zurück?', 'Erstattungen laufen über Apple unter <a href="https://reportaproblem.apple.com">reportaproblem.apple.com</a>. Ich habe darauf keinen Zugriff.'),
+  ('Der Timer erscheint nicht auf dem Sperrbildschirm.', 'Erlaube die Live-Aktivitäten: iPhone-Einstellungen → JETZT. → Live-Aktivitäten. Danach läuft der Timer auch auf dem Sperrbildschirm und in der Dynamic Island.'),
+  ('Die Erkennung beim Tippen funktioniert nicht.', 'Sie braucht Apple Intelligence auf einem iPhone, das es unterstützt, eingeschaltet in den iOS-Einstellungen. Den Stand zeigt die App unter Mehr → On-Device KI. Ohne Apple Intelligence erkennt JETZT. Termine weiter mit einfachen Regeln, nur weniger genau.'),
+  ('Ich bekomme keine Erinnerungen.', 'Erlaube Mitteilungen für JETZT. in den iPhone-Einstellungen. Die Zeiten für Tagesplanung, Energie-Check und Feierabend stellst du in der App unter Mehr ein.'),
+  ('Wo liegen meine Aufgaben, und wie komme ich auf ein neues iPhone?', 'Nur auf deinem iPhone. Es gibt kein Konto und keinen Server mit deinen Aufgaben. Ist das iCloud-Backup an, sind sie darin enthalten und kommen beim Einrichten eines neuen iPhones aus dem Backup mit. Unter Mehr → „Daten exportieren“ bekommst du sie als JSON-Datei, „Alle Daten löschen“ entfernt alles.'),
+],
   h1='Eine Aufgabe. Jetzt' + CLOCK_PT,
   sub='Eine Karte nach der anderen. Für alle, die bei 47 offenen Aufgaben erstarren, statt anzufangen.',
   cta='Kostenlos laden', price_note='Für iPhone. Pro ab 17,99 € im Jahr, eine Woche kostenlos testen.',
@@ -106,6 +119,19 @@ S = {
   title='JETZT. One task. Now.', desc='JETZT. only ever shows you one task and helps you get started. For iPhone, free on the App Store.',
   home='./', root='../', other_href='../', other_lang='de', other_name='Deutsch',
   nav_label='Main menu', nav_day='The day', nav_price='Pricing',
+  s_title='Support · JETZT.', s_desc='Help and contact for JETZT.', s_lead='Questions, bugs or wishes for JETZT. I read every email myself.',
+  s_desk='Email me', s_hint='For a bug, it helps to mention your iPhone model, your iOS version and what you were doing.',
+  s_faq_title='Common questions' + CLOCK_PT, s_other_href='../../support/', nav_support='Support',
+  faq=[
+  ("I bought Pro but it isn't unlocked.", 'In the app, go to More and tap “Already purchased? Restore”, signed in with the same Apple ID you bought it with. Your iPhone needs to be online for this. If it fails offline, your purchase is still there.'),
+  ('How do I cancel my subscription?', 'In iPhone Settings under Apple Account → Subscriptions → JETZT. The subscription renews unless you cancel at least 24 hours before the end of the current period. The one-time purchase does not need cancelling, it never renews.'),
+  ('When does the free week end?', 'The free week comes with the yearly plan. On day 5 JETZT. sends you a notification that it is ending, if you allowed notifications. Cancel before then and nothing is charged.'),
+  ('How do I get a refund?', 'Refunds go through Apple at <a href="https://reportaproblem.apple.com">reportaproblem.apple.com</a>. I have no access to them.'),
+  ("The timer doesn't show on my Lock Screen.", 'Allow Live Activities: iPhone Settings → JETZT. → Live Activities. After that the timer also runs on the Lock Screen and in the Dynamic Island.'),
+  ("Detection as I type doesn't work.", 'It needs Apple Intelligence on an iPhone that supports it, turned on in iOS Settings. The app shows the status under More → On-device AI. Without Apple Intelligence, JETZT. still recognizes dates with simple rules, just less precisely.'),
+  ("I'm not getting reminders.", 'Allow notifications for JETZT. in iPhone Settings. You set the times for Plan day, Energy check and Wind down in the app under More.'),
+  ('Where are my tasks, and how do I move to a new iPhone?', 'Only on your iPhone. There is no account and no server with your tasks. If iCloud Backup is on, they are part of it and come along when you set up a new iPhone from that backup. More → “Export data” gives you a JSON file, “Delete all data” removes everything.'),
+],
   h1='One task. Now' + CLOCK_PT,
   sub='One card at a time. For anyone who freezes at 47 open tasks instead of getting started.',
   cta='Download free', price_note='For iPhone. Pro from €17.99 a year, free for a week.',
@@ -183,6 +209,7 @@ S = {
 }
 
 tpl = open(os.path.join(ROOT, 'src', 'template.html')).read()
+stpl = open(os.path.join(ROOT, 'src', 'support.html')).read()
 for lang, s in S.items():
     v = {k: x for k, x in s.items() if isinstance(x, str)}
     v['lang'] = lang
@@ -209,6 +236,16 @@ for lang, s in S.items():
     v['data'] = json.dumps(data, ensure_ascii=False).replace('</', '<\\/')
     out = re.sub(r'\{\{(\w+)\}\}', lambda m: v[m.group(1)], tpl)
     dest = os.path.join(ROOT, '' if lang == 'de' else 'en', 'index.html')
+    os.makedirs(os.path.dirname(dest), exist_ok=True)
+    open(dest, 'w').write(out)
+    print(dest)
+    # Support-Seite
+    sv = dict(v, root=v['root'] + '../', home='../')
+    sv['s_faq'] = ''.join(
+        f'<details><summary>{q}<svg width="20" height="20" viewBox="0 0 20 20" aria-hidden="true"><path d="M4 7l6 6 6-6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></summary><p>{a}</p></details>'
+        for q, a in s['faq'])
+    out = re.sub(r'\{\{(\w+)\}\}', lambda m: sv[m.group(1)], stpl)
+    dest = os.path.join(ROOT, '' if lang == 'de' else 'en', 'support', 'index.html')
     os.makedirs(os.path.dirname(dest), exist_ok=True)
     open(dest, 'w').write(out)
     print(dest)
